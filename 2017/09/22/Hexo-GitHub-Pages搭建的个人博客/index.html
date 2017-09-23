@@ -78,10 +78,13 @@
 <meta property="og:site_name" content="Hunter-Zack">
 <meta property="og:description" content="什么是 Hexo，什么是 NexT 主题？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-23T12:11:05.000Z">
+<meta property="og:image" content="http://aisun.org/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/文件名.png">
+<meta property="og:image" content="http://aisun.org/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/pic1.png">
+<meta property="og:updated_time" content="2017-09-23T13:49:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo+GitHub Pages搭建的个人博客">
 <meta name="twitter:description" content="什么是 Hexo，什么是 NexT 主题？">
+<meta name="twitter:image" content="http://aisun.org/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/文件名.png">
 
 
 
@@ -511,8 +514,7 @@ $(function() {
 </li>
 </ol>
 <p>安装必要的软件后，使用 Hexo 创建你的本地博客，生成静态页面；<br>将静态页面托管到 GitHub 上，这样别人就可以通过公开网址访问你的博客了；<br>下载 NexT 主题美化你的博客样式。</p>
-<p>##安装 Git(基本使用教程自己寻找)</p>
-<pre><code>Windows：下载后一路安装 git-for-windows（国内下载点）
+<h2 id="安装-Git-基本使用教程自己寻找"><a href="#安装-Git-基本使用教程自己寻找" class="headerlink" title="安装 Git(基本使用教程自己寻找)"></a>安装 Git(基本使用教程自己寻找)</h2><pre><code>Windows：下载后一路安装 git-for-windows（国内下载点）
 Mac：使用 Homebrew, MacPorts ：
         <pre><code>$ brew install git</code></pre>
 或下载 安装程序 安装。
@@ -525,15 +527,14 @@ Hexo安装与配置
 这篇教程是针对与Windows的。
 </code></pre>
 
-<p>###1.安装 Node.js</p>
-<pre><code>Mac / Linux：使用 curl 或 wget 下载安装
+<h3 id="1-安装-Node-js"><a href="#1-安装-Node-js" class="headerlink" title="1.安装 Node.js"></a>1.安装 Node.js</h3><pre><code>Mac / Linux：使用 curl 或 wget 下载安装
 <pre><code>$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</code></pre>
 <pre><code>$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</code></pre>
 重启终端并执行下列命令： $ nvm install stable
 
 Windows：下载后一路安装 Node.js
 </code></pre>
-###2.安装hexo
+### 2.安装hexo
 
 <pre><code>进入Git Bash,使用以下命令安装hexo($是提示符)
 <pre><code>$ npm install hexo-cli -g</code></pre>
@@ -545,7 +546,7 @@ Windows：下载后一路安装 Node.js
 npm install -g cnpm --registry=https://registry.npm.taobao.orgc
 cnpm install hexo-cli -g
 </code></pre>
-###3.创建博客目录
+### 3.创建博客目录
 
 <pre><code>接下来创建放置博客文件的文件夹：yangql881012.github.io文件夹。我hexo文件夹的位置为E:\学习资料\97_github\yangql881012.github.io，名字和地方可以自由选择。之后进入文件夹，即E:\学习资料\97_github\yangql881012.github.io内，点击鼠标右键，选择Git Bash，执行以下命令，Hexo会自动在该文件夹下下载搭建网站所需的所有文件。
 
@@ -559,8 +560,7 @@ cnpm install hexo-cli -g
 然后用浏览器访问http://localhost:4000/，此时，你应该看到了一个漂亮的博客了。
 </code></pre>
 
-<p>###4.部署本地文件到github</p>
-<p>既然Repository已经创建了，当然是先把博客放到Github上去看看效果。编辑E:\学习资料\97_github\yangql881012.github.io下的_config.yml文件，建议使用Notepad++。<br>在_config.yml最下方，添加如下配置(命令中的第一个yangql881012为Github的用户名,第二个yangql881012.github.io为之前New的Repository的名字,记得改成自己的。另外记得一点，hexo的配置文件中任何’:’后面都是带一个空格的),如果配置以下命令出现ERROR Deployer not found : github，则参考上文的解决方法。</p>
+<h3 id="4-部署本地文件到github"><a href="#4-部署本地文件到github" class="headerlink" title="4.部署本地文件到github"></a>4.部署本地文件到github</h3><p>既然Repository已经创建了，当然是先把博客放到Github上去看看效果。编辑E:\学习资料\97_github\yangql881012.github.io下的_config.yml文件，建议使用Notepad++。<br>在_config.yml最下方，添加如下配置(命令中的第一个yangql881012为Github的用户名,第二个yangql881012.github.io为之前New的Repository的名字,记得改成自己的。另外记得一点，hexo的配置文件中任何’:’后面都是带一个空格的),如果配置以下命令出现ERROR Deployer not found : github，则参考上文的解决方法。</p>
 <pre><code>deploy:
   type: git
   repository: http://github.com/yangql881012/yangql881012.github.io.git
@@ -571,7 +571,7 @@ cnpm install hexo-cli -g
 <pre><code>$ hexo d</code></pre>
 此时，我们的博客已经搭建起来，并发布到Github上了，在浏览器访问yangql881012.github.io就能看到自己的博客了。
 
-###5.hexo的配置文件
+### 5.hexo的配置文件
 
 hexo里面有两个常用到的配置文件，分别是整个博客的配置文件E:\学习资料\97_github\yangql881012.github.io\_config.yml和主题的配置文件E:\学习资料\97_github\yangql881012.github.io\themes\next\_config.yml，此地址是对于我来说，hexo3.0使用的默认主题是landscape，因此你们的地址应该是E:\学习资料\97_github\yangql881012.github.io\themes\landscape\_config.yml，可在这两个文件里修改相应的配置信息。
 
@@ -608,7 +608,8 @@ hexo部署后，CNAME会被自动删除，怎么办？自己的独立域名需�
 
 
 只需要将将需要上传至github的内容放在source文件夹，例如CNAME、favicon.ico、images等。
-##第3章 安装nexT
+
+## 第3章 安装nexT
 
 <pre><code>Hexo 安装主题的方式非常简单，只需要将主题文件拷贝至站点目录的 themes 目录下， 然后修改下配置文件即可。具体到 NexT 来说，安装步骤如下。
 
@@ -617,20 +618,18 @@ hexo部署后，CNAME会被自动删除，怎么办？自己的独立域名需�
 打开 Git Bash
 <pre><code>cd E:\学习资料\97_github\yangql881012.github.io</code></pre>
 <pre><code>git clone https://github.com/iissnan/hexo-theme-next themes/next</code></pre>
-###2.启用主题
 
-与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 站点配置文件， 找到 theme 字段，并将其值更改为 next。
-
+<h3 id="2-启用主题"><a href="#2-启用主题" class="headerlink" title="2.启用主题"></a>2.启用主题</h3><p>与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 站点配置文件， 找到 theme 字段，并将其值更改为 next。</p>
 <pre><code>theme: next</code></pre>
 到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 hexo clean 来清除 Hexo 的缓存。
 
-###3.验证主题
+### 3.验证主题
 
 首先启动 Hexo 本地站点，并开启调试模式（即加上 --debug），整个命令是 hexo s --debug。 在服务启动的过程，注意观察命令行输出是否有任何异常信息，如果你碰到问题，这些信息将帮助他人更好的定位错误。 当命令行输出中提示出：
 INFO Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.
 此时即可使用浏览器访问 http://localhost:4000，检查站点是否正确运行。
 
-###4.主题设定
+### 4.主题设定
 
 Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。目前 NexT 支持三种 Scheme，他们是：
 
@@ -648,40 +647,31 @@ scheme: Pisces
 更多信息请见nexT官方文档
 </code></pre>
 
-<p>##第四章 图片使用</p>
-<pre><code>
+<h2 id="第四章-图片使用"><a href="#第四章-图片使用" class="headerlink" title="第四章 图片使用"></a>第四章 图片使用</h2><pre><code>
 
-####1.首先确认_config.yml中有：###
+###1.首先确认_config.yml中有:###
 
 <pre><code>post_asset_folder: true</code></pre>
-####2.然后在yangql881012.github.io/下执行
 
-<pre><code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code></pre>
-####3.确保在yangql881012.github.io/source/_posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入
-<p>
+<h4 id="2-然后在yangql881012-github-io-下执行"><a href="#2-然后在yangql881012-github-io-下执行" class="headerlink" title="2.然后在yangql881012.github.io/下执行"></a>2.然后在yangql881012.github.io/下执行</h4><pre><code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code></pre>
 
-![](目录名/文件名.png)
-即可在hexo generate时正确生成插入图片。比如：
+<h4 id="3-确保在yangql881012-github-io-source-posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入"><a href="#3-确保在yangql881012-github-io-source-posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入" class="headerlink" title="3.确保在yangql881012.github.io/source/_posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入"></a>3.确保在yangql881012.github.io/source/_posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入</h4><p>
 
-
-    |- post1.md
-    |_ post1
-        |- pic1.png
-在md文件中插入图片时只需写
-
-![](post1/pic1.png)
-首次配置完了需要执行一次清除操作，再生成页面：
-
+</p><p><img src="/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/文件名.png" alt=""><br>即可在hexo generate时正确生成插入图片。比如：</p>
+<pre><code>|- post1.md
+|_ post1
+    |- pic1.png
+</code></pre><p>在md文件中插入图片时只需写</p>
+<p><img src="/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/pic1.png" alt=""><br>首次配置完了需要执行一次清除操作，再生成页面：</p>
 <pre><code>$ hexo clean </code></pre>   
 <pre><code>$ hexo generate  </code></pre>   
 <pre><code>$ hexo server</code></pre>
-</p>
+<p></p>
 </code></pre>
 
 
 
-<p>##【源代码托管】</p>
-<p>源代码用于生成静态页面，一直放在本地的话，用其他电脑就不方便修改了。所以可以源代码托管到 GitHub 上。网上将源代码托管到博客的 Repository 的新建分支中会出现主题文件夹无法同步的问题。这里采用新建 Repository 的方法实现源代码托管。</p>
+<h2 id="【源代码托管】"><a href="#【源代码托管】" class="headerlink" title="【源代码托管】"></a>【源代码托管】</h2><p>源代码用于生成静态页面，一直放在本地的话，用其他电脑就不方便修改了。所以可以源代码托管到 GitHub 上。网上将源代码托管到博客的 Repository 的新建分支中会出现主题文件夹无法同步的问题。这里采用新建 Repository 的方法实现源代码托管。</p>
 <p>上传源代码到 GitHub</p>
 <p>确认源代码下 .gitignore 内容：</p>
 <pre><code>
@@ -726,8 +716,7 @@ git pull  # 更新源代码
 </server></code></pre>
 
 <p>#####由于主题文件也是第三方git库，提交后第三方主题文件夹为空，我们通过 git submodule 来同步第三方主题<br></p>
-<p>##【域名绑定】</p>
-<pre><code>
+<h2 id="【域名绑定】"><a href="#【域名绑定】" class="headerlink" title="【域名绑定】"></a>【域名绑定】</h2><pre><code>
 购买域名
 
 万网或其他平台。
@@ -742,8 +731,7 @@ git pull  # 更新源代码
 
 </code></pre>
 
-<p>##【主题美化】</p>
-<pre><code>
+<h2 id="【主题美化】"><a href="#【主题美化】" class="headerlink" title="【主题美化】"></a>【主题美化】</h2><pre><code>
 <p>
 
 把侧边栏头像变成圆形，并且鼠标停留在上面发生旋转效果
@@ -947,8 +935,17 @@ $font-size-base =16px
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -1021,6 +1018,22 @@ $font-size-base =16px
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Git-基本使用教程自己寻找"><span class="nav-number">1.</span> <span class="nav-text">安装 Git(基本使用教程自己寻找)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装-Node-js"><span class="nav-number">1.1.</span> <span class="nav-text">1.安装 Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-部署本地文件到github"><span class="nav-number">1.2.</span> <span class="nav-text">4.部署本地文件到github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-启用主题"><span class="nav-number">1.3.</span> <span class="nav-text">2.启用主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-图片使用"><span class="nav-number">2.</span> <span class="nav-text">第四章 图片使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-然后在yangql881012-github-io-下执行"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.然后在yangql881012.github.io/下执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-确保在yangql881012-github-io-source-posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入"><span class="nav-number">2.0.2.</span> <span class="nav-text">3.确保在yangql881012.github.io/source/_posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【源代码托管】"><span class="nav-number">3.</span> <span class="nav-text">【源代码托管】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【域名绑定】"><span class="nav-number">4.</span> <span class="nav-text">【域名绑定】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【主题美化】"><span class="nav-number">5.</span> <span class="nav-text">【主题美化】</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
