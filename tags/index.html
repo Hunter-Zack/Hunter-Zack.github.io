@@ -399,10 +399,10 @@ $(function() {
         
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-                暂无标签
+                目前共计 1 个标签
             </div>
             <div class="tag-cloud-tags">
-              
+              <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a>
             </div>
           </div>
         
@@ -423,6 +423,40 @@ $(function() {
 
           
   <div class="comments" id="comments">
+    
+      <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+      <div id="container" style="display:none"></div>
+      <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+      <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+         }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#container").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: window.location.pathname,
+          theme: myTheme,
+          owner: 'Hunter-Zack',
+          repo: 'Hunter-Zack.github.io',
+          oauth: {
+            client_id: '7b7da8e17aadd21d64c6',
+            client_secret: '41b14296eba9da7cacf8a63e3ea95d8e4317e7c4'
+          }
+      });
+      gitment.render('container');
+      }
+      </script>
     
   </div>
 
@@ -465,7 +499,7 @@ $(function() {
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -473,6 +507,15 @@ $(function() {
 
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
