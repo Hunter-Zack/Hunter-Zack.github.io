@@ -58,7 +58,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="bootstrap," />
+  <meta name="keywords" content="hexo," />
 
 
 
@@ -74,18 +74,18 @@
 
 
 
-<meta name="description" content="如题 原文链接：http://www.cnblogs.com/chuangshaogreat/p/6719659.html">
-<meta name="keywords" content="bootstrap">
+<meta name="description" content="状态反馈码详解 您可以通过推送后返回的状态码和字段来判断数据是否推送成功。">
+<meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bootstrap使用">
-<meta property="og:url" content="http://www.aisun.org/2017/09/24/bootstrap使用/index.html">
+<meta property="og:title" content="百度主动推送常见问题">
+<meta property="og:url" content="http://www.aisun.org/2017/09/24/百度主动推送常见问题/index.html">
 <meta property="og:site_name" content="Hunter-Zack">
-<meta property="og:description" content="如题 原文链接：http://www.cnblogs.com/chuangshaogreat/p/6719659.html">
+<meta property="og:description" content="状态反馈码详解 您可以通过推送后返回的状态码和字段来判断数据是否推送成功。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-24T07:29:18.000Z">
+<meta property="og:updated_time" content="2017-09-24T14:54:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bootstrap使用">
-<meta name="twitter:description" content="如题 原文链接：http://www.cnblogs.com/chuangshaogreat/p/6719659.html">
+<meta name="twitter:title" content="百度主动推送常见问题">
+<meta name="twitter:description" content="状态反馈码详解 您可以通过推送后返回的状态码和字段来判断数据是否推送成功。">
 
 
 
@@ -115,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://www.aisun.org/2017/09/24/bootstrap使用/"/>
+  <link rel="canonical" href="http://www.aisun.org/2017/09/24/百度主动推送常见问题/"/>
 
 
 
 
 
-  <title>bootstrap使用 | Hunter-Zack</title>
+  <title>百度主动推送常见问题 | Hunter-Zack</title>
   
 
 
@@ -411,7 +411,7 @@ $(function() {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.aisun.org/2017/09/24/bootstrap使用/">
+    <link itemprop="mainEntityOfPage" href="http://www.aisun.org/2017/09/24/百度主动推送常见问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hunter-Zack">
@@ -428,7 +428,7 @@ $(function() {
 
         
         
-          <h1 class="post-title" itemprop="name headline">bootstrap使用</h1>
+          <h1 class="post-title" itemprop="name headline">百度主动推送常见问题</h1>
         
 
         <div class="post-meta">
@@ -440,7 +440,7 @@ $(function() {
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T15:01:53+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T22:52:10+08:00">
                 2017-09-24
               </time>
             
@@ -463,8 +463,8 @@ $(function() {
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
                   </a>
                 </span>
 
@@ -480,7 +480,7 @@ $(function() {
 
           
           
-             <span id="/2017/09/24/bootstrap使用/" class="leancloud_visitors" data-flag-title="bootstrap使用">
+             <span id="/2017/09/24/百度主动推送常见问题/" class="leancloud_visitors" data-flag-title="百度主动推送常见问题">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -516,8 +516,19 @@ $(function() {
       
 
       
-        <p>如题</p>
-<p>原文链接：<a href="http://www.cnblogs.com/chuangshaogreat/p/6719659.html" target="_blank" rel="external">http://www.cnblogs.com/chuangshaogreat/p/6719659.html</a><br><a id="more"></a><br>官网：<a href="http://v3.bootcss.com/components/" target="_blank" rel="external">http://v3.bootcss.com/components/</a></p>
+        <p>状态反馈码详解</p>
+<p>您可以通过推送后返回的状态码和字段来判断数据是否推送成功。<br><a id="more"></a></p>
+<p>1，状态码为200，表示推送成功，可能返回以下字段：</p>
+<p>字段</p>
+<p>是否必选</p>
+<p>参数类型</p>
+<p>说明</p>
+<p>success  是    int    成功推送的url条数</p>
+<p>remain   是    int    当天剩余的可推送url条数</p>
+<p>not_same_site    否</p>
+<p>array         由于不是本站url而未处理的url列表</p>
+<p>not_valid        否</p>
+<p>array         不合法的url列表</p>
 
       
     </div>
@@ -559,7 +570,7 @@ $(function() {
       
         <div class="post-tags">
           
-            <a href="/tags/bootstrap/" rel="tag"># bootstrap</a>
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
           
         </div>
       
@@ -572,8 +583,8 @@ $(function() {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/24/终端命令/" rel="next" title="终端命令">
-                <i class="fa fa-chevron-left"></i> 终端命令
+              <a href="/2017/09/24/YES/" rel="next" title="YES">
+                <i class="fa fa-chevron-left"></i> YES
               </a>
             
           </div>
@@ -581,10 +592,6 @@ $(function() {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/24/js距离现在时间计算/" rel="prev" title="js距离现在时间计算">
-                js距离现在时间计算 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
