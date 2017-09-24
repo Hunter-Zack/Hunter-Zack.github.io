@@ -82,8 +82,7 @@
 <meta property="og:image" content="http://www.aisun.org/2017/09/23/为zsh和VIM配置一个状态提示栏/vim.png">
 <meta property="og:image" content="http://www.aisun.org/2017/09/23/为zsh和VIM配置一个状态提示栏/whole.png">
 <meta property="og:image" content="http://www.aisun.org/2017/09/23/为zsh和VIM配置一个状态提示栏/moji.png">
-<meta property="og:image" content="http://www.aisun.org/2017/09/23/为zsh和VIM配置一个状态提示栏/fonts.png">
-<meta property="og:updated_time" content="2017-09-23T13:47:03.000Z">
+<meta property="og:updated_time" content="2017-09-24T06:03:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为zsh和VIM配置一个状态提示栏">
 <meta name="twitter:description" content="本文将详细介绍在Mac环境下安装powerline的方式">
@@ -526,7 +525,7 @@ $(function() {
 <h2 id="Teriminal字体配置"><a href="#Teriminal字体配置" class="headerlink" title="Teriminal字体配置"></a>Teriminal字体配置</h2><p>执行完上面两步后，不出意外powerline就已经开始工作了。但是你会发现Bash提示符会和下图一样是一些非常恶心的符号。<br><img src="/2017/09/23/为zsh和VIM配置一个状态提示栏/moji.png" alt=""></p>
 <p>现这样情况的原因是powerline为了美观自己造了一些符号，而这些符号不在Unicode字库内（如果你不知道Unicode字库是什么的话可以看下博主以前的相关介绍）。所以想要powerline正常显示的话，需要安装特殊处理过的字体。好在有一位热心人的帮助，他把大部分的程序猿常用的等宽字体都打上了powerline patch使得我们的这部配置将异常简单。首先我们从github上下载并安装字体：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">shell&gt; git clone https://github.com/powerline/fonts.git</div><div class="line">shell&gt; cd fonts</div><div class="line">shell&gt; ./install.sh</div></pre></td></tr></table></figure>
-<p>安装完成后我们就可以在iTerm2或者Terminal的字体选项里看到并选择多个xxx for powerline的字体了。*注意：对于ASCII fonts和non-ASCII fonts都需要选择for powerline的字体。如下图：<br><img src="/2017/09/23/为zsh和VIM配置一个状态提示栏/fonts.png" alt=""></p>
+<p>安装完成后我们就可以在iTerm2或者Terminal的字体选项里看到并选择多个xxx for powerline的字体了。*注意：对于ASCII fonts和non-ASCII fonts都需要选择for powerline的字体。如下图：<br>!<a href="为zsh和VIM配置一个状态提示栏/fonts.png"></a></p>
 <h2 id="VIM相关配置"><a href="#VIM相关配置" class="headerlink" title="VIM相关配置"></a>VIM相关配置</h2><p>这部分我们将介绍如何为VIM配置powerline。首先你需要确保你的vim编译时开启了python支持。如果通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python --version|grep +python</div></pre></td></tr></table></figure></p>
 <p>没有结果的话，那么你需要通过</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install vim --with-python --with-ruby --with-perl</div></pre></td></tr></table></figure>
@@ -604,8 +603,8 @@ $(function() {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/24/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/24/mac上Python版本不同时给指定的版本安装库/" rel="prev" title="mac上Python版本不同时给指定的版本安装库">
+                mac上Python版本不同时给指定的版本安装库 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -720,7 +719,7 @@ $(function() {
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -731,7 +730,7 @@ $(function() {
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -742,7 +741,7 @@ $(function() {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

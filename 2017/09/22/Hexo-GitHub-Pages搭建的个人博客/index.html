@@ -78,13 +78,10 @@
 <meta property="og:site_name" content="Hunter-Zack">
 <meta property="og:description" content="什么是 Hexo，什么是 NexT 主题？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.aisun.org/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/文件名.png">
-<meta property="og:image" content="http://www.aisun.org/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/pic1.png">
-<meta property="og:updated_time" content="2017-09-23T13:49:09.000Z">
+<meta property="og:updated_time" content="2017-09-24T06:02:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo+GitHub Pages搭建的个人博客">
 <meta name="twitter:description" content="什么是 Hexo，什么是 NexT 主题？">
-<meta name="twitter:image" content="http://www.aisun.org/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/文件名.png">
 
 
 
@@ -575,11 +572,12 @@ cnpm install hexo-cli -g
 
 ### 5.hexo的配置文件
 
-hexo里面有两个常用到的配置文件，分别是整个博客的配置文件E:\学习资料\97_github\yangql881012.github.io\_config.yml和主题的配置文件E:\学习资料\97_github\yangql881012.github.io\themes\next\_config.yml，此地址是对于我来说，hexo3.0使用的默认主题是landscape，因此你们的地址应该是E:\学习资料\97_github\yangql881012.github.io\themes\landscape\_config.yml，可在这两个文件里修改相应的配置信息。
+hexo里面有两个常用到的配置文件，分别是整个博客的配置文件E:\学习资料\97_github\yangql881012.github.io\\\_config.yml和主题的配置文件E:\学习资料\97_github\yangql881012.github.io\themes\next\\\_config.yml，此地址是对于我来说，hexo3.0使用的默认主题是landscape，因此你们的地址应该是E:\学习资料\97_github\yangql881012.github.io\themes\landscape\\\_config.yml，可在这两个文件里修改相应的配置信息。
 
-博客配置文件 _config.yml
-主题配置文件 _config.yml
-###6.发布一篇文章
+博客配置文件 \_config.yml
+主题配置文件 \_config.yml
+
+### 6.发布一篇文章
 
 在Git Bash执行命令：<pre><code>$ hexo new "my new post"</code></pre>
 在E:\yangql881012.github.io\source_post中打开my-new-post.md，打开方式使用记事本或notepad++。
@@ -659,12 +657,14 @@ scheme: Pisces
 
 <h4 id="3-确保在yangql881012-github-io-source-posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入"><a href="#3-确保在yangql881012-github-io-source-posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入" class="headerlink" title="3.确保在yangql881012.github.io/source/_posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入"></a>3.确保在yangql881012.github.io/source/_posts下创建和md文件同名的目录，在里面放该md需要的图片，然后在md中插入</h4><p>
 
-</p><p><img src="/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/文件名.png" alt=""><br>即可在hexo generate时正确生成插入图片。比如：</p>
+</p><p>!<a href="目录名/文件名.png"></a></p>
+<p>即可在hexo generate时正确生成插入图片。比如：</p>
 <pre><code>|- post1.md
 |_ post1
     |- pic1.png
 </code></pre><p>在md文件中插入图片时只需写</p>
-<p><img src="/2017/09/22/Hexo-GitHub-Pages搭建的个人博客/pic1.png" alt=""><br>首次配置完了需要执行一次清除操作，再生成页面：</p>
+<p>!<a href="post1/pic1.png"></a></p>
+<p>首次配置完了需要执行一次清除操作，再生成页面：</p>
 <pre><code>$ hexo clean </code></pre>   
 <pre><code>$ hexo generate  </code></pre>   
 <pre><code>$ hexo server</code></pre>
@@ -989,7 +989,7 @@ $font-size-base =16px
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1000,7 +1000,7 @@ $font-size-base =16px
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1011,7 +1011,7 @@ $font-size-base =16px
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

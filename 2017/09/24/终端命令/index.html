@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="shell," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="shell命令 一. 启动,关机,登入,登出相关命令">
+<meta name="keywords" content="shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="终端命令">
+<meta property="og:url" content="http://www.aisun.org/2017/09/24/终端命令/index.html">
+<meta property="og:site_name" content="Hunter-Zack">
+<meta property="og:description" content="shell命令 一. 启动,关机,登入,登出相关命令">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-24T07:28:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="终端命令">
+<meta name="twitter:description" content="shell命令 一. 启动,关机,登入,登出相关命令">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.aisun.org/2017/09/24/终端命令/"/>
+
+
+
+
+
+  <title>终端命令 | Hunter-Zack</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("gPk9c1e8vPY8sJTceIf4kqKn-gzGzoHsz", "imyOJCmQnYV5YUXlbV88hse8");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = '0 ' + $(document.getElementById(url)).text();
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hunter-Zack</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">aisun</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <a href="https://github.com/Hunter-Zack"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.aisun.org/2017/09/24/终端命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hunter-Zack">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hunter-Zack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">终端命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T14:40:45+08:00">
+                2017-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mac/" itemprop="url" rel="index">
+                    <span itemprop="name">mac</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/24/终端命令/" class="leancloud_visitors" data-flag-title="终端命令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>shell命令</p>
+<h2 id="一-启动-关机-登入-登出相关命令"><a href="#一-启动-关机-登入-登出相关命令" class="headerlink" title="一. 启动,关机,登入,登出相关命令"></a>一. 启动,关机,登入,登出相关命令</h2><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;login&gt; 登录</div><div class="line"></div><div class="line">&lt;logout&gt; 登出</div><div class="line"></div><div class="line">&lt;exit&gt; 登出</div><div class="line"></div><div class="line">&lt;shutdown&gt; 停止系统</div><div class="line"></div><div class="line">&lt;halt&gt; 停止系统</div><div class="line"></div><div class="line">&lt;reboot&gt; 重启动</div><div class="line"></div><div class="line">&lt;poweroff&gt; 切断电源</div><div class="line"></div><div class="line">&lt;sync&gt; 把内存里的内容写入磁盘</div><div class="line"></div><div class="line">&lt;lilo&gt; 安装lilo启动管理程序</div><div class="line"></div><div class="line">&lt;grub&gt; 安装lilo启动管理程序</div></pre></td></tr></table></figure>
+<h2 id="二-Shell相关命令"><a href="#二-Shell相关命令" class="headerlink" title="二. Shell相关命令"></a>二. Shell相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&lt;chsh&gt; 切换Shell</div><div class="line"></div><div class="line">&lt;history&gt; 显示命令履历</div><div class="line"></div><div class="line">&lt;alias&gt; 设置命令别名</div><div class="line"></div><div class="line">&lt;unalias&gt; 取消命令别名</div><div class="line"></div><div class="line">&lt;which&gt; 显示命令所在位置</div><div class="line"></div><div class="line">&lt;type&gt; 查询命令种类</div><div class="line"></div><div class="line">&lt;echo&gt; 显示字符串或者变量内容</div><div class="line"></div><div class="line">&lt;set&gt; 设置/显示Shell变量</div><div class="line"></div><div class="line">&lt;printenv&gt; 显示环境变量</div><div class="line"></div><div class="line">&lt;export&gt; 设置环境变量</div><div class="line"></div><div class="line">&lt;env&gt; 设置临时环境变量</div><div class="line"></div><div class="line">&lt;unset&gt; 释放环境变量</div><div class="line"></div><div class="line">&lt;setenv&gt; 设置环境变量</div><div class="line"></div><div class="line">&lt;unsetenv&gt; 释放环境变量</div><div class="line"></div><div class="line">&lt;source&gt; 执行文件当中的命令</div><div class="line"></div><div class="line">&lt;man&gt; 查询命令手册</div><div class="line"></div><div class="line">&lt;info&gt; 查询超文本命令手册</div><div class="line"></div><div class="line">&lt;whatis&gt; 显示命令简介</div><div class="line"></div><div class="line">&lt;apropos&gt; 通过关键字查询手册</div></pre></td></tr></table></figure>
+<h2 id="三-用户管理相关命令"><a href="#三-用户管理相关命令" class="headerlink" title="三. 用户管理相关命令"></a>三. 用户管理相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;su&gt; 切换到其他用户</div><div class="line"></div><div class="line">&lt;useradd&gt; 追加用户</div><div class="line"></div><div class="line">&lt;adduser&gt; 追加用户</div><div class="line"></div><div class="line">&lt;userdel&gt; 删除用户</div><div class="line"></div><div class="line">&lt;usermod&gt; 修改用户设置</div><div class="line"></div><div class="line">&lt;chfn&gt; 修改用户私人信息</div><div class="line"></div><div class="line">&lt;groupadd&gt; 追加组</div><div class="line"></div><div class="line">&lt;groupdel&gt; 删除组</div><div class="line"></div><div class="line">&lt;groupmod&gt; 修改组设置</div><div class="line"></div><div class="line">&lt;passwd&gt; 更改密码</div><div class="line"></div><div class="line">&lt;whoami&gt; 显示用户名</div><div class="line"></div><div class="line">&lt;logname&gt; 显示登录用户帐号</div><div class="line"></div><div class="line">&lt;users&gt; 显示所有登录用户信息</div><div class="line"></div><div class="line">&lt;who&gt; 查询登录用户信息</div><div class="line"></div><div class="line">&lt;w&gt; 查询登录用户信息</div><div class="line"></div><div class="line">&lt;id&gt; 显示指定用户的ID信息</div><div class="line"></div><div class="line">&lt;groups&gt; 显示指定用户的所属组</div><div class="line"></div><div class="line">&lt;finger&gt; 显示指定用户的个人信息</div><div class="line"></div><div class="line">&lt;mesg&gt; 开关与他人收发消息</div><div class="line"></div><div class="line">&lt;write&gt; 给其他用户发消息</div><div class="line"></div><div class="line">&lt;wall&gt; 给所有用户发消息</div><div class="line"></div><div class="line">&lt;\talk&gt; 和其他用户聊天</div></pre></td></tr></table></figure>
+<h2 id="四-系统消息相关命令"><a href="#四-系统消息相关命令" class="headerlink" title="四. 系统消息相关命令"></a>四. 系统消息相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;date&gt; 显示/设置当前时间</div><div class="line"></div><div class="line">&lt;uptime&gt; 显示系统运行时间</div><div class="line"></div><div class="line">&lt;arch&gt; 显示机器的核心构架（如i386）</div><div class="line"></div><div class="line">&lt;uname&gt; 显示操作系统信息</div><div class="line"></div><div class="line">&lt;tty&gt; 显示终端名</div><div class="line"></div><div class="line">&lt;last&gt; 显示登录/登出在履历</div><div class="line"></div><div class="line">&lt;lastb&gt; 显示非法登录信息</div><div class="line"></div><div class="line">&lt;dumpkeys&gt; 显示当前键盘配置</div><div class="line"></div><div class="line">&lt;loadkeys&gt; 变更键盘配置</div><div class="line"></div><div class="line">&lt;df&gt; 查询磁盘使用信息</div><div class="line"></div><div class="line">&lt;du&gt; 查询磁盘使用信息</div><div class="line"></div><div class="line">&lt;dmesg&gt; 显示系统启动消息</div><div class="line"></div><div class="line">&lt;script&gt; 保存输入输出到文件</div></pre></td></tr></table></figure>
+<h2 id="五-文件操作相关命令"><a href="#五-文件操作相关命令" class="headerlink" title="五. 文件操作相关命令"></a>五. 文件操作相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;ls&gt; 显示文件列表</div><div class="line"></div><div class="line">&lt;tree&gt; 显示目录树</div><div class="line"></div><div class="line">&lt;pwd&gt; 显示当前路径</div><div class="line"></div><div class="line">&lt;cd&gt; 更改当前路径</div><div class="line"></div><div class="line">&lt;pushd&gt; 追加路径到目录堆栈</div><div class="line"></div><div class="line">&lt;popd&gt; 从目录堆栈删除路径</div><div class="line"></div><div class="line">&lt;dirs&gt; 显示目录堆栈的内容</div><div class="line"></div><div class="line">&lt;mkdir&gt; 创建路径</div><div class="line"></div><div class="line">&lt;rmdir&gt; 删除路径</div><div class="line"></div><div class="line">&lt;cp&gt; 复制文件/目录</div><div class="line"></div><div class="line">&lt;rm&gt; 删除文件/目录</div><div class="line"></div><div class="line">&lt;mv&gt; 移动文件/目录，修改文件名</div><div class="line"></div><div class="line">&lt;chown&gt; 更改文件/目录的所有者</div><div class="line"></div><div class="line">&lt;chgrp&gt; 修改文件/目录的所有组</div><div class="line"></div><div class="line">&lt;chmod&gt; 修改文件/目录的权限</div><div class="line"></div><div class="line">&lt;touch&gt; 更改文件时间</div><div class="line"></div><div class="line">&lt;ln&gt; 建立文件/目录链接</div><div class="line"></div><div class="line">&lt;find&gt; 查找文件</div><div class="line"></div><div class="line">&lt;whereis&gt; 显示文件存在的路径名</div><div class="line"></div><div class="line">&lt;file&gt; 查询文件种类</div><div class="line"></div><div class="line">&lt;size&gt; 查询文件大小</div></pre></td></tr></table></figure>
+<h2 id="六-文件编辑相关命令"><a href="#六-文件编辑相关命令" class="headerlink" title="六. 文件编辑相关命令"></a>六. 文件编辑相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;cat&gt; 显示文件内容</div><div class="line"></div><div class="line">&lt;tee&gt; 输出到文件和屏幕</div><div class="line"></div><div class="line">&lt;more&gt; 分屏显示文件内容</div><div class="line"></div><div class="line">&lt;less&gt; 分屏显示文件内容</div><div class="line"></div><div class="line">&lt;head&gt; 显示文件头部内容</div><div class="line"></div><div class="line">&lt;tail&gt; 显示文件尾部内容</div><div class="line"></div><div class="line">&lt;fold&gt; 折叠显示长行</div><div class="line"></div><div class="line">&lt;sort&gt; 排列文件的行</div><div class="line"></div><div class="line">&lt;cmp&gt; 比较文件内容</div><div class="line"></div><div class="line">&lt;diff&gt; 显示文件差异</div><div class="line"></div><div class="line">&lt;nkf&gt; 更改日语文件编码</div><div class="line"></div><div class="line">&lt;dd&gt; 变更文件之后复制</div><div class="line"></div><div class="line">&lt;wc&gt; 统计文本单词数，文件大小等</div><div class="line"></div><div class="line">&lt;split&gt; 分割文件</div><div class="line"></div><div class="line">&lt;paste&gt; 以行连接文件</div><div class="line"></div><div class="line">&lt;join&gt; 以字段连接文件</div><div class="line"></div><div class="line">&lt;grep&gt; 查询文字</div><div class="line"></div><div class="line">&lt;uniq&gt; 过滤重复部分显示文件内容</div><div class="line"></div><div class="line">&lt;tr&gt; 替换文字</div><div class="line"></div><div class="line">&lt;sed&gt; 替换文字</div></pre></td></tr></table></figure>
+<h2 id="七-压缩-解压缩相关命令"><a href="#七-压缩-解压缩相关命令" class="headerlink" title="七. 压缩/解压缩相关命令"></a>七. 压缩/解压缩相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;ar&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;tar&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;compress&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;uncompress&gt; 解压缩</div><div class="line"></div><div class="line">&lt;gzip&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;gunzip&gt; 解压缩</div><div class="line"></div><div class="line">&lt;zcat&gt; 显示压缩文件的内容</div><div class="line"></div><div class="line">&lt;lha&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;uuencode&gt; 把二进制文件编码为文本文件</div><div class="line"></div><div class="line">&lt;uudecode&gt; 把经过编码的文本文件还原为二进制文件</div><div class="line"></div><div class="line">``` </div><div class="line"></div><div class="line">## 八. MS-DOS工具集[mtools]命令</div></pre></td></tr></table></figure>
+<p><mdir> 显示文件列表</mdir></p>
+<p><mcd> 改变当前目录</mcd></p>
+<p><mmd> 新建目录</mmd></p>
+<p><mrd> 删除目录</mrd></p>
+<p><mdeltree> 删除目录树</mdeltree></p>
+<p><mcopy> 复制文件</mcopy></p>
+<p><mdel> 删除文件</mdel></p>
+<p><mmove> 移动文件</mmove></p>
+<p><mren> 更改文件或目录名</mren></p>
+<p><mattrib> 修改文件属性</mattrib></p>
+<p><mtype> 显示文件内容</mtype></p>
+<p><mdu> 查询文件或目录大小</mdu></p>
+<p><minfo> 显示磁盘信息</minfo></p>
+<p><mformat> 以MS-DOS方式格式化磁盘</mformat></p>
+<p><mlabel> 设置磁盘标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## 九. 控制外部设备相关命令</div></pre></td></tr></table></figure></mlabel></p>
+<p><mount> mount上设备</mount></p>
+<p><umount> 解除已经mount上的设备</umount></p>
+<p><eject> 弹出（CD/DVD等）</eject></p>
+<p><fdformat> 格式化软盘</fdformat></p>
+<p><fdisk> 配置/显示硬盘分区</fdisk></p>
+<p><mkfs> 格式化磁盘分区</mkfs></p>
+<p><fsck> 检查/修复磁盘错误</fsck></p>
+<p><lpr> 打印到打印机</lpr></p>
+<p><lprm> 中断打印任务</lprm></p>
+<p><lpq> 显示打印任务的状态</lpq></p>
+<p><lpc> 管理/控制打印任务</lpc></p>
+<p><ifconfig> 显示/设定NIC配置</ifconfig></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 十. 进程及任务管理相关命令</div></pre></td></tr></table></figure>
+<p><ps> 显示正在运行的进程</ps></p>
+<p><jobs> 显示后台运行任务</jobs></p>
+<p><fg> 把任务切换到前台</fg></p>
+<p><bg> 把任务切换到后台</bg></p>
+<p><kill> 中止进程或任务</kill></p>
+<p><killall> 中止进程或任务</killall></p>
+<p><wait> 等待进程或任务的结束</wait></p>
+<p><at> 设置定时执行任务</at></p>
+<p><atq> 显示尚未执行的任务</atq></p>
+<p><atrm> 删除定时执行任务</atrm></p>
+<p><batch> 在系统负荷减轻的时候执行任务</batch></p>
+<p><nice> 改变优先度并执行任务</nice></p>
+<p><nohup> 在后台执行任务，Logout之后也不退出</nohup></p>
+<p><sleep> 休眠一定的时间</sleep></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 十一. 网络管理相关命令</div></pre></td></tr></table></figure>
+<p><netstat> 显示当前网络连接状况</netstat></p>
+<p><route> 显示/设置路由</route></p>
+<p><host> 显示网络主机情况</host></p>
+<p><hostname> 显示/设置当前主机的名字</hostname></p>
+<p><ping> 确认和远程机器的连接情况</ping></p>
+<p><traceroute> 显示路由信息</traceroute></p>
+<p><rwho> 查询网上机器的登陆用户</rwho></p>
+<p><ruptime> 查询网上机器的系统运行时间</ruptime></p>
+<p><rlogin> 登陆到远程机器</rlogin></p>
+<p><telnet> 用telnet登陆到远程机器</telnet></p>
+<p><rsh> 给远程机器发送命令</rsh></p>
+<p><rcp> 在远程机器之间复制文件</rcp></p>
+<p><mail> 收取邮件</mail></p>
+<p><sendmail> 发送邮件</sendmail></p>
+<p><mailq> 确认邮件队列</mailq></p>
+<p><ftp> 用ftp传输文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line"></div><div class="line">## 十二. 其他命令</div></pre></td></tr></table></figure></ftp></p>
+<p><cal> 显示日历</cal></p>
+<p><clear> 清屏</clear></p>
+<p><gcc> 编译C语言代码</gcc></p>
+<p><as> 汇编</as></p>
+<p><bc> 计算</bc></p>
+<p><rpm> Redhat的包管理</rpm></p>
+<p><dpkg> Debian的包管理</dpkg></p>
+<p><installpkg> Slackware的包安装（删除命令则是removepkg）</installpkg></p>
+<p><xf86setup,turboxfg,xconfigurator> 配置 X 服务器</xf86setup,turboxfg,xconfigurator></p>
+<p><startx> 启动 X-Window 系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## 附：组合命令</div><div class="line"></div><div class="line">### 重定向，如</div></pre></td></tr></table></figure></startx></p>
+<p>$ ls -l /bin &gt; ls-output</p>
+<p>$ more ls-output<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line"></div><div class="line">### 管道命令，如</div></pre></td></tr></table></figure></p>
+<p>$ cat file1 file2 | sort | uniq<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line"></div><div class="line">经常被用于管道的命令</div></pre></td></tr></table></figure></p>
+<p>awk, fold, grep, head, nnkf, pr, sed, sort, tail, tee, tr, uniq, wc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">## UNIX操作命令</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">### 第一章  登录和退出</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">   用户在登录前，首先要向系统管理员申请一个用户注册名，不论用户从哪台计</div><div class="line"></div><div class="line">算机登录到ITPNET上都将访问相同的文件系统。</div><div class="line"></div><div class="line">#### 1.1 登录</div><div class="line"></div><div class="line">   当屏幕上出现Login提示符时，用户可以输入自己的用户注册名，并按回车键。</div><div class="line"></div><div class="line">若有口令，系统将提示用户输入密码，并按回车键，口令输入正确后，用户登录成</div><div class="line"></div><div class="line">功。这时，屏幕上会显示出一些信息和命令提示符。如：</div><div class="line"></div><div class="line">   Login: guest [Enter]</div><div class="line"></div><div class="line">   passwd: ******  [Enter]</div><div class="line"></div><div class="line">   sun%</div><div class="line"></div><div class="line">注: 用户名要用小写字母输入，UNIX系统区分大小写字母。</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 1.2 退出</div><div class="line"></div><div class="line">   当用户准备退出自己的计算机帐号时，可在系统示符下输入logout或exit或按</div><div class="line"></div><div class="line">[Ctrl-D]。当屏幕出现Login时，用户可以安全地离开计算机了。如：</div><div class="line"></div><div class="line">   sun% logout [Enter]</div><div class="line"></div><div class="line">   Login：</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 1.3 修改口令</div><div class="line"></div><div class="line">   为了防止他人使用自己的帐号，在你首次登录后，请用passwd命令修改只有本</div><div class="line"></div><div class="line">人知道的保密口令，口令通常由此可6到8个字母数字组成。如：</div></pre></td></tr></table></figure></p>
+<p>   sun% passwd [Enter]</p>
+<p>   Old Passwd: <strong>**</strong></p>
+<p>   New Passwd: <strong>**</strong></p>
+<p>   Retype New Passwd: <strong>**</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div><div class="line">338</div><div class="line">339</div><div class="line">340</div><div class="line">341</div><div class="line">342</div><div class="line">343</div><div class="line">344</div><div class="line">345</div><div class="line">346</div><div class="line">347</div><div class="line">348</div><div class="line">349</div><div class="line">350</div><div class="line">351</div><div class="line">352</div><div class="line">353</div><div class="line">354</div><div class="line">355</div><div class="line">356</div><div class="line">357</div><div class="line">358</div><div class="line">359</div><div class="line">360</div><div class="line">361</div><div class="line">362</div><div class="line">363</div><div class="line">364</div><div class="line">365</div><div class="line">366</div><div class="line">367</div><div class="line">368</div><div class="line">369</div><div class="line">370</div><div class="line">371</div><div class="line">372</div><div class="line">373</div><div class="line">374</div><div class="line">375</div><div class="line">376</div><div class="line">377</div><div class="line">378</div><div class="line">379</div><div class="line">380</div><div class="line">381</div><div class="line">382</div><div class="line">383</div><div class="line">384</div><div class="line">385</div><div class="line">386</div><div class="line">387</div><div class="line">388</div><div class="line">389</div><div class="line">390</div><div class="line">391</div><div class="line">392</div><div class="line">393</div><div class="line">394</div><div class="line">395</div><div class="line">396</div><div class="line">397</div><div class="line">398</div><div class="line">399</div><div class="line">400</div><div class="line">401</div><div class="line">402</div><div class="line">403</div><div class="line">404</div><div class="line">405</div><div class="line">406</div><div class="line">407</div><div class="line">408</div><div class="line">409</div><div class="line">410</div><div class="line">411</div><div class="line">412</div><div class="line">413</div><div class="line">414</div><div class="line">415</div><div class="line">416</div><div class="line">417</div><div class="line">418</div><div class="line">419</div><div class="line">420</div><div class="line">421</div><div class="line">422</div><div class="line">423</div><div class="line">424</div><div class="line">425</div><div class="line">426</div><div class="line">427</div><div class="line">428</div><div class="line">429</div><div class="line">430</div><div class="line">431</div><div class="line">432</div><div class="line">433</div><div class="line">434</div><div class="line">435</div><div class="line">436</div><div class="line">437</div><div class="line">438</div><div class="line">439</div><div class="line">440</div><div class="line">441</div><div class="line">442</div><div class="line">443</div><div class="line">444</div><div class="line">445</div><div class="line">446</div><div class="line">447</div><div class="line">448</div><div class="line">449</div><div class="line">450</div><div class="line">451</div><div class="line">452</div><div class="line">453</div><div class="line">454</div><div class="line">455</div><div class="line">456</div><div class="line">457</div><div class="line">458</div><div class="line">459</div><div class="line">460</div><div class="line">461</div><div class="line">462</div><div class="line">463</div><div class="line">464</div><div class="line">465</div><div class="line">466</div><div class="line">467</div><div class="line">468</div><div class="line">469</div><div class="line">470</div><div class="line">471</div><div class="line">472</div><div class="line">473</div><div class="line">474</div><div class="line">475</div><div class="line">476</div><div class="line">477</div><div class="line">478</div><div class="line">479</div><div class="line">480</div><div class="line">481</div><div class="line">482</div><div class="line">483</div><div class="line">484</div><div class="line">485</div><div class="line">486</div><div class="line">487</div><div class="line">488</div><div class="line">489</div><div class="line">490</div><div class="line">491</div><div class="line">492</div><div class="line">493</div><div class="line">494</div><div class="line">495</div><div class="line">496</div><div class="line">497</div><div class="line">498</div><div class="line">499</div><div class="line">500</div><div class="line">501</div><div class="line">502</div><div class="line">503</div><div class="line">504</div><div class="line">505</div><div class="line">506</div><div class="line">507</div><div class="line">508</div><div class="line">509</div><div class="line">510</div><div class="line">511</div><div class="line">512</div><div class="line">513</div><div class="line">514</div><div class="line">515</div><div class="line">516</div><div class="line">517</div><div class="line">518</div><div class="line">519</div><div class="line">520</div><div class="line">521</div><div class="line">522</div><div class="line">523</div><div class="line">524</div><div class="line">525</div><div class="line">526</div><div class="line">527</div><div class="line">528</div><div class="line">529</div><div class="line">530</div><div class="line">531</div><div class="line">532</div><div class="line">533</div><div class="line">534</div><div class="line">535</div><div class="line">536</div><div class="line">537</div><div class="line">538</div><div class="line">539</div><div class="line">540</div><div class="line">541</div><div class="line">542</div><div class="line">543</div><div class="line">544</div><div class="line">545</div><div class="line">546</div><div class="line">547</div><div class="line">548</div><div class="line">549</div><div class="line">550</div><div class="line">551</div><div class="line">552</div><div class="line">553</div><div class="line">554</div><div class="line">555</div><div class="line">556</div><div class="line">557</div><div class="line">558</div><div class="line">559</div><div class="line">560</div><div class="line">561</div><div class="line">562</div><div class="line">563</div><div class="line">564</div><div class="line">565</div><div class="line">566</div><div class="line">567</div><div class="line">568</div><div class="line">569</div><div class="line">570</div><div class="line">571</div><div class="line">572</div><div class="line">573</div><div class="line">574</div><div class="line">575</div><div class="line">576</div><div class="line">577</div><div class="line">578</div><div class="line">579</div><div class="line">580</div><div class="line">581</div><div class="line">582</div><div class="line">583</div><div class="line">584</div><div class="line">585</div><div class="line">586</div><div class="line">587</div><div class="line">588</div><div class="line">589</div><div class="line">590</div><div class="line">591</div><div class="line">592</div><div class="line">593</div><div class="line">594</div><div class="line">595</div><div class="line">596</div><div class="line">597</div><div class="line">598</div><div class="line">599</div><div class="line">600</div><div class="line">601</div><div class="line">602</div><div class="line">603</div><div class="line">604</div><div class="line">605</div><div class="line">606</div><div class="line">607</div><div class="line">608</div><div class="line">609</div><div class="line">610</div><div class="line">611</div><div class="line">612</div><div class="line">613</div><div class="line">614</div><div class="line">615</div><div class="line">616</div><div class="line">617</div><div class="line">618</div><div class="line">619</div><div class="line">620</div><div class="line">621</div><div class="line">622</div><div class="line">623</div><div class="line">624</div><div class="line">625</div><div class="line">626</div><div class="line">627</div><div class="line">628</div><div class="line">629</div><div class="line">630</div><div class="line">631</div><div class="line">632</div><div class="line">633</div><div class="line">634</div><div class="line">635</div><div class="line">636</div><div class="line">637</div><div class="line">638</div><div class="line">639</div><div class="line">640</div><div class="line">641</div><div class="line">642</div><div class="line">643</div><div class="line">644</div><div class="line">645</div><div class="line">646</div><div class="line">647</div><div class="line">648</div><div class="line">649</div><div class="line">650</div><div class="line">651</div><div class="line">652</div><div class="line">653</div><div class="line">654</div><div class="line">655</div><div class="line">656</div><div class="line">657</div><div class="line">658</div><div class="line">659</div><div class="line">660</div><div class="line">661</div><div class="line">662</div><div class="line">663</div><div class="line">664</div><div class="line">665</div><div class="line">666</div><div class="line">667</div><div class="line">668</div><div class="line">669</div><div class="line">670</div><div class="line">671</div><div class="line">672</div><div class="line">673</div><div class="line">674</div><div class="line">675</div><div class="line">676</div><div class="line">677</div><div class="line">678</div><div class="line">679</div><div class="line">680</div><div class="line">681</div><div class="line">682</div><div class="line">683</div><div class="line">684</div><div class="line">685</div><div class="line">686</div><div class="line">687</div><div class="line">688</div><div class="line">689</div><div class="line">690</div><div class="line">691</div><div class="line">692</div><div class="line">693</div><div class="line">694</div><div class="line">695</div><div class="line">696</div><div class="line">697</div><div class="line">698</div><div class="line">699</div><div class="line">700</div><div class="line">701</div><div class="line">702</div><div class="line">703</div><div class="line">704</div><div class="line">705</div><div class="line">706</div><div class="line">707</div><div class="line">708</div><div class="line">709</div><div class="line">710</div><div class="line">711</div><div class="line">712</div><div class="line">713</div><div class="line">714</div><div class="line">715</div><div class="line">716</div><div class="line">717</div><div class="line">718</div><div class="line">719</div><div class="line">720</div><div class="line">721</div><div class="line">722</div><div class="line">723</div><div class="line">724</div><div class="line">725</div><div class="line">726</div><div class="line">727</div><div class="line">728</div><div class="line">729</div><div class="line">730</div><div class="line">731</div><div class="line">732</div><div class="line">733</div><div class="line">734</div><div class="line">735</div><div class="line">736</div><div class="line">737</div><div class="line">738</div><div class="line">739</div><div class="line">740</div><div class="line">741</div><div class="line">742</div><div class="line">743</div><div class="line">744</div><div class="line">745</div><div class="line">746</div><div class="line">747</div><div class="line">748</div><div class="line">749</div><div class="line">750</div><div class="line">751</div><div class="line">752</div><div class="line">753</div><div class="line">754</div><div class="line">755</div><div class="line">756</div><div class="line">757</div><div class="line">758</div><div class="line">759</div><div class="line">760</div><div class="line">761</div><div class="line">762</div><div class="line">763</div><div class="line">764</div><div class="line">765</div><div class="line">766</div><div class="line">767</div><div class="line">768</div><div class="line">769</div><div class="line">770</div><div class="line">771</div><div class="line">772</div><div class="line">773</div><div class="line">774</div><div class="line">775</div><div class="line">776</div><div class="line">777</div><div class="line">778</div><div class="line">779</div><div class="line">780</div><div class="line">781</div><div class="line">782</div><div class="line">783</div><div class="line">784</div><div class="line">785</div><div class="line">786</div><div class="line">787</div><div class="line">788</div><div class="line">789</div><div class="line">790</div><div class="line">791</div><div class="line">792</div><div class="line">793</div><div class="line">794</div><div class="line">795</div><div class="line">796</div><div class="line">797</div><div class="line">798</div><div class="line">799</div><div class="line">800</div><div class="line">801</div><div class="line">802</div><div class="line">803</div><div class="line">804</div><div class="line">805</div><div class="line">806</div><div class="line">807</div><div class="line">808</div><div class="line">809</div><div class="line">810</div><div class="line">811</div><div class="line">812</div><div class="line">813</div><div class="line">814</div><div class="line">815</div><div class="line">816</div><div class="line">817</div><div class="line">818</div><div class="line">819</div><div class="line">820</div><div class="line">821</div><div class="line">822</div><div class="line">823</div><div class="line">824</div><div class="line">825</div><div class="line">826</div><div class="line">827</div><div class="line">828</div><div class="line">829</div><div class="line">830</div><div class="line">831</div><div class="line">832</div><div class="line">833</div><div class="line">834</div><div class="line">835</div><div class="line">836</div><div class="line">837</div><div class="line">838</div><div class="line">839</div><div class="line">840</div><div class="line">841</div><div class="line">842</div><div class="line">843</div><div class="line">844</div><div class="line">845</div><div class="line">846</div><div class="line">847</div><div class="line">848</div><div class="line">849</div><div class="line">850</div><div class="line">851</div><div class="line">852</div><div class="line">853</div><div class="line">854</div><div class="line">855</div><div class="line">856</div><div class="line">857</div><div class="line">858</div><div class="line">859</div><div class="line">860</div><div class="line">861</div><div class="line">862</div><div class="line">863</div><div class="line">864</div><div class="line">865</div><div class="line">866</div><div class="line">867</div><div class="line">868</div><div class="line">869</div><div class="line">870</div><div class="line">871</div><div class="line">872</div><div class="line">873</div><div class="line">874</div><div class="line">875</div><div class="line">876</div><div class="line">877</div><div class="line">878</div><div class="line">879</div><div class="line">880</div><div class="line">881</div><div class="line">882</div><div class="line">883</div><div class="line">884</div><div class="line">885</div><div class="line">886</div><div class="line">887</div><div class="line">888</div><div class="line">889</div><div class="line">890</div><div class="line">891</div><div class="line">892</div><div class="line">893</div><div class="line">894</div><div class="line">895</div><div class="line">896</div><div class="line">897</div><div class="line">898</div><div class="line">899</div><div class="line">900</div><div class="line">901</div><div class="line">902</div><div class="line">903</div><div class="line">904</div><div class="line">905</div><div class="line">906</div><div class="line">907</div><div class="line">908</div><div class="line">909</div><div class="line">910</div><div class="line">911</div><div class="line">912</div><div class="line">913</div><div class="line">914</div><div class="line">915</div><div class="line">916</div><div class="line">917</div><div class="line">918</div><div class="line">919</div><div class="line">920</div><div class="line">921</div><div class="line">922</div><div class="line">923</div><div class="line">924</div><div class="line">925</div><div class="line">926</div><div class="line">927</div><div class="line">928</div><div class="line">929</div><div class="line">930</div><div class="line">931</div><div class="line">932</div><div class="line">933</div><div class="line">934</div><div class="line">935</div><div class="line">936</div><div class="line">937</div><div class="line">938</div><div class="line">939</div><div class="line">940</div><div class="line">941</div><div class="line">942</div><div class="line">943</div><div class="line">944</div><div class="line">945</div><div class="line">946</div><div class="line">947</div><div class="line">948</div><div class="line">949</div><div class="line">950</div><div class="line">951</div><div class="line">952</div><div class="line">953</div><div class="line">954</div><div class="line">955</div><div class="line">956</div><div class="line">957</div><div class="line">958</div><div class="line">959</div><div class="line">960</div><div class="line">961</div><div class="line">962</div><div class="line">963</div><div class="line">964</div><div class="line">965</div><div class="line">966</div><div class="line">967</div><div class="line">968</div><div class="line">969</div><div class="line">970</div><div class="line">971</div><div class="line">972</div><div class="line">973</div><div class="line">974</div><div class="line">975</div><div class="line">976</div><div class="line">977</div><div class="line">978</div><div class="line">979</div><div class="line">980</div><div class="line">981</div><div class="line">982</div><div class="line">983</div><div class="line">984</div><div class="line">985</div><div class="line">986</div><div class="line">987</div><div class="line">988</div><div class="line">989</div><div class="line">990</div><div class="line">991</div><div class="line">992</div><div class="line">993</div><div class="line">994</div><div class="line">995</div><div class="line">996</div><div class="line">997</div><div class="line">998</div><div class="line">999</div><div class="line">1000</div><div class="line">1001</div><div class="line">1002</div><div class="line">1003</div><div class="line">1004</div><div class="line">1005</div><div class="line">1006</div><div class="line">1007</div><div class="line">1008</div><div class="line">1009</div><div class="line">1010</div><div class="line">1011</div><div class="line">1012</div><div class="line">1013</div><div class="line">1014</div><div class="line">1015</div><div class="line">1016</div><div class="line">1017</div><div class="line">1018</div><div class="line">1019</div><div class="line">1020</div><div class="line">1021</div><div class="line">1022</div><div class="line">1023</div><div class="line">1024</div><div class="line">1025</div><div class="line">1026</div><div class="line">1027</div><div class="line">1028</div><div class="line">1029</div><div class="line">1030</div><div class="line">1031</div><div class="line">1032</div><div class="line">1033</div><div class="line">1034</div><div class="line">1035</div><div class="line">1036</div><div class="line">1037</div><div class="line">1038</div><div class="line">1039</div><div class="line">1040</div><div class="line">1041</div><div class="line">1042</div><div class="line">1043</div><div class="line">1044</div><div class="line">1045</div><div class="line">1046</div><div class="line">1047</div><div class="line">1048</div><div class="line">1049</div><div class="line">1050</div><div class="line">1051</div><div class="line">1052</div><div class="line">1053</div><div class="line">1054</div><div class="line">1055</div><div class="line">1056</div><div class="line">1057</div><div class="line">1058</div><div class="line">1059</div><div class="line">1060</div><div class="line">1061</div><div class="line">1062</div><div class="line">1063</div><div class="line">1064</div><div class="line">1065</div><div class="line">1066</div><div class="line">1067</div><div class="line">1068</div><div class="line">1069</div><div class="line">1070</div><div class="line">1071</div><div class="line">1072</div><div class="line">1073</div><div class="line">1074</div><div class="line">1075</div><div class="line">1076</div><div class="line">1077</div><div class="line">1078</div><div class="line">1079</div><div class="line">1080</div><div class="line">1081</div><div class="line">1082</div><div class="line">1083</div><div class="line">1084</div><div class="line">1085</div><div class="line">1086</div><div class="line">1087</div><div class="line">1088</div><div class="line">1089</div><div class="line">1090</div><div class="line">1091</div><div class="line">1092</div><div class="line">1093</div><div class="line">1094</div><div class="line">1095</div><div class="line">1096</div><div class="line">1097</div><div class="line">1098</div><div class="line">1099</div><div class="line">1100</div><div class="line">1101</div><div class="line">1102</div><div class="line">1103</div><div class="line">1104</div><div class="line">1105</div><div class="line">1106</div><div class="line">1107</div><div class="line">1108</div><div class="line">1109</div><div class="line">1110</div><div class="line">1111</div><div class="line">1112</div><div class="line">1113</div><div class="line">1114</div><div class="line">1115</div><div class="line">1116</div><div class="line">1117</div><div class="line">1118</div><div class="line">1119</div><div class="line">1120</div><div class="line">1121</div><div class="line">1122</div><div class="line">1123</div><div class="line">1124</div><div class="line">1125</div><div class="line">1126</div><div class="line">1127</div><div class="line">1128</div><div class="line">1129</div><div class="line">1130</div><div class="line">1131</div><div class="line">1132</div><div class="line">1133</div><div class="line">1134</div><div class="line">1135</div><div class="line">1136</div><div class="line">1137</div><div class="line">1138</div><div class="line">1139</div><div class="line">1140</div><div class="line">1141</div><div class="line">1142</div><div class="line">1143</div><div class="line">1144</div><div class="line">1145</div><div class="line">1146</div><div class="line">1147</div><div class="line">1148</div><div class="line">1149</div><div class="line">1150</div><div class="line">1151</div><div class="line">1152</div><div class="line">1153</div><div class="line">1154</div><div class="line">1155</div><div class="line">1156</div><div class="line">1157</div><div class="line">1158</div><div class="line">1159</div><div class="line">1160</div><div class="line">1161</div><div class="line">1162</div><div class="line">1163</div><div class="line">1164</div><div class="line">1165</div><div class="line">1166</div><div class="line">1167</div><div class="line">1168</div><div class="line">1169</div><div class="line">1170</div><div class="line">1171</div><div class="line">1172</div><div class="line">1173</div><div class="line">1174</div><div class="line">1175</div><div class="line">1176</div><div class="line">1177</div><div class="line">1178</div><div class="line">1179</div><div class="line">1180</div><div class="line">1181</div><div class="line">1182</div><div class="line">1183</div><div class="line">1184</div><div class="line">1185</div><div class="line">1186</div><div class="line">1187</div><div class="line">1188</div><div class="line">1189</div><div class="line">1190</div><div class="line">1191</div><div class="line">1192</div><div class="line">1193</div><div class="line">1194</div><div class="line">1195</div><div class="line">1196</div><div class="line">1197</div><div class="line">1198</div><div class="line">1199</div><div class="line">1200</div><div class="line">1201</div><div class="line">1202</div><div class="line">1203</div><div class="line">1204</div><div class="line">1205</div><div class="line">1206</div><div class="line">1207</div><div class="line">1208</div><div class="line">1209</div><div class="line">1210</div><div class="line">1211</div><div class="line">1212</div><div class="line">1213</div><div class="line">1214</div><div class="line">1215</div><div class="line">1216</div><div class="line">1217</div><div class="line">1218</div><div class="line">1219</div><div class="line">1220</div><div class="line">1221</div><div class="line">1222</div><div class="line">1223</div><div class="line">1224</div><div class="line">1225</div><div class="line">1226</div><div class="line">1227</div><div class="line">1228</div><div class="line">1229</div><div class="line">1230</div><div class="line">1231</div><div class="line">1232</div><div class="line">1233</div><div class="line">1234</div><div class="line">1235</div><div class="line">1236</div><div class="line">1237</div><div class="line">1238</div><div class="line">1239</div><div class="line">1240</div><div class="line">1241</div><div class="line">1242</div><div class="line">1243</div><div class="line">1244</div><div class="line">1245</div><div class="line">1246</div><div class="line">1247</div><div class="line">1248</div><div class="line">1249</div><div class="line">1250</div><div class="line">1251</div><div class="line">1252</div><div class="line">1253</div><div class="line">1254</div><div class="line">1255</div><div class="line">1256</div><div class="line">1257</div><div class="line">1258</div><div class="line">1259</div><div class="line">1260</div><div class="line">1261</div><div class="line">1262</div><div class="line">1263</div><div class="line">1264</div><div class="line">1265</div><div class="line">1266</div><div class="line">1267</div><div class="line">1268</div><div class="line">1269</div><div class="line">1270</div><div class="line">1271</div><div class="line">1272</div><div class="line">1273</div><div class="line">1274</div><div class="line">1275</div><div class="line">1276</div><div class="line">1277</div><div class="line">1278</div><div class="line">1279</div><div class="line">1280</div><div class="line">1281</div><div class="line">1282</div><div class="line">1283</div><div class="line">1284</div><div class="line">1285</div><div class="line">1286</div><div class="line">1287</div><div class="line">1288</div><div class="line">1289</div><div class="line">1290</div><div class="line">1291</div><div class="line">1292</div><div class="line">1293</div><div class="line">1294</div><div class="line">1295</div><div class="line">1296</div><div class="line">1297</div><div class="line">1298</div><div class="line">1299</div><div class="line">1300</div><div class="line">1301</div><div class="line">1302</div><div class="line">1303</div><div class="line">1304</div><div class="line">1305</div><div class="line">1306</div><div class="line">1307</div><div class="line">1308</div><div class="line">1309</div><div class="line">1310</div><div class="line">1311</div><div class="line">1312</div><div class="line">1313</div><div class="line">1314</div><div class="line">1315</div><div class="line">1316</div><div class="line">1317</div><div class="line">1318</div><div class="line">1319</div><div class="line">1320</div><div class="line">1321</div><div class="line">1322</div><div class="line">1323</div><div class="line">1324</div><div class="line">1325</div><div class="line">1326</div><div class="line">1327</div><div class="line">1328</div><div class="line">1329</div><div class="line">1330</div><div class="line">1331</div><div class="line">1332</div><div class="line">1333</div><div class="line">1334</div><div class="line">1335</div><div class="line">1336</div><div class="line">1337</div><div class="line">1338</div><div class="line">1339</div><div class="line">1340</div><div class="line">1341</div><div class="line">1342</div><div class="line">1343</div><div class="line">1344</div><div class="line">1345</div><div class="line">1346</div><div class="line">1347</div><div class="line">1348</div><div class="line">1349</div><div class="line">1350</div><div class="line">1351</div><div class="line">1352</div><div class="line">1353</div><div class="line">1354</div><div class="line">1355</div><div class="line">1356</div><div class="line">1357</div><div class="line">1358</div><div class="line">1359</div><div class="line">1360</div><div class="line">1361</div><div class="line">1362</div><div class="line">1363</div><div class="line">1364</div><div class="line">1365</div><div class="line">1366</div><div class="line">1367</div><div class="line">1368</div><div class="line">1369</div><div class="line">1370</div><div class="line">1371</div><div class="line">1372</div><div class="line">1373</div><div class="line">1374</div><div class="line">1375</div><div class="line">1376</div><div class="line">1377</div><div class="line">1378</div><div class="line">1379</div><div class="line">1380</div><div class="line">1381</div><div class="line">1382</div><div class="line">1383</div><div class="line">1384</div><div class="line">1385</div><div class="line">1386</div><div class="line">1387</div><div class="line">1388</div><div class="line">1389</div><div class="line">1390</div><div class="line">1391</div><div class="line">1392</div><div class="line">1393</div><div class="line">1394</div><div class="line">1395</div><div class="line">1396</div><div class="line">1397</div><div class="line">1398</div><div class="line">1399</div><div class="line">1400</div><div class="line">1401</div><div class="line">1402</div><div class="line">1403</div><div class="line">1404</div><div class="line">1405</div><div class="line">1406</div><div class="line">1407</div><div class="line">1408</div><div class="line">1409</div><div class="line">1410</div><div class="line">1411</div><div class="line">1412</div><div class="line">1413</div><div class="line">1414</div><div class="line">1415</div><div class="line">1416</div><div class="line">1417</div><div class="line">1418</div><div class="line">1419</div><div class="line">1420</div><div class="line">1421</div><div class="line">1422</div><div class="line">1423</div><div class="line">1424</div><div class="line">1425</div><div class="line">1426</div><div class="line">1427</div><div class="line">1428</div><div class="line">1429</div><div class="line">1430</div><div class="line">1431</div><div class="line">1432</div><div class="line">1433</div><div class="line">1434</div><div class="line">1435</div><div class="line">1436</div><div class="line">1437</div><div class="line">1438</div><div class="line">1439</div><div class="line">1440</div><div class="line">1441</div><div class="line">1442</div><div class="line">1443</div><div class="line">1444</div><div class="line">1445</div><div class="line">1446</div><div class="line">1447</div><div class="line">1448</div><div class="line">1449</div><div class="line">1450</div><div class="line">1451</div><div class="line">1452</div><div class="line">1453</div><div class="line">1454</div><div class="line">1455</div><div class="line">1456</div><div class="line">1457</div><div class="line">1458</div><div class="line">1459</div><div class="line">1460</div><div class="line">1461</div><div class="line">1462</div><div class="line">1463</div><div class="line">1464</div><div class="line">1465</div><div class="line">1466</div><div class="line">1467</div><div class="line">1468</div><div class="line">1469</div><div class="line">1470</div><div class="line">1471</div><div class="line">1472</div><div class="line">1473</div><div class="line">1474</div><div class="line">1475</div><div class="line">1476</div><div class="line">1477</div><div class="line">1478</div><div class="line">1479</div><div class="line">1480</div><div class="line">1481</div><div class="line">1482</div><div class="line">1483</div><div class="line">1484</div><div class="line">1485</div><div class="line">1486</div><div class="line">1487</div><div class="line">1488</div><div class="line">1489</div><div class="line">1490</div><div class="line">1491</div><div class="line">1492</div><div class="line">1493</div><div class="line">1494</div><div class="line">1495</div><div class="line">1496</div><div class="line">1497</div><div class="line">1498</div><div class="line">1499</div><div class="line">1500</div><div class="line">1501</div><div class="line">1502</div><div class="line">1503</div><div class="line">1504</div><div class="line">1505</div><div class="line">1506</div><div class="line">1507</div><div class="line">1508</div><div class="line">1509</div><div class="line">1510</div><div class="line">1511</div><div class="line">1512</div><div class="line">1513</div><div class="line">1514</div><div class="line">1515</div><div class="line">1516</div><div class="line">1517</div><div class="line">1518</div><div class="line">1519</div><div class="line">1520</div><div class="line">1521</div><div class="line">1522</div><div class="line">1523</div><div class="line">1524</div><div class="line">1525</div><div class="line">1526</div><div class="line">1527</div><div class="line">1528</div><div class="line">1529</div><div class="line">1530</div><div class="line">1531</div><div class="line">1532</div><div class="line">1533</div><div class="line">1534</div><div class="line">1535</div><div class="line">1536</div><div class="line">1537</div><div class="line">1538</div><div class="line">1539</div><div class="line">1540</div><div class="line">1541</div><div class="line">1542</div><div class="line">1543</div><div class="line">1544</div><div class="line">1545</div><div class="line">1546</div><div class="line">1547</div><div class="line">1548</div><div class="line">1549</div><div class="line">1550</div><div class="line">1551</div><div class="line">1552</div><div class="line">1553</div><div class="line">1554</div><div class="line">1555</div><div class="line">1556</div><div class="line">1557</div><div class="line">1558</div><div class="line">1559</div><div class="line">1560</div><div class="line">1561</div><div class="line">1562</div><div class="line">1563</div><div class="line">1564</div><div class="line">1565</div><div class="line">1566</div><div class="line">1567</div><div class="line">1568</div><div class="line">1569</div><div class="line">1570</div><div class="line">1571</div><div class="line">1572</div><div class="line">1573</div><div class="line">1574</div><div class="line">1575</div><div class="line">1576</div><div class="line">1577</div><div class="line">1578</div><div class="line">1579</div><div class="line">1580</div><div class="line">1581</div><div class="line">1582</div><div class="line">1583</div><div class="line">1584</div><div class="line">1585</div><div class="line">1586</div><div class="line">1587</div><div class="line">1588</div><div class="line">1589</div><div class="line">1590</div><div class="line">1591</div><div class="line">1592</div><div class="line">1593</div><div class="line">1594</div><div class="line">1595</div><div class="line">1596</div><div class="line">1597</div><div class="line">1598</div><div class="line">1599</div><div class="line">1600</div><div class="line">1601</div><div class="line">1602</div><div class="line">1603</div><div class="line">1604</div><div class="line">1605</div><div class="line">1606</div><div class="line">1607</div><div class="line">1608</div><div class="line">1609</div><div class="line">1610</div><div class="line">1611</div><div class="line">1612</div><div class="line">1613</div><div class="line">1614</div><div class="line">1615</div><div class="line">1616</div><div class="line">1617</div><div class="line">1618</div><div class="line">1619</div><div class="line">1620</div><div class="line">1621</div><div class="line">1622</div><div class="line">1623</div><div class="line">1624</div><div class="line">1625</div><div class="line">1626</div><div class="line">1627</div><div class="line">1628</div><div class="line">1629</div><div class="line">1630</div><div class="line">1631</div><div class="line">1632</div><div class="line">1633</div><div class="line">1634</div><div class="line">1635</div><div class="line">1636</div><div class="line">1637</div><div class="line">1638</div><div class="line">1639</div><div class="line">1640</div><div class="line">1641</div><div class="line">1642</div><div class="line">1643</div><div class="line">1644</div><div class="line">1645</div><div class="line">1646</div><div class="line">1647</div><div class="line">1648</div><div class="line">1649</div><div class="line">1650</div><div class="line">1651</div><div class="line">1652</div><div class="line">1653</div><div class="line">1654</div><div class="line">1655</div><div class="line">1656</div><div class="line">1657</div><div class="line">1658</div><div class="line">1659</div><div class="line">1660</div></pre></td><td class="code"><pre><div class="line">注：当你退出系统再次登录时，就要使用新的口令。</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">### 第二章  目录操作命令</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 2.1 显示目录</div><div class="line"></div><div class="line">   命令：pwd（print working directory）</div><div class="line"></div><div class="line">   格式：pwd</div><div class="line"></div><div class="line">   功能：显示出用户当前工作目录的全路径名。</div><div class="line"></div><div class="line">   例如：% pwd</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 2.2 建立目录</div><div class="line"></div><div class="line">   命令：mkdir（make directory）</div><div class="line"></div><div class="line">   格式：mkdir directory_name</div><div class="line"></div><div class="line">   功能：建立新目录</div><div class="line"></div><div class="line">   例如：% mkdir directory</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 2.3 改变目录</div><div class="line"></div><div class="line">   命令：cd（change directory）</div><div class="line"></div><div class="line">   格式：cd directory_name</div><div class="line"></div><div class="line">   功能：改变当前工作目录</div><div class="line"></div><div class="line">   注释：目录名选项有:</div><div class="line"></div><div class="line">     (1) 目录名，转到当前目录下的子目录。</div><div class="line"></div><div class="line">     (2) .. 表示转到当前目录的父目录。</div><div class="line"></div><div class="line">     (3) /  表示转到根目录。</div><div class="line"></div><div class="line">     (4) 没有选项时，转到用户的主目录。</div><div class="line"></div><div class="line">   例如：% cd directory</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 2.4 删除目录</div><div class="line"></div><div class="line">   命令：rmdir (remove directory)</div><div class="line"></div><div class="line">   格式：rmdir directory_name</div><div class="line"></div><div class="line">   功能：删除不存在文件的子目录名。</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">     (1) 删除子目录时，要求被删除的目录中不存在文件或子目录，否则无法删除。</div><div class="line"></div><div class="line">     (2) 若被删除的目录中有文件或子目录，请参考命令rm -r directory_name。</div><div class="line"></div><div class="line">  例如：% rmdir directory</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">### 第三章  文件操作命令</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.1 列出文件目录</div><div class="line"></div><div class="line">   命令：ls (list)</div><div class="line"></div><div class="line">   格式：ls [option] directory_name</div><div class="line"></div><div class="line">   功能：列出指定目录中的文件名和子目录名。当无子目录名时，列出当前目录</div><div class="line"></div><div class="line">         中的文件名和子目录名。</div><div class="line"></div><div class="line">   选项：-a列出所有文件，包括以点开头的隐含文件。</div><div class="line"></div><div class="line">         -l按长格式列出文件名，包括文件类型标识，权限，链接数，文件主名，</div><div class="line"></div><div class="line">           文件组名，字节数，日期。</div><div class="line"></div><div class="line">         -r列出包括子目录下所有文件</div><div class="line"></div><div class="line">         -g在长格式中给出用户组的标识。</div><div class="line"></div><div class="line">         -t安文件生成日期排序。</div><div class="line"></div><div class="line">   例如：% ls -la</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.2 显示文件内容</div><div class="line"></div><div class="line">   命令：cat (catenae)</div><div class="line"></div><div class="line">   格式：cat filename</div><div class="line"></div><div class="line">   功能：显示出文件的内容。</div><div class="line"></div><div class="line">   注释：当文件内容在屏幕上滚动显示时，可按Ctrl+S键屏幕滚暂停，按Ctrl+Q</div><div class="line"></div><div class="line">         键继续显示。</div><div class="line"></div><div class="line">   例如：% cat filename</div><div class="line"></div><div class="line">   </div><div class="line"></div><div class="line">#### 3.3 按屏幕显示文件内容</div><div class="line"></div><div class="line">   命令：more</div><div class="line"></div><div class="line">   格式：more filename</div><div class="line"></div><div class="line">   功能：按屏幕一屏一屏显示出文件内容</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：在屏幕显示过程中有功能键。空格键 继续下一屏的输出；回车键 看下</div><div class="line"></div><div class="line">         一行的输出；q键 跳出more状态；/字符串 查旬字符串所在处；a键 返</div><div class="line"></div><div class="line">         回到上一屏。</div><div class="line"></div><div class="line">   例如：% more filename</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.4 分页显示文件内容</div><div class="line"></div><div class="line">   命令：pg (page)</div><div class="line"></div><div class="line">   格式：pg [option] filename</div><div class="line"></div><div class="line">   功能：分页显示指定文件的内容。在显示一页文件时，最后一行将显示等待用</div><div class="line"></div><div class="line">         户输入指令。可输入的指令有如下选项。</div><div class="line"></div><div class="line">   选项：h          显示pg命令中可使用的帮助(help)命令。</div><div class="line"></div><div class="line">         q          退出pg命令。</div><div class="line"></div><div class="line">         [return]   显示下一页正文。</div><div class="line"></div><div class="line">         1          显示正文的下一行</div><div class="line"></div><div class="line">         [Space]    显示下一页</div><div class="line"></div><div class="line">         d/[Ctrl-D] 将屏幕滚动半屏。</div><div class="line"></div><div class="line">         n          显示pg命令行中说明的下一个文件。</div><div class="line"></div><div class="line">         p          显示pg命令行中说明的前一个文件。</div><div class="line"></div><div class="line">         %          显示正文当前页的前面一页。</div><div class="line"></div><div class="line">         /pattern   在文件中向前搜索指定的字符模式。</div><div class="line"></div><div class="line">         ?pattern   在文件中向后搜索指定的字符模式。</div><div class="line"></div><div class="line">   注释：当pg命令显示到文件的末尾时，显示一个文件结束信息EOF(end of file)。</div><div class="line"></div><div class="line">   例如：% pg filename</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.5 读文件</div><div class="line"></div><div class="line">   命令：view</div><div class="line"></div><div class="line">   格式：view filename</div><div class="line"></div><div class="line">   功能：只能读出文件内容。</div><div class="line"></div><div class="line">   注释：此命令不能对读出的原文件进行写操作。若对原文件进行了修改，可利</div><div class="line"></div><div class="line">         用命令“：w newfilename”将修改后的文件写到新文件中。</div><div class="line"></div><div class="line">   例如：% view filename</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.6 显示文件头部</div><div class="line"></div><div class="line">   命令：head</div><div class="line"></div><div class="line">   格式：head [option] filename</div><div class="line"></div><div class="line">   功能：显示文件的头部</div><div class="line"></div><div class="line">   选项：缺省  显示文件的头10行。</div><div class="line"></div><div class="line">         -i    显示文件的开始 i行。</div><div class="line"></div><div class="line">   例如：% head filename</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.7 显示文件尾部</div><div class="line"></div><div class="line">   命令：tail</div><div class="line"></div><div class="line">   格式：tail [option] filename</div><div class="line"></div><div class="line">   功能：显示文件的尾部</div><div class="line"></div><div class="line">   选项：缺省  显示文件的末10行。</div><div class="line"></div><div class="line">         -i    显示文件最后 i行。</div><div class="line"></div><div class="line">         +i    从文件的第i行开始显示。</div><div class="line"></div><div class="line">   例如：% tail filename</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.8 显示格式化的文件内容</div><div class="line"></div><div class="line">   命令：pr (print)</div><div class="line"></div><div class="line">   格式：pr filename</div><div class="line"></div><div class="line">   功能：在屏幕上显示格式化的文件内容，即印出每页66行的文本文件，包括５</div><div class="line"></div><div class="line">         行页头和５行页尾。页头包括两行空行，一行含有文件的时间、文件名</div><div class="line"></div><div class="line">         和页号，另外两行为空行。页尾为５行空行。</div><div class="line"></div><div class="line">   例如：% pr filename</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.9 拷贝文件</div><div class="line"></div><div class="line">   命令：cp (copy)</div><div class="line"></div><div class="line">   格式：cp [option] filename1 filename2</div><div class="line"></div><div class="line">         cp [option] filename... directory</div><div class="line"></div><div class="line">         cp -r directory1 directon2</div><div class="line"></div><div class="line">   功能：把一个文件的全部内容拷贝到另一个文件，也可将一个或多个文件拷贝</div><div class="line"></div><div class="line">         到另一个目录中。</div><div class="line"></div><div class="line">   选项：-i 按提示进行拷贝文件。</div><div class="line"></div><div class="line">         -p 按原文件日期进行拷贝。</div><div class="line"></div><div class="line">         -r 对子目录下所有文件进行拷贝。</div><div class="line"></div><div class="line">   注释：当filename1拷贝到filename2时，若filename2已经存在，则filename2</div><div class="line"></div><div class="line">         的内容将被filename1覆盖。</div><div class="line"></div><div class="line">   例如：% cp filename1 filename2</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.10移动文件或文件改名</div><div class="line"></div><div class="line">   命令：mv (move)</div><div class="line"></div><div class="line">   格式：mv filename1 filename2</div><div class="line"></div><div class="line">         mv filename... direction</div><div class="line"></div><div class="line">         mv direction1 direction2</div><div class="line"></div><div class="line">   功能：改变文件或目录的名子，或把一些文件移到另一目录下。</div><div class="line"></div><div class="line">   注释：当filename1更名为filename2时，若filename2已经存在，则filename2</div><div class="line"></div><div class="line">         的内容将被filename1覆盖</div><div class="line"></div><div class="line">   例如：% mv filename1 filename2</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.11删除文件</div><div class="line"></div><div class="line">   命令：rm (remove)</div><div class="line"></div><div class="line">   格式：rm filename</div><div class="line"></div><div class="line">         rm -r direction</div><div class="line"></div><div class="line">         rm -r –f direction(不提示)</div><div class="line"></div><div class="line">   功能：删除指定的文件或一个目录中的文件。</div><div class="line"></div><div class="line">   注释：用-r选项时，将删除指定目录的所用文件，包括目录名。</div><div class="line"></div><div class="line">   例如：% rm filename</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.12链接文件</div><div class="line"></div><div class="line">   命令：ln (link)</div><div class="line"></div><div class="line">   格式：ln [option] filename linkname</div><div class="line"></div><div class="line">         ln [option] directory pathname</div><div class="line"></div><div class="line">   功能：为文件或目录建立一个链。其中，filename和directory是源文件名和</div><div class="line"></div><div class="line">         源目录名；linkname和pathname分别表示与源文件或源目录名相链接的</div><div class="line"></div><div class="line">         文件或目录。</div><div class="line"></div><div class="line">   选项：-s  为文件或目录建立符号链接。</div><div class="line"></div><div class="line">   注释：链接的目地在于，对一个文件或目录赋予两个以上的名字，使其可以出</div><div class="line"></div><div class="line">         现在不同的目录中，既可以使文件或目录共享，又可以节省磁盘空间。</div><div class="line"></div><div class="line">   例如：% ln -s filename linkname</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.13改变文件读取权限</div><div class="line"></div><div class="line">   命令：chmod (change mode)</div><div class="line"></div><div class="line">   格式：chmod &#123;u|g|o|a&#125;&#123;+|-|=&#125;&#123;r|w|x&#125; filename</div><div class="line"></div><div class="line">         chmod [who][op][mode] directory</div><div class="line"></div><div class="line">   功能：改变文件的读写和执行权限。有符号法和八进制数字法。</div><div class="line"></div><div class="line">   选项：(1)符号法：</div><div class="line"></div><div class="line">         u (user)   表示用户本人。</div><div class="line"></div><div class="line">         g (group)  表示同组用户。</div><div class="line"></div><div class="line">         o (oher)   表示其他用户。</div><div class="line"></div><div class="line">         a (all)    表示所有用户。</div><div class="line"></div><div class="line">         +          用于给予指定用户的许可权限。</div><div class="line"></div><div class="line">         -          用于取消指定用户的许可权限。</div><div class="line"></div><div class="line">         =          将所许可的权限赋给文件。</div><div class="line"></div><div class="line">         r (read)   读许可，表示可以拷贝该文件或目录的内容。</div><div class="line"></div><div class="line">         w (write)  写许可，表示可以修改该文件或目录的内容。</div><div class="line"></div><div class="line">         x (execute)执行许可，表示可以执行该文件或进入目录。</div><div class="line"></div><div class="line">         (2)八进制数字法：</div><div class="line"></div><div class="line">         此方法用三位八进制数作任选项，每位数字分别表示用户本人、同组用</div><div class="line"></div><div class="line">         户、其他用户的权限，其中：</div><div class="line"></div><div class="line">         4 (100)    表示可读。</div><div class="line"></div><div class="line">         2 (010)    表示可写。</div><div class="line"></div><div class="line">         1 (001)    表示可执行。</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% chmod a+rx filename</div><div class="line"></div><div class="line">           让所有用户可以读和执行文件filename。</div><div class="line"></div><div class="line">         % chmod go-rx filename</div><div class="line"></div><div class="line">           取消同组和其他用户的读和执行文件filename的权限。</div><div class="line"></div><div class="line">         % chmod 741 filename</div><div class="line"></div><div class="line">           让本人可读写执行、同组用户可读、其他用户可执行文件filename。</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.14改变文件所有权</div><div class="line"></div><div class="line">   命令：chown (change owner)</div><div class="line"></div><div class="line">   格式：chown username filename</div><div class="line"></div><div class="line">         chown -R username directory</div><div class="line"></div><div class="line">   功能：改变文件或目录的所有权。</div><div class="line"></div><div class="line">   选项：-R 将改变目录中所有文件及目录的拥有者。</div><div class="line"></div><div class="line">   注释：只有文件的主人和超级用户才能改变文件的所有权。</div><div class="line"></div><div class="line">   例如：% chown username filename</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.15寻找文件</div><div class="line"></div><div class="line">   命令：find</div><div class="line"></div><div class="line">   格式：find pathname [option] expression</div><div class="line"></div><div class="line">   功能：在所给的路经名下寻找符合表达式相匹配的文件。</div><div class="line"></div><div class="line">   选项：-name     表示文件名</div><div class="line"></div><div class="line">         -user     用户名，选取该用户所属的文件</div><div class="line"></div><div class="line">         -group    组名，选取该用户组属的文件</div><div class="line"></div><div class="line">         -mtime n  选取n天内被修改的文件</div><div class="line"></div><div class="line">         -newer fn 选取比文件名为fn更晚修改的文件</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% find . -name &apos;*abc*&apos; -print</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.16搜索文件中匹配符</div><div class="line"></div><div class="line">   命令：grep</div><div class="line"></div><div class="line">   格式：grep [option] pattern filenames</div><div class="line"></div><div class="line">   功能：逐行搜索所指定的文件或标准输入，并显示匹配模式的每一行。</div><div class="line"></div><div class="line">   选项：-v 找出模式失配的行</div><div class="line"></div><div class="line">         -c 统计匹配行的数量</div><div class="line"></div><div class="line">         -n 显示匹配模式的每一行</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% ps -aux | grep R</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.17比较文件不同</div><div class="line"></div><div class="line">   命令：diff (difference)</div><div class="line"></div><div class="line">   格式：diff filename1 filename2</div><div class="line"></div><div class="line">   功能：显示两文件的不同之处。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% diff file1 file2</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.18比较文件</div><div class="line"></div><div class="line">   命令：cmp (compare)</div><div class="line"></div><div class="line">   格式：cmp [-l] [-s] filename1 filename2</div><div class="line"></div><div class="line">   功能：显示比较两文件不同处的信息</div><div class="line"></div><div class="line">   选项：-l 给出两文件不同的字节数</div><div class="line"></div><div class="line">         -s 不显示两文件的不同处，给出比较结果</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% cmp file1 file2</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.19比较文件共同处</div><div class="line"></div><div class="line">   命令：comm (common)</div><div class="line"></div><div class="line">   格式：comm [-123] filename1 filename2</div><div class="line"></div><div class="line">   功能：选择或拒绝比较两文件出现的共同行</div><div class="line"></div><div class="line">   选项：-1 不显示第1列</div><div class="line"></div><div class="line">         -2 不显示第2列</div><div class="line"></div><div class="line">         -3 不显示第3列</div><div class="line"></div><div class="line">   注释：输出三列，第一列表示在file1中出现的行，第二列表示在file2中出现</div><div class="line"></div><div class="line">         的行，第三列表示在file1和file2中共同出现的行。</div><div class="line"></div><div class="line">   例如：% comm file1 file2</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.20排序文件</div><div class="line"></div><div class="line">   命令：sort</div><div class="line"></div><div class="line">   格式：sort [option] filename</div><div class="line"></div><div class="line">   功能：将制定的文件按要求排序</div><div class="line"></div><div class="line">   选项：-r 按字母倒排序</div><div class="line"></div><div class="line">         -n 按数字的值从小到大排序</div><div class="line"></div><div class="line">         -r 按当前排序规则逆序排序</div><div class="line"></div><div class="line">         -f 不区分大小写排序</div><div class="line"></div><div class="line">         -d 按典型顺序排序</div><div class="line"></div><div class="line">   注释：选项缺省时按ascii码顺序排序</div><div class="line"></div><div class="line">   例如：% sort -nr file</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.21压缩文件</div><div class="line"></div><div class="line">   命令：compress</div><div class="line"></div><div class="line">   格式：compress [option] filename</div><div class="line"></div><div class="line">   功能：压缩文件。</div><div class="line"></div><div class="line">   选项：-f 强制压缩</div><div class="line"></div><div class="line">         -v 压缩时显示压缩百分比</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% compress files</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.22解缩文件</div><div class="line"></div><div class="line">   命令：uncompress</div><div class="line"></div><div class="line">         zcat</div><div class="line"></div><div class="line">   格式：compress [option] filename</div><div class="line"></div><div class="line">         zcat filename</div><div class="line"></div><div class="line">   功能：展开或显示压缩文件。</div><div class="line"></div><div class="line">   选项：-c 不改变文件写到标准输出</div><div class="line"></div><div class="line">   注释：zcat命令相当于uncompress -c</div><div class="line"></div><div class="line">   例如：% uncomproess files.Z</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.23显示文件类型</div><div class="line"></div><div class="line">   命令：file</div><div class="line"></div><div class="line">   格式：file filename ...</div><div class="line"></div><div class="line">   功能：按文件内容来推测文件类型，如text，ascii，C，executable，core。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% file *</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.24建立档案文件</div><div class="line"></div><div class="line">   命令：tar (tape archive)</div><div class="line"></div><div class="line">   格式：tar [option] tarfile filename</div><div class="line"></div><div class="line">   功能：建立文件的存档或读存档文件。</div><div class="line"></div><div class="line">   选项：-c 建立一个新的档案文件</div><div class="line"></div><div class="line">         -x 从档案文件中读取文件</div><div class="line"></div><div class="line">         -v 显示处理文件的信息</div><div class="line"></div><div class="line">         -f 指定档案文件名，缺省时为磁带机即/dev/rmt/0</div><div class="line"></div><div class="line">         -t 列出存档文件的信息</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% tar cvf tarfile .</div><div class="line"></div><div class="line">         % tar xvf tarfile</div><div class="line"></div><div class="line">         % tar tvf tarfile</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.25磁带拷贝文件</div><div class="line"></div><div class="line">   命令：dd</div><div class="line"></div><div class="line">   格式：dd [option=value]</div><div class="line"></div><div class="line">   功能：用磁带机转换或拷贝文件。</div><div class="line"></div><div class="line">   选项：if=name 指定输入文件名</div><div class="line"></div><div class="line">         of=name 指定输出文件名</div><div class="line"></div><div class="line">         ibs=n   指定输入文件块大小为n字节（缺省为512字节）</div><div class="line"></div><div class="line">         obs=n   指定输出文件块大小为n字节（缺省为512字节）</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% dd if=filename of=/dev/rmt/0</div><div class="line"></div><div class="line">         % dd if=/dev/rmt/0 of=filename ibs=1024</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.26修改文件日期</div><div class="line"></div><div class="line">   命令：touch</div><div class="line"></div><div class="line">   格式：touch filenae</div><div class="line"></div><div class="line">   功能：改变文件的日期，不对文件的内容做改动，若文件不存在则建立新文件。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% touch file</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.27统计文件字数</div><div class="line"></div><div class="line">   命令：wc (word characters)</div><div class="line"></div><div class="line">   格式：wc [option] filename</div><div class="line"></div><div class="line">   功能：统计文件中的文件行数、字数和字符数。</div><div class="line"></div><div class="line">   选项：-l 统计文件的行数</div><div class="line"></div><div class="line"> -w 统计文件的字数</div><div class="line"></div><div class="line"> -c 统计文件的字符数</div><div class="line"></div><div class="line">   注释：若缺省文件名则指标准输入</div><div class="line"></div><div class="line">   例如：% wc file</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 3.28检查拼写</div><div class="line"></div><div class="line">   命令：spell (spelling)</div><div class="line"></div><div class="line">   格式：spell [option] filename ...</div><div class="line"></div><div class="line">   功能：检查文件中的拼写错误</div><div class="line"></div><div class="line">   选项：-b 按英国拼法检查</div><div class="line"></div><div class="line">         -v 显示字面上不在拼法字典上的词</div><div class="line"></div><div class="line">         -x 显示每一个可能合理的词根</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% spell file</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">### 第四章  有关状态信息命令</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.1显示当前注册的用户</div><div class="line"></div><div class="line">   命令：w</div><div class="line"></div><div class="line">   格式：w [option] [username]</div><div class="line"></div><div class="line">   功能：显示当前正在使用系统的用户名、注册时间和当前执行的命令。</div><div class="line"></div><div class="line">   选项：-h 不显示起始行</div><div class="line"></div><div class="line">         -s 按短格式显示</div><div class="line"></div><div class="line">         -l 按长格式显示（缺省设置）</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% w</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.2 显示都谁登录到机器上</div><div class="line"></div><div class="line">   命令：who</div><div class="line"></div><div class="line">   格式：who</div><div class="line"></div><div class="line">   功能：显示当前正在系统中的所有用户名字，使用终端设备号，注册时间。</div><div class="line"></div><div class="line">   例如：% who</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.3 显示当前终端上的用户名</div><div class="line"></div><div class="line">   命令：whoami</div><div class="line"></div><div class="line">   格式：whoami</div><div class="line"></div><div class="line">   功能：显示出当前终端上使用的用户。</div><div class="line"></div><div class="line">   例如：% whoami</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.4 确定命令位置</div><div class="line"></div><div class="line">   命令：whereis</div><div class="line"></div><div class="line">   格式：whereis command</div><div class="line"></div><div class="line">   功能：确定一个命令的二进制行码、源码及联机手册所在的位置。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% whereis ls</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.5 查找非标准命令</div><div class="line"></div><div class="line">   命令：which</div><div class="line"></div><div class="line">   格式：which command</div><div class="line"></div><div class="line">   功能：查找非标准命令，即使用别名或系统中标准命令集之外的命令。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% which ls</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.6 显示日期</div><div class="line"></div><div class="line">   命令：date</div><div class="line"></div><div class="line">   格式：date</div><div class="line"></div><div class="line">   功能：显示或设置日期和时间。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：只有超级用户有权设置日期。</div><div class="line"></div><div class="line">   例如：% date</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.7 显示日历</div><div class="line"></div><div class="line">   命令：cal (calendar)</div><div class="line"></div><div class="line">   格式：cal [month] year</div><div class="line"></div><div class="line">   功能：显示某年内指定的日历</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% cal 1998</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.8 计算命令执行时间</div><div class="line"></div><div class="line">   命令：time</div><div class="line"></div><div class="line">   格式：time [command]</div><div class="line"></div><div class="line">   功能：计算程序或命令在执行其间所用的时间。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：计算出的时间为：real是命令在系统驻留的总时间，user是命令消耗CPU</div><div class="line"></div><div class="line">         的时间，sys是命令I/O所开销的时间。</div><div class="line"></div><div class="line">   例如：% time myprog</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.9 查询帐目</div><div class="line"></div><div class="line">   命令：acseek (account seek)</div><div class="line"></div><div class="line">   格式：acseek [-d n] [-m usersname]</div><div class="line"></div><div class="line">   功能：查询本月的用户帐目。</div><div class="line"></div><div class="line">   选项：-d n</div><div class="line"></div><div class="line">         -m username</div><div class="line"></div><div class="line">   注释：若没有选项，则显示本人当月的帐单。</div><div class="line"></div><div class="line">   例如：% acseek</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.10显示用户标识</div><div class="line"></div><div class="line">   命令：id</div><div class="line"></div><div class="line">   格式：id [option] [user]</div><div class="line"></div><div class="line">   功能：显示用户标识及用户所属的所有组。</div><div class="line"></div><div class="line">   选项：-a 显示用户名、用户标识及用户所属的所有组</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% id username</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.11显示主机标识</div><div class="line"></div><div class="line">   命令：hostid</div><div class="line"></div><div class="line">   格式：hostid</div><div class="line"></div><div class="line">   功能：显示主机的唯一标识，是被用来限时软件的使用权限，不可改变。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% hostid</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.12显示主机名</div><div class="line"></div><div class="line">   命令：hostname</div><div class="line"></div><div class="line">   格式：hostname</div><div class="line"></div><div class="line">   功能：显示或设置主机名。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：只有超级用户才能设置主机名。</div><div class="line"></div><div class="line">   例如：% hostname</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.13显示进程</div><div class="line"></div><div class="line">   命令：ps</div><div class="line"></div><div class="line">   格式：ps [option]</div><div class="line"></div><div class="line">   功能：显示系统中进程的信息。包括进程ID、控制进程终端、执行时间和命令。</div><div class="line"></div><div class="line">   选项：-a 列出当前系统中所有进程的信息</div><div class="line"></div><div class="line">         -l 显示一个长列表</div><div class="line"></div><div class="line">         -e 显示当前运行的每一个进程信息</div><div class="line"></div><div class="line">         -f 显示一个完整的列表</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% ps -ef</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.14显示磁盘空间</div><div class="line"></div><div class="line">   命令：df (disk free)</div><div class="line"></div><div class="line">   格式：df [option]</div><div class="line"></div><div class="line">   功能：显示磁盘空间的使用情况，包括文件系统安装的目录名、块设备名、总</div><div class="line"></div><div class="line">         字节数、已用字节数、剩余字节数占用百分比。</div><div class="line"></div><div class="line">   选项：-i 显示已用和未用的字节数</div><div class="line"></div><div class="line">         -k 显示磁盘空间的使用信息</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% df -k</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.15显示文件盘空间</div><div class="line"></div><div class="line">   命令：du (disk usage)</div><div class="line"></div><div class="line">   格式：du [option] [filename]</div><div class="line"></div><div class="line">   功能：显示目录或文件所占磁盘空间大小</div><div class="line"></div><div class="line">   选项：-a 显示所有文件的大小</div><div class="line"></div><div class="line">         -s 显示制定目录所占磁盘大小</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% du</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.16显示盘空间限制</div><div class="line"></div><div class="line">   命令：quota</div><div class="line"></div><div class="line">   格式：quota -v [username]</div><div class="line"></div><div class="line">   功能：显示用户的磁盘空间限制和使用情况。包扩盘空间的限额和已使用数，</div><div class="line"></div><div class="line">         允许建立的节点数限额和使用节点数。</div><div class="line"></div><div class="line">   选项：-v 查看用户在系统中的盘空间</div><div class="line"></div><div class="line">   注释：只有超级用户可以显示任何用户的使用情况，用edquota命令可修改。</div><div class="line"></div><div class="line">   例如：% quota -v</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.17显示终端选项</div><div class="line"></div><div class="line">   命令：stty</div><div class="line"></div><div class="line">   格式：stty [option]</div><div class="line"></div><div class="line">   功能：显示或设置终端的任选项。</div><div class="line"></div><div class="line">   选项：-a 显示所有设置情况</div><div class="line"></div><div class="line">         -g 显示当前设置</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% stty -a</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.18显示终端名</div><div class="line"></div><div class="line">   命令：tty</div><div class="line"></div><div class="line">   格式：tty</div><div class="line"></div><div class="line">   功能：显示终端名</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% tty</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.19回忆命令</div><div class="line"></div><div class="line">   命令：history</div><div class="line"></div><div class="line">   格式：history</div><div class="line"></div><div class="line">   功能：帮助用户回忆执行过的命令。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% history</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.20联机帮助手册</div><div class="line"></div><div class="line">   命令：man (manual)</div><div class="line"></div><div class="line">   格式：man command_name</div><div class="line"></div><div class="line">   功能：显示参考手册，提供联机帮助信息。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：-k 按制定关键字查询有关命令</div><div class="line"></div><div class="line">   例如：% man tar</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 4.21建立别名</div><div class="line"></div><div class="line">   命令：alias</div><div class="line"></div><div class="line">   格式：alias newname name</div><div class="line"></div><div class="line">   功能：用户可以将常用的命令用自己习惯的名称来重新命名。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% alias dir &apos;ls -F&apos;</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">### 第五章  网络命令</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.1显示网络地址</div><div class="line"></div><div class="line">   命令：arp</div><div class="line"></div><div class="line">   格式：arp hostname</div><div class="line"></div><div class="line">   功能：显示系统当前访问的远程住机名、IP地址和硬件地址。</div><div class="line"></div><div class="line">   选项：-a</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% arp -a</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.2 显示用户信息</div><div class="line"></div><div class="line">   命令：finger</div><div class="line"></div><div class="line">   格式：finger username</div><div class="line"></div><div class="line">   功能：显示网上用户使用机器的情况，包括用户何时登录和最后一次注册记录。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% finger username</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.3 网上对话</div><div class="line"></div><div class="line">   命令：talk</div><div class="line"></div><div class="line">   格式：talk username</div><div class="line"></div><div class="line">   功能：在网上与另一用户进行对话。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：对话时系统把终端分为上下两部分，上半部显示自己键入信息，下半部</div><div class="line"></div><div class="line">         显示对方用户键入的信息。键入delete或Ctrl+C则结束对话。</div><div class="line"></div><div class="line">   例如：% talk username</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.4 允许或拒绝接受信息</div><div class="line"></div><div class="line">   命令：mesg (message)</div><div class="line"></div><div class="line">   格式：mesg [n/y]</div><div class="line"></div><div class="line">   功能：允许或拒绝其它用户向自己所用的终端发送信息。</div><div class="line"></div><div class="line">   选项：n 拒绝其它用户向自己所用的终端写信息</div><div class="line"></div><div class="line">         y 允许其它用户向自己所用的终端写信息（缺省值）</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% mesg n</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.5 给其他用户写信息</div><div class="line"></div><div class="line">   命令：write</div><div class="line"></div><div class="line">   格式：write username [ttyname]</div><div class="line"></div><div class="line">   功能：给其他用户的终端写信息。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：若对方没有拒绝，两用户可进行交谈，键入EOF或Ctrl+C则结束对话。</div><div class="line"></div><div class="line">   例如：write username</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.6 测试网路</div><div class="line"></div><div class="line">   命令：ping</div><div class="line"></div><div class="line">   格式：ping hostname</div><div class="line"></div><div class="line">   功能：向网络上的主机发送ICMP ECHO REQUEST信息包，检测网络是否畅通。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：被测试的主机名可用IP地址。当丢包率为（100% packet loss)则说明</div><div class="line"></div><div class="line">         当前网络不通。</div><div class="line"></div><div class="line">   例如：% ping hostsname</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.7 远程shell命令</div><div class="line"></div><div class="line">   命令：rsh (remote shell)</div><div class="line"></div><div class="line">   格式：rsh hostsname command</div><div class="line"></div><div class="line">   功能：在本地机执行远程主机的shell命令。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% rsh hostname who</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.8 远程考贝文件</div><div class="line"></div><div class="line">   命令：rcp (remote copy)</div><div class="line"></div><div class="line">   格式：rcp [-r] file newfile</div><div class="line"></div><div class="line">   功能：拷贝远程主机上的文件。</div><div class="line"></div><div class="line">   选项：-r 拷贝目录</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% rcp hostname:/tmp/file .</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.9 远程注册</div><div class="line"></div><div class="line">   命令：rlogin (remote login)</div><div class="line"></div><div class="line">   格式：rlogin hostname [-l username]</div><div class="line"></div><div class="line">   功能：注册到远程主机上。</div><div class="line"></div><div class="line">   选项：-l username 注册到另一用户</div><div class="line"></div><div class="line">   注释：要有用户口令才能注册。</div><div class="line"></div><div class="line">   例如：% rlogin hostname</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.10 远程登录</div><div class="line"></div><div class="line">   命令：telnet</div><div class="line"></div><div class="line">   格式：telnet hostname</div><div class="line"></div><div class="line">   功能：远程登录到网上其它主机。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：支持不同的操作系统。</div><div class="line"></div><div class="line">   例如：% telnet bbs.tsinghua.edu.cn</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.11文件传输</div><div class="line"></div><div class="line">   命令：ftp (file transfer program)</div><div class="line"></div><div class="line">   格式：ftp hostname</div><div class="line"></div><div class="line">   功能：网络文件传输及远程操作。</div><div class="line"></div><div class="line">   选项：ftp命令：</div><div class="line"></div><div class="line">          ?/help        ftp的联机帮助</div><div class="line"></div><div class="line">          open hostname 打开制定的远程机</div><div class="line"></div><div class="line">          cd [dirname]  进入远程机的目录</div><div class="line"></div><div class="line">          lcd [dirname] 设置本地机的目录</div><div class="line"></div><div class="line">          dir/ls        显示远程的目录文件</div><div class="line"></div><div class="line">          binary        以二进制方式进行传输</div><div class="line"></div><div class="line">          get/mget      从远程机取一个或多个文件</div><div class="line"></div><div class="line">          put/mput      向远程机送一个或多个文件</div><div class="line"></div><div class="line">          prompt        打开或关闭多个文件传送时的交互提示</div><div class="line"></div><div class="line">          close         关闭与远程机的连接</div><div class="line"></div><div class="line">          quit          退出ftp</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% ftp hostname</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 5.12显示到网络主机的路经</div><div class="line"></div><div class="line">   命令：traceroute</div><div class="line"></div><div class="line">   格式：traceroute hostname</div><div class="line"></div><div class="line">   功能：显示本机到达某一网络主机所经的路经和使用的时间。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% traceroute hostname</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">### 第六章  Mail命令</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 6.1 发送或接受电子邮件</div><div class="line"></div><div class="line">   命令：mail/Mail/mailx</div><div class="line"></div><div class="line">   格式：mail username （发送）</div><div class="line"></div><div class="line">         mail [option] （接受）</div><div class="line"></div><div class="line">   功能：向网上用户发送或接受电子邮件。</div><div class="line"></div><div class="line">   选项：-r 邮件按先进先出顺序排序。缺省时为后进先出顺序排序</div><div class="line"></div><div class="line">         -q 中断mail后不改变信箱内容</div><div class="line"></div><div class="line">         -p 显示mail每份邮件，不显示提示信息</div><div class="line"></div><div class="line">         -f 从邮件格式文件中读邮件</div><div class="line"></div><div class="line">   注释：mail命令：</div><div class="line"></div><div class="line">         ?        显示mail帮助命令</div><div class="line"></div><div class="line">         h        邮件标题列表</div><div class="line"></div><div class="line">         p        显示当前邮件</div><div class="line"></div><div class="line">         n        显示下一邮件</div><div class="line"></div><div class="line">         r [uers] 给发信人或用户回信</div><div class="line"></div><div class="line">         s [file] 将邮件保存到文件中，保存标题信息</div><div class="line"></div><div class="line">         w [file] 将邮件写到文件中，不保存标题信息</div><div class="line"></div><div class="line">         d [n]    删除当前邮件或第n封邮件  </div><div class="line"></div><div class="line">         q        将未删除的邮件存入mbox文件，并退出mail</div><div class="line"></div><div class="line">         x        所有邮件不作修改，退出mail</div><div class="line"></div><div class="line">   例如：% mail -s &quot;Subjet ...&quot; username &lt; messages</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 6.2 显示邮件队列</div><div class="line"></div><div class="line">   命令：mailq</div><div class="line"></div><div class="line">   格式：mailq</div><div class="line"></div><div class="line">   功能：查看正在发送或接收邮件的排队情况。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：此命令一般在系统或网络不同时使用。</div><div class="line"></div><div class="line">   例如：% mailq</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 6.3 邮件操作命令</div><div class="line"></div><div class="line">   命令：pine</div><div class="line"></div><div class="line">   格式：pine</div><div class="line"></div><div class="line">   功能：对自己邮件操作的程序。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：此操作是在菜单提示下进行。</div><div class="line"></div><div class="line">   例如：% pine</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">### 第七章  运行程序命令</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.1 按时间执行命令</div><div class="line"></div><div class="line">   命令：at/batch</div><div class="line"></div><div class="line">   格式：at [option] [time] [data] [file]</div><div class="line"></div><div class="line">   功能：在制定的时间执行命令或命令文件。</div><div class="line"></div><div class="line">   选项：-r 取消以前用at命令提交的作业</div><div class="line"></div><div class="line">         -l 显示用at命令提交的所有作业状态和作业号</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：at 0030 Jan 20 myfile</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.2 参数回至标准输出</div><div class="line"></div><div class="line">   命令：echo</div><div class="line"></div><div class="line">   格式：echo [-n] [arguments]</div><div class="line"></div><div class="line">   功能：将参数即字符串至标准输出即显示器</div><div class="line"></div><div class="line">   选项：-n 不向标准输出回送换行符</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：echo *</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.3 复制至文件</div><div class="line"></div><div class="line">   命令：tee</div><div class="line"></div><div class="line">   格式：tee [option] filename</div><div class="line"></div><div class="line">   功能：至标准输出的同时复制至文件</div><div class="line"></div><div class="line">   选项：-a 输出时附加到文件中</div><div class="line"></div><div class="line">         -i 不理采中断</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% who | tee file</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.4 给程序优先级</div><div class="line"></div><div class="line">   命令：nice</div><div class="line"></div><div class="line">   格式：nice [-n] command  </div><div class="line"></div><div class="line">   功能：以低的优先级运行程序或命令。</div><div class="line"></div><div class="line">   选项：-n 为优先级0-20从高到低</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：nice -5 progame</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.5 终止进程</div><div class="line"></div><div class="line">   命令：kill</div><div class="line"></div><div class="line">   格式：kill [option] pid</div><div class="line"></div><div class="line">   功能：向指定的进程送信号或终止进程。</div><div class="line"></div><div class="line">   选项：-9  强行终止进程</div><div class="line"></div><div class="line">         -17 将进程挂起</div><div class="line"></div><div class="line">         -19 将挂起的进程激活</div><div class="line"></div><div class="line">   注释：pid标示进程号，可由ps命令得到。</div><div class="line"></div><div class="line">   例如：% kill -9 pid</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.6 进程睡眠</div><div class="line"></div><div class="line">   命令：sleep</div><div class="line"></div><div class="line">   格式：sleep time</div><div class="line"></div><div class="line">   功能：使当前正在执行的进程在规定的时间内处于睡眠。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：time为进程将睡眠的时间，以秒为单位。</div><div class="line"></div><div class="line">   例如：% sleep time</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.7 显示作业状态</div><div class="line"></div><div class="line">   命令：jobs</div><div class="line"></div><div class="line">   格式：jobs [-l]</div><div class="line"></div><div class="line">   功能：显示当前作业的状态</div><div class="line"></div><div class="line">   选项：-l 长列表显示作业状态，包括所有者、作业号、终端和状态。</div><div class="line"></div><div class="line">   注释：作业状态为 +表示最近被停止的作业，-表示先前的作业，exit 1表示</div><div class="line"></div><div class="line">         退出的作业，job# done表示已完成的作业。</div><div class="line"></div><div class="line">   例如：% jobs</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.8 前台作业</div><div class="line"></div><div class="line">   命令：fg</div><div class="line"></div><div class="line">   格式：fg job#</div><div class="line"></div><div class="line">   功能：将指定作业号的作业转入前台运行。job#表示作业号。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% fg job#</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.9 后台作业</div><div class="line"></div><div class="line">   命令：bg/&amp;</div><div class="line"></div><div class="line">   格式：bg job#</div><div class="line"></div><div class="line">         command &amp;</div><div class="line"></div><div class="line">   功能：将指定作业号的作业或命令推到后台运行。</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% bg job#</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 7.10挂起作业</div><div class="line"></div><div class="line">   命令：stop</div><div class="line"></div><div class="line">   格式：stop job#</div><div class="line"></div><div class="line">   功能：将指定作业号的后台作业挂起.</div><div class="line"></div><div class="line">   选项：</div><div class="line"></div><div class="line">   注释：</div><div class="line"></div><div class="line">   例如：% stop job#</div><div class="line"></div><div class="line"> </div><div class="line">### 第八章  程序编译执行命令</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 8.1 C程序编译</div><div class="line"></div><div class="line">   命令：cc</div><div class="line"></div><div class="line">   格式：cc [option] filename</div><div class="line"></div><div class="line">   功能：编译或链接指定的C文件。</div><div class="line"></div><div class="line">   选项：-o  指定输出文件名，缺省时为a.out</div><div class="line"></div><div class="line">         -c  只编译，产生.o的目标文件</div><div class="line"></div><div class="line">         -g  产生用于符号测试的执行文件</div><div class="line"></div><div class="line">         -lm 进行连接cc数学库</div><div class="line"></div><div class="line">         -O  进行代码的一般优化</div><div class="line"></div><div class="line">         -O2 二级优化</div><div class="line"></div><div class="line">   注释：C编译器参考手册可用命令man cc查看。</div><div class="line"></div><div class="line">   例如：% cc -o test test.c</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 8.2 C++程序编译</div><div class="line"></div><div class="line">   命令：CC</div><div class="line"></div><div class="line">   格式：CC [option] filename</div><div class="line"></div><div class="line">   功能：编译或链接指定的C++文件。</div><div class="line"></div><div class="line">   选项：同C编译选项</div><div class="line"></div><div class="line">   注释：C++编译器参考手册可用命令man CC查看。</div><div class="line"></div><div class="line">   例如：% CC -O2 test.cc</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 8.3 FORTRAN77程序编译</div><div class="line"></div><div class="line">   命令：f77</div><div class="line"></div><div class="line">   格式：f77 [option] filename</div><div class="line"></div><div class="line">   功能：编译或链接指定的Fortran文件</div><div class="line"></div><div class="line">   选项：-o  指定输出文件名，缺省时为a.out</div><div class="line"></div><div class="line">         -c  只编译，产生.o的目标文件</div><div class="line"></div><div class="line">         -g  产生用于符号测试的执行文件</div><div class="line"></div><div class="line">         -O0 不进行代码优化</div><div class="line"></div><div class="line">         -O1 尽快进行代码优化</div><div class="line"></div><div class="line">         -O2 二级优化</div><div class="line"></div><div class="line">         -O3 三级优化</div><div class="line"></div><div class="line">   注释：FORTRAN77编译器参考手册可用命令man f77查看</div><div class="line"></div><div class="line">   例如：% f77 -c test.f</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 8.4 FORTRAN90程序编译</div><div class="line"></div><div class="line">   命令：f90</div><div class="line"></div><div class="line">   格式：f90 [option] filename</div><div class="line"></div><div class="line">   功能：编译或链接指定的Fortran90文件</div><div class="line"></div><div class="line">   选项：同FORTRAN77编译选项</div><div class="line"></div><div class="line">   注释：FORTRAN90编译器参考手册可用命令man f90查看</div><div class="line"></div><div class="line">   例如：% f90 -O -o test test.f</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 8.5 GNU程序编译</div><div class="line"></div><div class="line">   命令： gcc      (GNU C)</div><div class="line"></div><div class="line">         g++/c++  (GNU C++)</div><div class="line"></div><div class="line">         g77      (GNU FORTRAN77)</div><div class="line"></div><div class="line">   格式：gcc [option] filename</div><div class="line"></div><div class="line">         g++ [option] filename</div><div class="line"></div><div class="line">         g77 [option] filename</div><div class="line"></div><div class="line">   功能：编译或链接指定的编译文件。</div><div class="line"></div><div class="line">   选项： -o  指定输出文件名，缺省时为a.out</div><div class="line"></div><div class="line">         -c  只编译，产生.o的目标文件</div><div class="line"></div><div class="line">         -O  进行代码的一般优化</div><div class="line"></div><div class="line">         -O2 二级优化</div><div class="line"></div><div class="line">   注释：GNU编译器参考手册可进入emacs中info菜单下查看。</div><div class="line"></div><div class="line">   例如：% gcc -o test test.c</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">#### 8.6 运行文件</div><div class="line"></div><div class="line">   格式：a.out</div><div class="line"></div><div class="line">         filename</div><div class="line"></div><div class="line">   功能：源程序经编译后产生目标代码文件，放在a.out文件或指定输出文件名。</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Hunter-Zack 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/24/Sublime-Text-mac下常用快捷键/" rel="next" title="Sublime Text mac下常用快捷键">
+                <i class="fa fa-chevron-left"></i> Sublime Text mac下常用快捷键
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/24/bootstrap使用/" rel="prev" title="bootstrap使用">
+                bootstrap使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+      <div id="container" style="display:none"></div>
+      <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+      <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+         }
+      }
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#container").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: window.location.pathname,
+          theme: myTheme,
+          owner: 'Hunter-Zack',
+          repo: 'Hunter-Zack.github.io',
+          oauth: {
+            client_id: '7b7da8e17aadd21d64c6',
+            client_secret: '41b14296eba9da7cacf8a63e3ea95d8e4317e7c4'
+          }
+      });
+      gitment.render('container');
+      }
+      </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.png"
+              alt="Hunter-Zack" />
+          
+            <p class="site-author-name" itemprop="name">Hunter-Zack</p>
+            <p class="site-description motion-element" itemprop="description">打码使我快乐</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Hunter-Zack" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/chuangshaogreat" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>博客园</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-启动-关机-登入-登出相关命令"><span class="nav-number">1.</span> <span class="nav-text">一. 启动,关机,登入,登出相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-Shell相关命令"><span class="nav-number">2.</span> <span class="nav-text">二. Shell相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-用户管理相关命令"><span class="nav-number">3.</span> <span class="nav-text">三. 用户管理相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-系统消息相关命令"><span class="nav-number">4.</span> <span class="nav-text">四. 系统消息相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-文件操作相关命令"><span class="nav-number">5.</span> <span class="nav-text">五. 文件操作相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-文件编辑相关命令"><span class="nav-number">6.</span> <span class="nav-text">六. 文件编辑相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七-压缩-解压缩相关命令"><span class="nav-number">7.</span> <span class="nav-text">七. 压缩/解压缩相关命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hunter-Zack</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63730661";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("gPk9c1e8vPY8sJTceIf4kqKn-gzGzoHsz", "imyOJCmQnYV5YUXlbV88hse8");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script type="text/javascript" src="/js/src/particle.js"></script>
+</body>
+</html>
