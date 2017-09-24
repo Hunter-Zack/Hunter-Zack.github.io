@@ -11,3 +11,6 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
+
+Sitemap: http://www.aisun.org/sitemap.xml
+Sitemap: http://www.aisun.org/baidusitemap.xml
