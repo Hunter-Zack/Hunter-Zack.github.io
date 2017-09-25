@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title><![CDATA[goodnight]]></title>
+      <url>/2017/09/goodnight/</url>
+      <content type="html"><![CDATA[<p>晚安世界！加油明天！</p>
+]]></content>
+      
+        <categories>
+            
+            <category> me </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> me </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[hexo NexT主题首页title链接的优化]]></title>
       <url>/2017/09/hexo+next+title/</url>
       <content type="html"><![CDATA[<p>在默认设置下，文章链接都会改变，不利于搜索引擎收录，也不利于分享<br><a id="more"></a></p>
