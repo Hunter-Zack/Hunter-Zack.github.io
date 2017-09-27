@@ -1,3 +1,4 @@
-# <a href="www.aisun.org ">www.aisun.org</a>
+# <a href="www.aisun.org " target="\_blank">www.aisun.org</a>
 ## Hunter-Zack.github.io
+## Hunter-Zack.coding.me
 Myweb
