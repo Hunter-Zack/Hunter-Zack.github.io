@@ -1037,7 +1037,7 @@ pre .javascript .function {
   }
 }
 .comments {
-  margin: 60px 20px 0;
+  margin: 60px 1px 0;
 }
 .tag-cloud {
   text-align: center;
@@ -1939,7 +1939,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #25ffff;
+  background: #cbbecf;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2815,7 +2815,7 @@ pre .javascript .function {
 .content-wrap {
   float: right;
   box-sizing: border-box;
-  padding: 40px;
+  padding: 20px;
   width: 700px;
   background: #fff;
   min-height: 700px;
@@ -2825,14 +2825,14 @@ pre .javascript .function {
 @media (min-width: 768px) and (max-width: 991px) {
   .content-wrap {
     width: 100%;
-    padding: 20px;
+    padding: 2px;
     border-radius: initial;
   }
 }
 @media (max-width: 767px) {
   .content-wrap {
     width: 100%;
-    padding: 20px;
+    padding: 2px;
     min-height: auto;
     border-radius: initial;
   }
