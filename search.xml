@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title><![CDATA[scrapy抓取的中文结果乱码解决办法]]></title>
+      <url>/2017/10/python+scrapy/</url>
+      <content type="html"><![CDATA[<p>使用scrapy抓取的结果，中文默认是Unicode,无法显示中文。<br><a id="more"></a><br>中文默认是Unicode,如:\u5317\u4eac\u5927\u5b66<br>在setting文件中设置：FEED_EXPORT_ENCODING = ‘utf-8’ 就可以啦</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> scrapy </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[goodnight]]></title>
       <url>/2017/09/goodnight/</url>
       <content type="html"><![CDATA[<p>晚安世界！加油明天！</p>
