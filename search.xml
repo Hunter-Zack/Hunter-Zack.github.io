@@ -3,6 +3,40 @@
   
     
     <entry>
+      <title><![CDATA[scrapy指定item输出项顺序到csv]]></title>
+      <url>/2017/10/python+scrapy/</url>
+      <content type="html"><![CDATA[<p>scrapy指定输出项顺序到csv<br><a id="more"></a><br>scrapy -o csv格式输出的时候，发现字段/item/Field的顺序不是在items.py或者在scrapy中指定的顺序，如果后续有继续读取csv文件的时候，因为不是按指定顺序排列，很可能字段会搞错。 本文描述如何在输出csv的时候指定顺序字段。</p>
+<ol>
+<li>在scrapy的spiders同层目录，新建my_project_csv_item_exporter.py文件内容如下（文件名可改，目录定死）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">from scrapy.conf import settings</div><div class="line">from scrapy.contrib.exporter import CsvItemExporter</div><div class="line">class MyProjectCsvItemExporter(CsvItemExporter):</div><div class="line">def __init__(self, *args, **kwargs):</div><div class="line">delimiter = settings.get(&apos;CSV_DELIMITER&apos;, &apos;,&apos;)</div><div class="line">kwargs[&apos;delimiter&apos;] = delimiter</div><div class="line">fields_to_export = settings.get(&apos;FIELDS_TO_EXPORT&apos;, [])</div><div class="line">if fields_to_export :</div><div class="line">kwargs[&apos;fields_to_export&apos;] = fields_to_export</div><div class="line">super(</div><div class="line">MyProjectCsvItemExporter, self).__init__(*args, **kwargs)</div></pre></td></tr></table></figure>
+<ol>
+<li>在同层目录，settings.py文件新增如下内容（指定item,field顺序）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">FEED_EXPORTERS = &#123;</div><div class="line">&apos;csv&apos;: &apos;my_project.my_project_csv_item_exporter.MyProjectCsvItemExporter&apos;,</div><div class="line">&#125; #这里假设你的project名字为my_project</div><div class="line">FIELDS_TO_EXPORT = [</div><div class="line">&apos;id&apos;,</div><div class="line">&apos;name&apos;,</div><div class="line">&apos;email&apos;,</div><div class="line">&apos;address&apos;</div><div class="line">]</div></pre></td></tr></table></figure>
+<ol>
+<li>在同层目录，settings.py文件指定分隔符</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CSV_DELIMITER = &apos;\t&apos;</div></pre></td></tr></table></figure>
+<p>全部设定完后，执行scrapy crawl spider -o spider.csv的时候，字段就按顺序来了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> scrapy </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[scrapy抓取的中文结果乱码解决办法]]></title>
       <url>/2017/10/python+scrapy/</url>
       <content type="html"><![CDATA[<p>使用scrapy抓取的结果，中文默认是Unicode,无法显示中文。<br><a id="more"></a><br>中文默认是Unicode,如:\u5317\u4eac\u5927\u5b66<br>在setting文件中设置：FEED_EXPORT_ENCODING = ‘utf-8’ 就可以啦</p>
