@@ -4,7 +4,7 @@
     
     <entry>
       <title><![CDATA[scrapy指定item输出项顺序到csv]]></title>
-      <url>/2017/10/python+scrapy/</url>
+      <url>/2017/10/python+scrapy+item/</url>
       <content type="html"><![CDATA[<p>scrapy指定输出项顺序到csv<br><a id="more"></a><br>scrapy -o csv格式输出的时候，发现字段/item/Field的顺序不是在items.py或者在scrapy中指定的顺序，如果后续有继续读取csv文件的时候，因为不是按指定顺序排列，很可能字段会搞错。 本文描述如何在输出csv的时候指定顺序字段。</p>
 <ol>
 <li>在scrapy的spiders同层目录，新建my_project_csv_item_exporter.py文件内容如下（文件名可改，目录定死）</li>

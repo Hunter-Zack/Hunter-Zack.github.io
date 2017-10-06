@@ -1,4 +1,4 @@
-http://www.aisun.org/2017/10/python+scrapy/
+http://www.aisun.org/2017/10/python+scrapy+item/
 http://www.aisun.org/2017/10/python+scrapy/
 http://www.aisun.org/2017/09/goodnight/
 http://www.aisun.org/2017/09/hexo+next+title/
