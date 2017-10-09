@@ -4,8 +4,48 @@
 
     
   <url>
+    <loc>http://www.aisun.org/2017/10/excel+csv/</loc>
+    <lastmod>2017-10-09T08:10:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>csv用excel打开数据都在第一列解决办法</title>
+        <pubTime>2017-10-09T08:06:58.000Z</pubTime>
+        
+        <tag>csv</tag>
+         
+         
+           
+             
+              <breadCrumb title="csv" url="http://www.aisun.org/categories/csv/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2017/10/Python+list+str/</loc>
+    <lastmod>2017-10-09T08:04:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>python 列表转换成字符串输出</title>
+        <pubTime>2017-10-09T07:58:08.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://www.aisun.org/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.aisun.org/2017/10/python+scrapy+item/</loc>
-    <lastmod>2017-10-06T04:01:05.000Z</lastmod>
+    <lastmod>2017-10-09T07:49:31.000Z</lastmod>
     <data>
         <display>
         <title>scrapy指定item输出项顺序到csv</title>
@@ -17,6 +57,26 @@
            
              
               <breadCrumb title="python" url="http://www.aisun.org/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2017/09/zhengze/</loc>
+    <lastmod>2017-10-09T07:44:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>正则表达式常用操作符</title>
+        <pubTime>2017-09-24T05:54:00.000Z</pubTime>
+        
+        <tag>正则表达式常用操作符</tag>
+         
+         
+           
+             
+              <breadCrumb title="正则" url="http://www.aisun.org/categories/%E6%AD%A3%E5%88%99/"/>
           
         </display>
     </data>
@@ -497,26 +557,6 @@
            
              
               <breadCrumb title="me" url="http://www.aisun.org/categories/me/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.aisun.org/2017/09/zhengze/</loc>
-    <lastmod>2017-09-25T07:32:15.000Z</lastmod>
-    <data>
-        <display>
-        <title>正则表达式常用操作符</title>
-        <pubTime>2017-09-24T05:54:00.000Z</pubTime>
-        
-        <tag>正则表达式常用操作符</tag>
-         
-         
-           
-             
-              <breadCrumb title="正则" url="http://www.aisun.org/categories/%E6%AD%A3%E5%88%99/"/>
           
         </display>
     </data>

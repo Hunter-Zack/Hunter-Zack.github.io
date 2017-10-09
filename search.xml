@@ -3,6 +3,50 @@
   
     
     <entry>
+      <title><![CDATA[csv用excel打开数据都在第一列解决办法]]></title>
+      <url>/2017/10/excel+csv/</url>
+      <content type="html"><![CDATA[<p>Excel打开CSV时出现所有数据都在第一列，如何分列？<br><a id="more"></a><br>CSV保存时设置了一定的分隔符号，在Excel中打开文件，选中第一列，点击菜单栏–数据–分列–分隔符号<br>按照自定义的分隔符号设置分列就OK了!</p>
+]]></content>
+      
+        <categories>
+            
+            <category> csv </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> csv </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[python 列表转换成字符串输出]]></title>
+      <url>/2017/10/Python+list+str/</url>
+      <content type="html"><![CDATA[<p>列表转换成字符串输出<br><a id="more"></a><br>例如：我的列表是：<br>a=[1, 0, 0, 0, 0, 0, 0, 0]<br>然后输出100000<br>字符之间有无空格：<br>没有空格:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;&quot;.join(map(int, a))</div></pre></td></tr></table></figure></p>
+<p>有空格：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot; &quot;.join([str(a[i])+str(a[i+1]) for i in range(0, len(a),2)])</div></pre></td></tr></table></figure></p>
+<p>字符的类型需要修改，int或者str其他类型。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[scrapy指定item输出项顺序到csv]]></title>
       <url>/2017/10/python+scrapy+item/</url>
       <content type="html"><![CDATA[<p>scrapy指定输出项顺序到csv<br><a id="more"></a><br>scrapy -o csv格式输出的时候，发现字段/item/Field的顺序不是在items.py或者在scrapy中指定的顺序，如果后续有继续读取csv文件的时候，因为不是按指定顺序排列，很可能字段会搞错。 本文描述如何在输出csv的时候指定顺序字段。</p>
@@ -18,7 +62,7 @@
 <li>在同层目录，settings.py文件指定分隔符</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CSV_DELIMITER = &apos;\t&apos;</div></pre></td></tr></table></figure>
-<p>全部设定完后，执行scrapy crawl spider -o spider.csv的时候，字段就按顺序来了。</p>
+<p>如果需要其他的分隔符，可以直接修改。<br>全部设定完后，执行scrapy crawl spider -o spider.csv的时候，字段就按顺序来了。</p>
 ]]></content>
       
         <categories>
@@ -1379,7 +1423,7 @@ g77 [option] filename
 <p>|     左右表达式任意一个   abc|def 表示 abc、def</p>
 <p>{m}  扩展前一个字符m次    ab{2}c表示abbc</p>
 <p>{m,n}   扩展前一个字符m至n次   ab{1,2}c表示abc、abbc</p>
-<h2 id="典型事例："><a href="#典型事例：" class="headerlink" title="典型事例："></a>典型事例：</h2><p>正则表达式                   对应字符串<br>^[A‐Za‐z]+$                 由26个字母组成的字符串<br>^[A‐Za‐z0‐9]+$            由26个字母和数字组成的字符串<br>^‐?\d+$                       整数形式的字符串<br>^[0‐9]*[1‐9][0‐9]*$        正整数形式的字符串<br>[1‐9]\d{5}                    中国境内邮政编码，6位<br>[\u4e00‐\u9fa5]           匹配中文字符<br>\d{3}‐\d{8}|\d{4}‐\d{7}    国内电话号码，010‐68913536</p>
+<h2 id="典型事例："><a href="#典型事例：" class="headerlink" title="典型事例："></a>典型事例：</h2><p>正则表达式                   对应字符串<br>^[A‐Za‐z]+$                 由26个字母组成的字符串<br>^[A‐Za‐z0‐9]+$            由26个字母和数字组成的字符串<br>^‐?\d+$                       整数形式的字符串<br>^[0‐9]*[1‐9][0‐9]*$        正整数形式的字符串<br>[1‐9]\d{5}                    中国境内邮政编码，6位<br>[\u4e00‐\u9fa5]           匹配中文字符<br>[^\x00-\xff]              匹配双字节字符(包括汉字在内)<br>\d{3}‐\d{8}|\d{4}‐\d{7}    国内电话号码，010‐68913536</p>
 <p>re.search() 在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象</p>
 <p>re.match() 从一个字符串的开始位置起匹配正则表达式，返回match对象</p>
 <p>re.findall() 搜索字符串，以列表类型返回全部能匹配的子串</p>

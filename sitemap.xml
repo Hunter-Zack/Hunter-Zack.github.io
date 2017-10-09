@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.aisun.org/2017/10/excel+csv/</loc>
+    
+    <lastmod>2017-10-09T08:10:59.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.aisun.org/2017/10/Python+list+str/</loc>
+    
+    <lastmod>2017-10-09T08:04:53.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.aisun.org/2017/10/python+scrapy+item/</loc>
     
-    <lastmod>2017-10-06T04:01:05.000Z</lastmod>
+    <lastmod>2017-10-09T07:49:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.aisun.org/2017/09/zhengze/</loc>
+    
+    <lastmod>2017-10-09T07:44:28.000Z</lastmod>
     
   </url>
   
@@ -173,13 +194,6 @@
     <loc>http://www.aisun.org/2017/09/Are%20you%20ok/</loc>
     
     <lastmod>2017-09-25T07:33:33.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.aisun.org/2017/09/zhengze/</loc>
-    
-    <lastmod>2017-09-25T07:32:15.000Z</lastmod>
     
   </url>
   

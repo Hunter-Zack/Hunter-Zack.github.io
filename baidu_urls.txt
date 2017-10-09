@@ -1,3 +1,5 @@
+http://www.aisun.org/2017/10/excel+csv/
+http://www.aisun.org/2017/10/Python+list+str/
 http://www.aisun.org/2017/10/python+scrapy+item/
 http://www.aisun.org/2017/10/python+scrapy/
 http://www.aisun.org/2017/09/goodnight/
@@ -21,5 +23,3 @@ http://www.aisun.org/2017/09/git+403/
 http://www.aisun.org/2017/09/mac+git+zh-cn/
 http://www.aisun.org/2017/09/python+format/
 http://www.aisun.org/2017/09/zhengze/
-http://www.aisun.org/2017/09/iterm+Zsh+Oh myzsh+tmux/
-http://www.aisun.org/2017/09/sublime+theme+boxy/
