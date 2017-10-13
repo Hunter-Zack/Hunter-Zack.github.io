@@ -3,6 +3,67 @@
   
     
     <entry>
+      <title><![CDATA[更新vim8.0后，MacVim中YouCompleteMe出错]]></title>
+      <url>/2017/10/vim+YouCompleteMe-unavailable/</url>
+      <content type="html"><![CDATA[<p>vim 中YouCompleteMe出错：<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">YouCompleteMe unavailable: dlopen(/usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-d</div><div class="line">ynload/_io.so, 2): Symbol not found: __PyCodecInfo_GetIncrementalDecoder</div><div class="line">  Referenced from: /usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so</div><div class="line">  Expected in: flat namespace</div><div class="line"> in /usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so</div></pre></td></tr></table></figure></p>
+<p>首先在终端里运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo find / -name _io.so</div></pre></td></tr></table></figure></p>
+<p>会把系统下所有名字带_io.so的文件路径都列出来:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/Applications/Google Drive.app/Contents/Resources/lib/python2.7/lib-dynload/_io.so</div><div class="line">/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so</div><div class="line">/Users/Nico/macports/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so</div><div class="line">/usr/local/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so</div></pre></td></tr></table></figure></p>
+<p>然后备份2.7.13的io文件到桌面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd Desktop</div><div class="line">mkdir backup_python</div><div class="line">cp /usr/local/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so backup_python/2.7.13_io.so</div></pre></td></tr></table></figure></p>
+<p>然后用老文件替换2.7.13的文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so /usr/local/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so</div></pre></td></tr></table></figure></p>
+<p>然后YouCompleteMe就可以完美的工作啦！</p>
+<p>进入vim之后出现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">YouCompleteMe unavailable no module named XXX</div></pre></td></tr></table></figure></p>
+<p>原因就是你或者没用Vundle安装，或者Vundle由于网速太慢下载到一半不能把安装依赖包完全下载下来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">解决方案：</div><div class="line"></div><div class="line">进入到YouCompleteMe目录，在terminal窗口敲入   git submodule update --init --recursive</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> vim </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> youcompleteme </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[vim 安装YouCompleteMe 插件]]></title>
+      <url>/2017/10/vim+youcompleteme/</url>
+      <content type="html"><![CDATA[<p>要安装YouCompleteMe ，vim须支持python。可以命令输入vim –version 查看<a id="more"></a>， 如果python前有+号，就是支持，减号就是不支持。</p>
+<p>如果不支持，需要以编译安装方式重新安装vim。</p>
+<p>编译配置选项：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">./configure --with-features=huge --enable-pythoninterp --enable-python3interp --enable-luainterp --enable-multibyte --enable-sniff --enable-fontset</div></pre></td></tr></table></figure></p>
+<p>安装vundle插件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</div></pre></td></tr></table></figure></p>
+<p>在.vimrc中配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">set nocompatible              &quot; be iMproved, required</div><div class="line">filetype off                  &quot; required</div><div class="line"></div><div class="line">&quot; set the runtime path to include Vundle and initialize</div><div class="line">set rtp+=~/.vim/bundle/vundle/</div><div class="line">call vundle#rc()</div><div class="line">&quot; alternatively, pass a path where Vundle should install plugins</div><div class="line">&quot;let path = &apos;~/some/path/here&apos;</div><div class="line">&quot;call vundle#rc(path)</div><div class="line"></div><div class="line">&quot; let Vundle manage Vundle, required</div><div class="line">Plugin &apos;gmarik/vundle&apos;</div><div class="line"></div><div class="line">&quot; The following are examples of different formats supported.</div><div class="line">&quot; Keep Plugin commands between here and filetype plugin indent on.</div><div class="line">&quot; scripts on GitHub repos</div><div class="line">Plugin &apos;tpope/vim-fugitive&apos;</div><div class="line">Plugin &apos;Lokaltog/vim-easymotion&apos;</div><div class="line">Plugin &apos;tpope/vim-rails.git&apos;</div><div class="line">&quot; The sparkup vim script is in a subdirectory of this repo called vim.</div><div class="line">&quot; Pass the path to set the runtimepath properly.</div><div class="line">Plugin &apos;rstacruz/sparkup&apos;, &#123;&apos;rtp&apos;: &apos;vim/&apos;&#125;</div><div class="line">&quot; scripts from http://vim-scripts.org/vim/scripts.html</div><div class="line">Plugin &apos;L9&apos;</div><div class="line">Plugin &apos;FuzzyFinder&apos;</div><div class="line">&quot; scripts not on GitHub</div><div class="line">Plugin &apos;git://git.wincent.com/command-t.git&apos;</div><div class="line">&quot; git repos on your local machine (i.e. when working on your own plugin)</div><div class="line">&quot;Plugin &apos;file:///home/gmarik/path/to/plugin&apos;</div><div class="line">&quot; ...</div><div class="line"></div><div class="line">filetype plugin indent on     &quot; required</div><div class="line">Bundle &apos;Valloric/YouCompleteMe&apos;</div></pre></td></tr></table></figure></p>
+<p>保存退出，打开vim，输入 :BundleInstall 进行自动安装</p>
+<p>+号表示已经安装，&gt;表示正在安装;</p>
+<p>在.vimrc 中添加:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">let mapleader = &quot;,&quot;  &quot; 这个leader就映射为逗号“，”</div><div class="line"></div><div class="line">let g:ycm_global_ycm_extra_conf = &apos;~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py&apos;   “配置默认的ycm_extra_conf.py</div><div class="line">nnoremap &lt;leader&gt;jd :YcmCompleter GoToDefinitionElseDeclaration&lt;CR&gt;   “按,jd 会跳转到定义</div><div class="line">let g:ycm_confirm_extra_conf=0    “打开vim时不再询问是否加载ycm_extra_conf.py配置</div><div class="line">let g:ycm_collect_identifiers_from_tag_files = 1 &quot;使用ctags生成的tags文件</div></pre></td></tr></table></figure></p>
+<p>重启vim之后出现需要更高版本的vim，需要先升级vim，</p>
+<p>首先，要下载vim的源代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd ~</div><div class="line"></div><div class="line">git clone https://github.com/vim/vim.git</div><div class="line"></div><div class="line">cd vim</div></pre></td></tr></table></figure></p>
+<p> 进入源代码的src目录中，执行：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --with-features=huge --enable-pythoninterp=yes --enable-cscope --enable-fontset --enable-perlinterp --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config --prefix=/usr/local</div></pre></td></tr></table></figure></p>
+<p>需要注意的是，不能写上–enable-gui，这是开启gui特性的，但是我们是在终端环境下安装的，因此不能开启这个特性，否则会出现编译错误。之后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd ..</div><div class="line"></div><div class="line">sudo make install</div><div class="line"></div><div class="line">which vim</div></pre></td></tr></table></figure></p>
+<p>将src目录下编译好的vim执行文件替换上边which vim路径内的vim文件就升级ok了；</p>
+]]></content>
+      
+        <categories>
+            
+            <category> vim </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> youcompleteme </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[csv用excel打开数据都在第一列解决办法]]></title>
       <url>/2017/10/excel+csv/</url>
       <content type="html"><![CDATA[<p>Excel打开CSV时出现所有数据都在第一列，如何分列？<br><a id="more"></a><br>CSV保存时设置了一定的分隔符号，在Excel中打开文件，选中第一列，点击菜单栏–数据–分列–分隔符号<br>按照自定义的分隔符号设置分列就OK了!</p>
