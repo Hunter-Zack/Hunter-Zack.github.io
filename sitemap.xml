@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.aisun.org/about/index.html</loc>
+    
+    <lastmod>2017-10-13T06:39:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.aisun.org/2017/10/vim+YouCompleteMe-unavailable/</loc>
     
     <lastmod>2017-10-13T02:48:10.000Z</lastmod>
@@ -243,13 +250,6 @@
     <loc>http://www.aisun.org/categories/index.html</loc>
     
     <lastmod>2017-09-23T12:09:21.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.aisun.org/about/index.html</loc>
-    
-    <lastmod>2017-09-23T12:08:08.000Z</lastmod>
     
   </url>
   
