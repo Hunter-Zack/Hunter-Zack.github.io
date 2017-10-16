@@ -304,8 +304,8 @@
     
     <entry>
       <title><![CDATA[Are you ok ?]]></title>
-      <url>/2017/09/Are%20you%20ok/</url>
-      <content type="html"><![CDATA[<p><img src="/2017/09/Are you ok/1.jpg" alt=""></p>
+      <url>/2017/09/Are-you-ok/</url>
+      <content type="html"><![CDATA[<p><img src="/2017/09/Are-you-ok/1.jpg" alt=""></p>
 ]]></content>
       
         <categories>
@@ -429,22 +429,7 @@
     <entry>
       <title><![CDATA[tmux配置]]></title>
       <url>/2017/09/tmux-conf/</url>
-      <content type="html"><![CDATA[<p>我的tmux配置，<br><a id="more"></a></p>
-<p>bind k selectp -U</p>
-<p>bind j selectp -D</p>
-<p>bind h selectp -L<br>bind l selectp -R<br>bind -r ^k resizep -U 5<br>bind -r ^j resizep -D 5<br>bind -r ^h resizep -L 5<br>bind -r ^l resizep -R 5</p>
-<p>set -g default-command “reattach-to-user-namespace -l /usr/local/bin/zsh”</p>
-<p>bind r source-file ~/.tmux.conf \; display-message “Config reloaded”</p>
-<p>setw -g mode-keys vi</p>
-<p>set-option -g default-command “reattach-to-user-namespace -l zsh”<br>bind-key -t vi-copy v begin-selection</p>
-<p>bind-key -t vi-copy y copy-pipe “reattach-to-user-namespace pbcopy”</p>
-<p>set -g status-bg black</p>
-<p>set -g status-fg white</p>
-<p>set-option -g status-justify centre</p>
-<p>set-option -g status-left ‘#[bg=black,fg=green][#[fg=cyan]#S#[fg=green]]’</p>
-<p>set-option -g status-left-length 20</p>
-<p>setw -g automatic-rename on</p>
-<p>set-window-option -g window-status-format ‘#[dim]#I:#[default]#W#[fg=grey,dim]’<br>set-window-option -g window-status-current-format ‘#[fg=cyan,bold]#I#[fg=blue]:#[fg=cyan]#W#[fg=dim]’<br>set -g status-right ‘#[fg=green][#[fg=cyan]%Y-%m-%d#[fg=green]]’</p>
+      <content type="html"><![CDATA[<p>我的tmux配置，<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">bind k selectp -U</div><div class="line"></div><div class="line">bind j selectp -D</div><div class="line"></div><div class="line">bind h selectp -L</div><div class="line">bind l selectp -R</div><div class="line">bind -r ^k resizep -U 5</div><div class="line">bind -r ^j resizep -D 5</div><div class="line">bind -r ^h resizep -L 5</div><div class="line">bind -r ^l resizep -R 5</div><div class="line"> </div><div class="line">set -g default-command &quot;reattach-to-user-namespace -l /usr/local/bin/zsh&quot;</div><div class="line"></div><div class="line">bind r source-file ~/.tmux.conf \; display-message &quot;Config reloaded&quot;</div><div class="line"></div><div class="line">setw -g mode-keys vi</div><div class="line"></div><div class="line"> </div><div class="line">set-option -g default-command &quot;reattach-to-user-namespace -l zsh&quot;</div><div class="line">bind-key -t vi-copy v begin-selection</div><div class="line"> </div><div class="line">bind-key -t vi-copy y copy-pipe &quot;reattach-to-user-namespace pbcopy&quot;</div><div class="line"> </div><div class="line">set -g status-bg black</div><div class="line"> </div><div class="line">set -g status-fg white</div><div class="line"> </div><div class="line">set-option -g status-justify centre</div><div class="line"> </div><div class="line">set-option -g status-left &apos;#[bg=black,fg=green]\[#[fg=cyan]#S#[fg=green]]&apos;</div><div class="line"> </div><div class="line">set-option -g status-left-length 20</div><div class="line"></div><div class="line">setw -g automatic-rename on</div><div class="line"></div><div class="line">set-window-option -g window-status-format &apos;#[dim]#I:#[default]#W#[fg=grey,dim]&apos;</div><div class="line">set-window-option -g window-status-current-format &apos;#[fg=cyan,bold]#I#[fg=blue]:#[fg=cyan]#W#[fg=dim]&apos;</div><div class="line">set -g status-right &apos;#[fg=green]\[#[fg=cyan]%Y-%m-%d#[fg=green]]&apos;</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
