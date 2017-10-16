@@ -74,18 +74,18 @@
 
 
 
-<meta name="description" content="Git 403问题总结：">
+<meta name="description" content="Git 403问题总结：1.12345$ Git push origin :dev-xxremote: Permission to xxx/xxx.git denied to xxx.fatal: unable to access &amp;apos;https://github.com/xxx/xxx.git/&amp;apos;: The requested URL returned error: 403">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git总结">
 <meta property="og:url" content="http://www.aisun.org/2017/09/git+403/index.html">
-<meta property="og:site_name" content="堆 码 源">
-<meta property="og:description" content="Git 403问题总结：">
+<meta property="og:site_name" content="知了笔记">
+<meta property="og:description" content="Git 403问题总结：1.12345$ Git push origin :dev-xxremote: Permission to xxx/xxx.git denied to xxx.fatal: unable to access &amp;apos;https://github.com/xxx/xxx.git/&amp;apos;: The requested URL returned error: 403">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-25T07:34:22.000Z">
+<meta property="og:updated_time" content="2017-10-16T02:32:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git总结">
-<meta name="twitter:description" content="Git 403问题总结：">
+<meta name="twitter:description" content="Git 403问题总结：1.12345$ Git push origin :dev-xxremote: Permission to xxx/xxx.git denied to xxx.fatal: unable to access &amp;apos;https://github.com/xxx/xxx.git/&amp;apos;: The requested URL returned error: 403">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <title>git总结 | 堆 码 源</title>
+  <title>git总结 | 知了笔记</title>
   
 
 
@@ -236,12 +236,12 @@ $(function() {
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">堆 码 源</span>
+        <span class="site-title">知了笔记</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <h1 class="site-subtitle" itemprop="description">爱尚coding</h1>
+        <h1 class="site-subtitle" itemprop="description">Zack‘s Blog</h1>
       
   </div>
 
@@ -406,7 +406,7 @@ $(function() {
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="堆 码 源">
+      <meta itemprop="name" content="知了笔记">
     </span>
 
     
@@ -502,8 +502,8 @@ $(function() {
       
 
       
-        <h2 id="Git-403问题总结："><a href="#Git-403问题总结：" class="headerlink" title="Git 403问题总结："></a>Git 403问题总结：</h2><a id="more"></a>
-<p>1.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ Git push origin :dev-xx</div><div class="line"></div><div class="line">remote: Permission to xxx/xxx.git denied to xxx.</div><div class="line"></div><div class="line">fatal: unable to access &apos;https://github.com/xxx/xxx.git/&apos;: The requested URL returned error: 403</div></pre></td></tr></table></figure></p>
+        <h2 id="Git-403问题总结："><a href="#Git-403问题总结：" class="headerlink" title="Git 403问题总结："></a>Git 403问题总结：</h2><p>1.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ Git push origin :dev-xx</div><div class="line"></div><div class="line">remote: Permission to xxx/xxx.git denied to xxx.</div><div class="line"></div><div class="line">fatal: unable to access &apos;https://github.com/xxx/xxx.git/&apos;: The requested URL returned error: 403</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>问题原因主要是电脑上有两个github账号时，每个账号对应不同的ssh，比如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">he:.ssh he$ ls</div><div class="line"></div><div class="line">config id_rsa.pubid_rsa_he.pub</div><div class="line"></div><div class="line">id_rsa id_rsa_heknown_hosts</div><div class="line"></div><div class="line">he:.ssh he$ cat config</div></pre></td></tr></table></figure>
 <ol>

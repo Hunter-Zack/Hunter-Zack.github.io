@@ -79,10 +79,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="scrapy抓取的中文结果乱码解决办法">
 <meta property="og:url" content="http://www.aisun.org/2017/10/python+scrapy/index.html">
-<meta property="og:site_name" content="堆 码 源">
+<meta property="og:site_name" content="知了笔记">
 <meta property="og:description" content="使用scrapy抓取的结果，中文默认是Unicode,无法显示中文。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-05T07:24:56.000Z">
+<meta property="og:updated_time" content="2017-10-16T02:39:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scrapy抓取的中文结果乱码解决办法">
 <meta name="twitter:description" content="使用scrapy抓取的结果，中文默认是Unicode,无法显示中文。">
@@ -121,7 +121,7 @@
 
 
 
-  <title>scrapy抓取的中文结果乱码解决办法 | 堆 码 源</title>
+  <title>scrapy抓取的中文结果乱码解决办法 | 知了笔记</title>
   
 
 
@@ -236,12 +236,12 @@ $(function() {
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">堆 码 源</span>
+        <span class="site-title">知了笔记</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <h1 class="site-subtitle" itemprop="description">爱尚coding</h1>
+        <h1 class="site-subtitle" itemprop="description">Zack‘s Blog</h1>
       
   </div>
 
@@ -406,7 +406,7 @@ $(function() {
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="堆 码 源">
+      <meta itemprop="name" content="知了笔记">
     </span>
 
     
@@ -502,7 +502,9 @@ $(function() {
       
 
       
-        <p>使用scrapy抓取的结果，中文默认是Unicode,无法显示中文。<br><a id="more"></a><br>中文默认是Unicode,如:\u5317\u4eac\u5927\u5b66<br>在setting文件中设置：FEED_EXPORT_ENCODING = ‘utf-8’ 就可以啦</p>
+        <p>使用scrapy抓取的结果，中文默认是Unicode,无法显示中文。<br><a id="more"></a><br>中文默认是Unicode,如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\u5317\u4eac\u5927\u5b66</div></pre></td></tr></table></figure></p>
+<p>在setting文件中设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FEED_EXPORT_ENCODING = &apos;utf-8&apos;</div></pre></td></tr></table></figure></p>
+<p>就可以啦</p>
 
       
     </div>
