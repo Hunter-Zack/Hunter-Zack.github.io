@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.aisun.org/about/index.html</loc>
+    
+    <lastmod>2017-12-04T10:10:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.aisun.org/2017/12/dongji/</loc>
     
     <lastmod>2017-12-04T05:23:30.000Z</lastmod>
@@ -166,13 +173,6 @@
     <loc>http://www.aisun.org/2017/09/hexo+next+gitment/</loc>
     
     <lastmod>2017-10-16T02:27:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.aisun.org/about/index.html</loc>
-    
-    <lastmod>2017-10-13T13:45:43.000Z</lastmod>
     
   </url>
   
