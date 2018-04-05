@@ -3,6 +3,86 @@
 
 
     
+  <url>
+    <loc>http://www.aisun.org/2018/04/mac-apache/</loc>
+    <lastmod>2018-04-05T03:30:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>Mac下如何修改apache根目录</title>
+        <pubTime>2018-04-03T13:44:42.000Z</pubTime>
+        
+        <tag>apache</tag>
+         
+         
+           
+             
+              <breadCrumb title="apache" url="http://www.aisun.org/categories/apache/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2018/04/git-gitignore/</loc>
+    <lastmod>2018-04-05T03:29:09.000Z</lastmod>
+    <data>
+        <display>
+        <title>Git忽略文件gitignore梳理</title>
+        <pubTime>2018-04-04T15:04:05.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="git" url="http://www.aisun.org/categories/git/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2018/04/Fliqlo/</loc>
+    <lastmod>2018-04-05T03:21:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>分享小众软件-屏幕时钟</title>
+        <pubTime>2018-04-05T03:14:57.000Z</pubTime>
+        
+        <tag>mac</tag>
+         
+         
+           
+             
+              <breadCrumb title="mac" url="http://www.aisun.org/categories/mac/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2018/04/php-waring/</loc>
+    <lastmod>2018-04-05T03:11:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Warning: date() ：It is not safe to rely on the system's timezone settings</title>
+        <pubTime>2018-04-03T13:50:38.000Z</pubTime>
+        
+        <tag>php</tag>
+         
+         
+           
+             
+              <breadCrumb title="php" url="http://www.aisun.org/categories/php/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://www.aisun.org/2017/12/limingzhiqian/</loc>
