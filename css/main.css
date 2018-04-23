@@ -1956,7 +1956,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ebffb1;
+  background: #baddff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2905,6 +2905,47 @@ pre .javascript .function {
 .sidebar-position-right .footer-inner {
   padding-left: 0;
   padding-right: 260px;
+}
+.paral {
+  position: absolute;
+  top: 5%;
+  right: 0;
+  width: 200px;
+  height: 140px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 9999;
+}
+.zi {
+  position: absolute;
+  right: 0;
+  width: 30px;
+  height: 120px;
+  writing-mode: vertical-lr;
+  text-align: center;
+  background-color: #e2e5b7;
+  font-size: 18px;
+  cursor: pointer;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  border: 1px solid #d1d8bd;
+  border-radius: 5px;
+}
+.img {
+  position: absolute;
+  right: 60px;
+  width: 140px;
+  height: 140px;
+  display: none;
+}
+p:hover +.img {
+  display: block;
 }
 .site-brand-wrapper {
   position: relative;
