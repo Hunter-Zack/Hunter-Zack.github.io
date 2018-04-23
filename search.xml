@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title><![CDATA[hexo添加页面]]></title>
+      <url>/2018/04/hexo+yemian/</url>
+      <content type="html"><![CDATA[<p>hexo添加右侧公众号页面记录<br><a id="more"></a><br>HTML代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">.paral</div><div class="line">&#123;</div><div class="line">  position: absolute; </div><div class="line">  top: 10%;  </div><div class="line">  right: 0; </div><div class="line">  width:200px; </div><div class="line">  height:140px;</div><div class="line">  -webkit-user-select:none;   ##禁止鼠标选中</div><div class="line">  -moz-user-select:none;</div><div class="line">  -ms-user-select:none;</div><div class="line">  user-select:none;</div><div class="line"></div><div class="line">&#125;</div><div class="line">.zi</div><div class="line">&#123;</div><div class="line">  position: absolute;  </div><div class="line">  right: 0; </div><div class="line">  width:30px; </div><div class="line">  height:120px;</div><div class="line">  writing-mode: vertical-lr;   ##文字垂直</div><div class="line">  text-align:center;   ##文字居中</div><div class="line">  background-color:#e2e5b7;</div><div class="line">  font-size:18px;</div><div class="line">  cursor:pointer;   ##划过时鼠标样式</div><div class="line">  top:50%;</div><div class="line">  transform:translateY(-50%);  ##p标签垂直居中</div><div class="line">  border:1px solid #d1d8bd;</div><div class="line">  border-radius:5px;   ##边框圆角</div><div class="line"></div><div class="line">&#125;</div><div class="line">.img</div><div class="line">&#123;</div><div class="line">  position: absolute;   </div><div class="line">  right: 60px; </div><div class="line">  width: 140px;</div><div class="line">  height: 140px;</div><div class="line">  display: none;   ##默认不显示图片</div><div class="line">&#125;</div><div class="line">p:hover +.img &#123;</div><div class="line">    display: block;  ##鼠标划过时，改变class--img属性为显示</div><div class="line">&#125;</div><div class="line"></div><div class="line">&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"></div><div class="line">&lt;body&gt;</div><div class="line">&lt;div class=&quot;paral&quot;&gt;</div><div class="line">  &lt;p class=&quot;zi&quot;&gt;公众号&lt;/p&gt;</div><div class="line">    &lt;img src=&quot;zhiliaonote.jpg&quot; class=&quot;img&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>css添加在主题文件下的source/css/_schemes/主题名称文件夹/_layout</p>
+<p>HTML代码添加到主题文件夹下layout/_layout.swig中class为main中</p>
+<p>大功告成！</p>
+]]></content>
+      
+        <categories>
+            
+            <category> html </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> css </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[分享小众软件-屏幕时钟]]></title>
       <url>/2018/04/Fliqlo/</url>
       <content type="html"><![CDATA[<p><img src="/2018/04/Fliqlo/Fliqlo.jpg" alt=""><br><a id="more"></a></p>
