@@ -3,6 +3,49 @@
   
     
     <entry>
+      <title><![CDATA[MySQL自动删除指定时间以前的记录]]></title>
+      <url>/2018/07/mysql+dingshi/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>关于Event：mysql5.1版本开始引进event概念。event既“时间触发器”，与triggers的事件触发不同，event类似与linux crontab计划任务，用于时间触发。通过单独或调用存储过程使用，在某一特定的时间点，触发相关的SQL语句或存储过程。</p>
+</blockquote>
+<a id="more"></a>
+<p>首先删除2天以前记录的SQL语句(webserver_monitormemory为表名，time为时间字段)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">delete From webserver_monitormemory where DATE(time) &lt;= DATE(DATE_SUB(NOW(),INTERVAL 2 day));</div></pre></td></tr></table></figure>
+<p>创建存储过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DELIMITER //</div><div class="line">CREATE PROCEDURE autodel()</div><div class="line">    -&gt; BEGIN</div><div class="line">    -&gt; delete From webserver_monitormemory where DATE(time) &lt;= DATE(DATE_SUB(NOW(),INTERVAL 2 day));</div><div class="line">    -&gt; END</div><div class="line">    -&gt; //</div><div class="line">DELIMITER ;</div></pre></td></tr></table></figure>
+<p>创建事件，定制每天执行autodel的存储过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE EVENT `event_auto_del_memorydata`   </div><div class="line">ON SCHEDULE EVERY 1 DAY STARTS &apos;2017-11-20 00:00:00&apos;   </div><div class="line">ON COMPLETION NOT PRESERVE ENABLE DO CALL autodel();</div></pre></td></tr></table></figure>
+<p>开启事件计划（调度器）4种方法。键值1或者ON表示开启；0或者OFF表示关闭：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SET GLOBAL event_scheduler = 1;  </div><div class="line">SET @@global.event_scheduler = 1;  </div><div class="line">SET GLOBAL event_scheduler = ON;  </div><div class="line">SET @@global.event_scheduler = ON;</div></pre></td></tr></table></figure>
+<p>查看当前是否已开启事件计划（调度器）3种方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SHOW VARIABLES LIKE &apos;event_scheduler&apos;;</div><div class="line">SELECT @@event_scheduler;</div><div class="line">SHOW PROCESSLIST;﻿​</div></pre></td></tr></table></figure>
+<p>事件开启与关闭：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ALTER EVENT event_auto_del_memorydata ON COMPLETION PRESERVE ENABLE; //开启某事件</div><div class="line">ALTER EVENT event_auto_del_memorydata ON COMPLETION PRESERVE DISABLE; //关闭某事件</div></pre></td></tr></table></figure>
+<p>这个是最简单但是也是最重要的，我们要手动的启动这个定时器，要不然是没法工作的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ALTER EVENT event_time_clear_data ON </div><div class="line"> </div><div class="line">COMPLETION PRESERVE ENABLE;</div></pre></td></tr></table></figure>
+<p>另外，关闭定时器的代码是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ALTER EVENT event_time_clear_data ON </div><div class="line"> </div><div class="line">COMPLETION PRESERVE DISABLE;</div></pre></td></tr></table></figure>
+<p>删除存储过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DROP PROCEDURE pro_clear_data;</div></pre></td></tr></table></figure></p>
+<p>删除Event:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DROP EVENT IF EXISTS event_time_clear_data1</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[爬取国家电网电费的python爬虫代码]]></title>
       <url>/2018/07/python+dianfei/</url>
       <content type="html"><![CDATA[<p>废话少说，直接上代码</p>
