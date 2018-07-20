@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="4z8EbTP1rCqSJsFYsoG5ep8CXuIUpzQ1VIsGVjr8X0o" />
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="7t9qBaFKM5" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="shell," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="shell命令 一. 启动,关机,登入,登出相关命令">
+<meta name="keywords" content="shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="终端命令">
+<meta property="og:url" content="http://www.aisun.org/2017/09/shellmingling/index.html">
+<meta property="og:site_name" content="知了笔记">
+<meta property="og:description" content="shell命令 一. 启动,关机,登入,登出相关命令">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-25T11:53:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="终端命令">
+<meta name="twitter:description" content="shell命令 一. 启动,关机,登入,登出相关命令">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.aisun.org/2017/09/shellmingling/"/>
+
+
+
+
+
+  <title>终端命令 | 知了笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("gPk9c1e8vPY8sJTceIf4kqKn-gzGzoHsz", "imyOJCmQnYV5YUXlbV88hse8");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = '0 ' + $(document.getElementById(url)).text();
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <div class="paral">
+      <p class="zi">公众号</p>
+      <img src="/images/zhiliaonote.jpg" class="img">
+    </div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">知了笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Zack's Blog</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-board">
+          <a href="/board/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.aisun.org/2017/09/shellmingling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hunter-Zack">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知了笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">终端命令</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T14:40:45+08:00">
+                2017-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mac/" itemprop="url" rel="index">
+                    <span itemprop="name">mac</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/shellmingling/" class="leancloud_visitors" data-flag-title="终端命令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>shell命令</p>
+<h2 id="一-启动-关机-登入-登出相关命令"><a href="#一-启动-关机-登入-登出相关命令" class="headerlink" title="一. 启动,关机,登入,登出相关命令"></a>一. 启动,关机,登入,登出相关命令</h2><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;login&gt; 登录</div><div class="line"></div><div class="line">&lt;logout&gt; 登出</div><div class="line"></div><div class="line">&lt;exit&gt; 登出</div><div class="line"></div><div class="line">&lt;shutdown&gt; 停止系统</div><div class="line"></div><div class="line">&lt;halt&gt; 停止系统</div><div class="line"></div><div class="line">&lt;reboot&gt; 重启动</div><div class="line"></div><div class="line">&lt;poweroff&gt; 切断电源</div><div class="line"></div><div class="line">&lt;sync&gt; 把内存里的内容写入磁盘</div><div class="line"></div><div class="line">&lt;lilo&gt; 安装lilo启动管理程序</div><div class="line"></div><div class="line">&lt;grub&gt; 安装lilo启动管理程序</div></pre></td></tr></table></figure>
+<h2 id="二-Shell相关命令"><a href="#二-Shell相关命令" class="headerlink" title="二. Shell相关命令"></a>二. Shell相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&lt;chsh&gt; 切换Shell</div><div class="line"></div><div class="line">&lt;history&gt; 显示命令履历</div><div class="line"></div><div class="line">&lt;alias&gt; 设置命令别名</div><div class="line"></div><div class="line">&lt;unalias&gt; 取消命令别名</div><div class="line"></div><div class="line">&lt;which&gt; 显示命令所在位置</div><div class="line"></div><div class="line">&lt;type&gt; 查询命令种类</div><div class="line"></div><div class="line">&lt;echo&gt; 显示字符串或者变量内容</div><div class="line"></div><div class="line">&lt;set&gt; 设置/显示Shell变量</div><div class="line"></div><div class="line">&lt;printenv&gt; 显示环境变量</div><div class="line"></div><div class="line">&lt;export&gt; 设置环境变量</div><div class="line"></div><div class="line">&lt;env&gt; 设置临时环境变量</div><div class="line"></div><div class="line">&lt;unset&gt; 释放环境变量</div><div class="line"></div><div class="line">&lt;setenv&gt; 设置环境变量</div><div class="line"></div><div class="line">&lt;unsetenv&gt; 释放环境变量</div><div class="line"></div><div class="line">&lt;source&gt; 执行文件当中的命令</div><div class="line"></div><div class="line">&lt;man&gt; 查询命令手册</div><div class="line"></div><div class="line">&lt;info&gt; 查询超文本命令手册</div><div class="line"></div><div class="line">&lt;whatis&gt; 显示命令简介</div><div class="line"></div><div class="line">&lt;apropos&gt; 通过关键字查询手册</div></pre></td></tr></table></figure>
+<h2 id="三-用户管理相关命令"><a href="#三-用户管理相关命令" class="headerlink" title="三. 用户管理相关命令"></a>三. 用户管理相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;su&gt; 切换到其他用户</div><div class="line"></div><div class="line">&lt;useradd&gt; 追加用户</div><div class="line"></div><div class="line">&lt;adduser&gt; 追加用户</div><div class="line"></div><div class="line">&lt;userdel&gt; 删除用户</div><div class="line"></div><div class="line">&lt;usermod&gt; 修改用户设置</div><div class="line"></div><div class="line">&lt;chfn&gt; 修改用户私人信息</div><div class="line"></div><div class="line">&lt;groupadd&gt; 追加组</div><div class="line"></div><div class="line">&lt;groupdel&gt; 删除组</div><div class="line"></div><div class="line">&lt;groupmod&gt; 修改组设置</div><div class="line"></div><div class="line">&lt;passwd&gt; 更改密码</div><div class="line"></div><div class="line">&lt;whoami&gt; 显示用户名</div><div class="line"></div><div class="line">&lt;logname&gt; 显示登录用户帐号</div><div class="line"></div><div class="line">&lt;users&gt; 显示所有登录用户信息</div><div class="line"></div><div class="line">&lt;who&gt; 查询登录用户信息</div><div class="line"></div><div class="line">&lt;w&gt; 查询登录用户信息</div><div class="line"></div><div class="line">&lt;id&gt; 显示指定用户的ID信息</div><div class="line"></div><div class="line">&lt;groups&gt; 显示指定用户的所属组</div><div class="line"></div><div class="line">&lt;finger&gt; 显示指定用户的个人信息</div><div class="line"></div><div class="line">&lt;mesg&gt; 开关与他人收发消息</div><div class="line"></div><div class="line">&lt;write&gt; 给其他用户发消息</div><div class="line"></div><div class="line">&lt;wall&gt; 给所有用户发消息</div><div class="line"></div><div class="line">&lt;\talk&gt; 和其他用户聊天</div></pre></td></tr></table></figure>
+<h2 id="四-系统消息相关命令"><a href="#四-系统消息相关命令" class="headerlink" title="四. 系统消息相关命令"></a>四. 系统消息相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;date&gt; 显示/设置当前时间</div><div class="line"></div><div class="line">&lt;uptime&gt; 显示系统运行时间</div><div class="line"></div><div class="line">&lt;arch&gt; 显示机器的核心构架（如i386）</div><div class="line"></div><div class="line">&lt;uname&gt; 显示操作系统信息</div><div class="line"></div><div class="line">&lt;tty&gt; 显示终端名</div><div class="line"></div><div class="line">&lt;last&gt; 显示登录/登出在履历</div><div class="line"></div><div class="line">&lt;lastb&gt; 显示非法登录信息</div><div class="line"></div><div class="line">&lt;dumpkeys&gt; 显示当前键盘配置</div><div class="line"></div><div class="line">&lt;loadkeys&gt; 变更键盘配置</div><div class="line"></div><div class="line">&lt;df&gt; 查询磁盘使用信息</div><div class="line"></div><div class="line">&lt;du&gt; 查询磁盘使用信息</div><div class="line"></div><div class="line">&lt;dmesg&gt; 显示系统启动消息</div><div class="line"></div><div class="line">&lt;script&gt; 保存输入输出到文件</div></pre></td></tr></table></figure>
+<h2 id="五-文件操作相关命令"><a href="#五-文件操作相关命令" class="headerlink" title="五. 文件操作相关命令"></a>五. 文件操作相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;ls&gt; 显示文件列表</div><div class="line"></div><div class="line">&lt;tree&gt; 显示目录树</div><div class="line"></div><div class="line">&lt;pwd&gt; 显示当前路径</div><div class="line"></div><div class="line">&lt;cd&gt; 更改当前路径</div><div class="line"></div><div class="line">&lt;pushd&gt; 追加路径到目录堆栈</div><div class="line"></div><div class="line">&lt;popd&gt; 从目录堆栈删除路径</div><div class="line"></div><div class="line">&lt;dirs&gt; 显示目录堆栈的内容</div><div class="line"></div><div class="line">&lt;mkdir&gt; 创建路径</div><div class="line"></div><div class="line">&lt;rmdir&gt; 删除路径</div><div class="line"></div><div class="line">&lt;cp&gt; 复制文件/目录</div><div class="line"></div><div class="line">&lt;rm&gt; 删除文件/目录</div><div class="line"></div><div class="line">&lt;mv&gt; 移动文件/目录，修改文件名</div><div class="line"></div><div class="line">&lt;chown&gt; 更改文件/目录的所有者</div><div class="line"></div><div class="line">&lt;chgrp&gt; 修改文件/目录的所有组</div><div class="line"></div><div class="line">&lt;chmod&gt; 修改文件/目录的权限</div><div class="line"></div><div class="line">&lt;touch&gt; 更改文件时间</div><div class="line"></div><div class="line">&lt;ln&gt; 建立文件/目录链接</div><div class="line"></div><div class="line">&lt;find&gt; 查找文件</div><div class="line"></div><div class="line">&lt;whereis&gt; 显示文件存在的路径名</div><div class="line"></div><div class="line">&lt;file&gt; 查询文件种类</div><div class="line"></div><div class="line">&lt;size&gt; 查询文件大小</div></pre></td></tr></table></figure>
+<h2 id="六-文件编辑相关命令"><a href="#六-文件编辑相关命令" class="headerlink" title="六. 文件编辑相关命令"></a>六. 文件编辑相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;cat&gt; 显示文件内容</div><div class="line"></div><div class="line">&lt;tee&gt; 输出到文件和屏幕</div><div class="line"></div><div class="line">&lt;more&gt; 分屏显示文件内容</div><div class="line"></div><div class="line">&lt;less&gt; 分屏显示文件内容</div><div class="line"></div><div class="line">&lt;head&gt; 显示文件头部内容</div><div class="line"></div><div class="line">&lt;tail&gt; 显示文件尾部内容</div><div class="line"></div><div class="line">&lt;fold&gt; 折叠显示长行</div><div class="line"></div><div class="line">&lt;sort&gt; 排列文件的行</div><div class="line"></div><div class="line">&lt;cmp&gt; 比较文件内容</div><div class="line"></div><div class="line">&lt;diff&gt; 显示文件差异</div><div class="line"></div><div class="line">&lt;nkf&gt; 更改日语文件编码</div><div class="line"></div><div class="line">&lt;dd&gt; 变更文件之后复制</div><div class="line"></div><div class="line">&lt;wc&gt; 统计文本单词数，文件大小等</div><div class="line"></div><div class="line">&lt;split&gt; 分割文件</div><div class="line"></div><div class="line">&lt;paste&gt; 以行连接文件</div><div class="line"></div><div class="line">&lt;join&gt; 以字段连接文件</div><div class="line"></div><div class="line">&lt;grep&gt; 查询文字</div><div class="line"></div><div class="line">&lt;uniq&gt; 过滤重复部分显示文件内容</div><div class="line"></div><div class="line">&lt;tr&gt; 替换文字</div><div class="line"></div><div class="line">&lt;sed&gt; 替换文字</div></pre></td></tr></table></figure>
+<h2 id="七-压缩-解压缩相关命令"><a href="#七-压缩-解压缩相关命令" class="headerlink" title="七. 压缩/解压缩相关命令"></a>七. 压缩/解压缩相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;ar&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;tar&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;compress&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;uncompress&gt; 解压缩</div><div class="line"></div><div class="line">&lt;gzip&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;gunzip&gt; 解压缩</div><div class="line"></div><div class="line">&lt;zcat&gt; 显示压缩文件的内容</div><div class="line"></div><div class="line">&lt;lha&gt; 压缩/解压缩文件</div><div class="line"></div><div class="line">&lt;uuencode&gt; 把二进制文件编码为文本文件</div><div class="line"></div><div class="line">&lt;uudecode&gt; 把经过编码的文本文件还原为二进制文件</div></pre></td></tr></table></figure>
+<h2 id="八-MS-DOS工具集-mtools-命令"><a href="#八-MS-DOS工具集-mtools-命令" class="headerlink" title="八. MS-DOS工具集[mtools]命令"></a>八. MS-DOS工具集[mtools]命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;mdir&gt; 显示文件列表</div><div class="line"></div><div class="line">&lt;mcd&gt; 改变当前目录</div><div class="line"></div><div class="line">&lt;mmd&gt; 新建目录</div><div class="line"></div><div class="line">&lt;mrd&gt; 删除目录</div><div class="line"></div><div class="line">&lt;mdeltree&gt; 删除目录树</div><div class="line"></div><div class="line">&lt;mcopy&gt; 复制文件</div><div class="line"></div><div class="line">&lt;mdel&gt; 删除文件</div><div class="line"></div><div class="line">&lt;mmove&gt; 移动文件</div><div class="line"></div><div class="line">&lt;mren&gt; 更改文件或目录名</div><div class="line"></div><div class="line">&lt;mattrib&gt; 修改文件属性</div><div class="line"></div><div class="line">&lt;mtype&gt; 显示文件内容</div><div class="line"></div><div class="line">&lt;mdu&gt; 查询文件或目录大小</div><div class="line"></div><div class="line">&lt;minfo&gt; 显示磁盘信息</div><div class="line"></div><div class="line">&lt;mformat&gt; 以MS-DOS方式格式化磁盘</div><div class="line"></div><div class="line">&lt;mlabel&gt; 设置磁盘标签</div></pre></td></tr></table></figure>
+<h2 id="九-控制外部设备相关命令"><a href="#九-控制外部设备相关命令" class="headerlink" title="九. 控制外部设备相关命令"></a>九. 控制外部设备相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;mount&gt; mount上设备</div><div class="line"></div><div class="line">&lt;umount&gt; 解除已经mount上的设备</div><div class="line"></div><div class="line">&lt;eject&gt; 弹出（CD/DVD等）</div><div class="line"></div><div class="line">&lt;fdformat&gt; 格式化软盘</div><div class="line"></div><div class="line">&lt;fdisk&gt; 配置/显示硬盘分区</div><div class="line"></div><div class="line">&lt;mkfs&gt; 格式化磁盘分区</div><div class="line"></div><div class="line">&lt;fsck&gt; 检查/修复磁盘错误</div><div class="line"></div><div class="line">&lt;lpr&gt; 打印到打印机</div><div class="line"></div><div class="line">&lt;lprm&gt; 中断打印任务</div><div class="line"></div><div class="line">&lt;lpq&gt; 显示打印任务的状态</div><div class="line"></div><div class="line">&lt;lpc&gt; 管理/控制打印任务</div><div class="line"></div><div class="line">&lt;ifconfig&gt; 显示/设定NIC配置</div></pre></td></tr></table></figure>
+<h2 id="十-进程及任务管理相关命令"><a href="#十-进程及任务管理相关命令" class="headerlink" title="十. 进程及任务管理相关命令"></a>十. 进程及任务管理相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;ps&gt; 显示正在运行的进程</div><div class="line"></div><div class="line">&lt;jobs&gt; 显示后台运行任务</div><div class="line"></div><div class="line">&lt;fg&gt; 把任务切换到前台</div><div class="line"></div><div class="line">&lt;bg&gt; 把任务切换到后台</div><div class="line"></div><div class="line">&lt;kill&gt; 中止进程或任务</div><div class="line"></div><div class="line">&lt;killall&gt; 中止进程或任务</div><div class="line"></div><div class="line">&lt;wait&gt; 等待进程或任务的结束</div><div class="line"></div><div class="line">&lt;at&gt; 设置定时执行任务</div><div class="line"></div><div class="line">&lt;atq&gt; 显示尚未执行的任务</div><div class="line"></div><div class="line">&lt;atrm&gt; 删除定时执行任务</div><div class="line"></div><div class="line">&lt;batch&gt; 在系统负荷减轻的时候执行任务</div><div class="line"></div><div class="line">&lt;nice&gt; 改变优先度并执行任务</div><div class="line"></div><div class="line">&lt;nohup&gt; 在后台执行任务，Logout之后也不退出</div><div class="line"></div><div class="line">&lt;sleep&gt; 休眠一定的时间</div></pre></td></tr></table></figure>
+<h2 id="十一-网络管理相关命令"><a href="#十一-网络管理相关命令" class="headerlink" title="十一. 网络管理相关命令"></a>十一. 网络管理相关命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;netstat&gt; 显示当前网络连接状况</div><div class="line"></div><div class="line">&lt;route&gt; 显示/设置路由</div><div class="line"></div><div class="line">&lt;host&gt; 显示网络主机情况</div><div class="line"></div><div class="line">&lt;hostname&gt; 显示/设置当前主机的名字</div><div class="line"></div><div class="line">&lt;ping&gt; 确认和远程机器的连接情况</div><div class="line"></div><div class="line">&lt;traceroute&gt; 显示路由信息</div><div class="line"></div><div class="line">&lt;rwho&gt; 查询网上机器的登陆用户</div><div class="line"></div><div class="line">&lt;ruptime&gt; 查询网上机器的系统运行时间</div><div class="line"></div><div class="line">&lt;rlogin&gt; 登陆到远程机器</div><div class="line"></div><div class="line">&lt;telnet&gt; 用telnet登陆到远程机器</div><div class="line"></div><div class="line">&lt;rsh&gt; 给远程机器发送命令</div><div class="line"></div><div class="line">&lt;rcp&gt; 在远程机器之间复制文件</div><div class="line"></div><div class="line">&lt;mail&gt; 收取邮件</div><div class="line"></div><div class="line">&lt;sendmail&gt; 发送邮件</div><div class="line"></div><div class="line">&lt;mailq&gt; 确认邮件队列</div><div class="line"></div><div class="line">&lt;ftp&gt; 用ftp传输文件</div></pre></td></tr></table></figure>
+<h2 id="十二-其他命令"><a href="#十二-其他命令" class="headerlink" title="十二. 其他命令"></a>十二. 其他命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;cal&gt; 显示日历</div><div class="line"></div><div class="line">&lt;clear&gt; 清屏</div><div class="line"></div><div class="line">&lt;gcc&gt; 编译C语言代码</div><div class="line"></div><div class="line">&lt;as&gt; 汇编</div><div class="line"></div><div class="line">&lt;bc&gt; 计算</div><div class="line"></div><div class="line">&lt;rpm&gt; Redhat的包管理</div><div class="line"></div><div class="line">&lt;dpkg&gt; Debian的包管理</div><div class="line"></div><div class="line">&lt;installpkg&gt; Slackware的包安装（删除命令则是removepkg）</div><div class="line"></div><div class="line">&lt;XF86Setup,turboxfg,Xconfigurator&gt; 配置 X 服务器</div><div class="line"></div><div class="line">&lt;startx&gt; 启动 X-Window 系统</div></pre></td></tr></table></figure>
+<h2 id="附：组合命令"><a href="#附：组合命令" class="headerlink" title="附：组合命令"></a>附：组合命令</h2><h3 id="重定向，如"><a href="#重定向，如" class="headerlink" title="重定向，如"></a>重定向，如</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ls -l /bin &gt; ls-output</div><div class="line"></div><div class="line">$ more ls-output</div></pre></td></tr></table></figure>
+<h3 id="管道命令，如"><a href="#管道命令，如" class="headerlink" title="管道命令，如"></a>管道命令，如</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat file1 file2 | sort | uniq</div></pre></td></tr></table></figure>
+<p>经常被用于管道的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk, fold, grep, head, nnkf, pr, sed, sort, tail, tee, tr, uniq, wc</div></pre></td></tr></table></figure></p>
+<h2 id="UNIX操作命令"><a href="#UNIX操作命令" class="headerlink" title="UNIX操作命令"></a>UNIX操作命令</h2><h3 id="第一章-登录和退出"><a href="#第一章-登录和退出" class="headerlink" title="第一章  登录和退出"></a>第一章  登录和退出</h3><p>   用户在登录前，首先要向系统管理员申请一个用户注册名，不论用户从哪台计</p>
+<p>算机登录到ITPNET上都将访问相同的文件系统。</p>
+<h4 id="1-1-登录"><a href="#1-1-登录" class="headerlink" title="1.1 登录"></a>1.1 登录</h4><p>   当屏幕上出现Login提示符时，用户可以输入自己的用户注册名，并按回车键。</p>
+<p>若有口令，系统将提示用户输入密码，并按回车键，口令输入正确后，用户登录成</p>
+<p>功。这时，屏幕上会显示出一些信息和命令提示符。如：</p>
+<p>   Login: guest [Enter]</p>
+<p>   passwd: <strong>**</strong>  [Enter]</p>
+<p>   sun%</p>
+<p>注: 用户名要用小写字母输入，UNIX系统区分大小写字母。</p>
+<h4 id="1-2-退出"><a href="#1-2-退出" class="headerlink" title="1.2 退出"></a>1.2 退出</h4><p>   当用户准备退出自己的计算机帐号时，可在系统示符下输入logout或exit或按</p>
+<p>[Ctrl-D]。当屏幕出现Login时，用户可以安全地离开计算机了。如：</p>
+<p>   sun% logout [Enter]</p>
+<p>   Login：</p>
+<h4 id="1-3-修改口令"><a href="#1-3-修改口令" class="headerlink" title="1.3 修改口令"></a>1.3 修改口令</h4><p>   为了防止他人使用自己的帐号，在你首次登录后，请用passwd命令修改只有本</p>
+<p>人知道的保密口令，口令通常由此可6到8个字母数字组成。如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">sun% passwd [Enter]</div><div class="line"></div><div class="line">Old Passwd: ******</div><div class="line"></div><div class="line">New Passwd: ******</div><div class="line"></div><div class="line">Retype New Passwd: ******</div></pre></td></tr></table></figure></p>
+<p>注：当你退出系统再次登录时，就要使用新的口令。</p>
+<h3 id="第二章-目录操作命令"><a href="#第二章-目录操作命令" class="headerlink" title="第二章  目录操作命令"></a>第二章  目录操作命令</h3><h4 id="2-1-显示目录"><a href="#2-1-显示目录" class="headerlink" title="2.1 显示目录"></a>2.1 显示目录</h4><p>   命令：pwd（print working directory）</p>
+<p>   格式：pwd</p>
+<p>   功能：显示出用户当前工作目录的全路径名。</p>
+<p>   例如：% pwd</p>
+<h4 id="2-2-建立目录"><a href="#2-2-建立目录" class="headerlink" title="2.2 建立目录"></a>2.2 建立目录</h4><p>   命令：mkdir（make directory）</p>
+<p>   格式：mkdir directory_name</p>
+<p>   功能：建立新目录</p>
+<p>   例如：% mkdir directory</p>
+<h4 id="2-3-改变目录"><a href="#2-3-改变目录" class="headerlink" title="2.3 改变目录"></a>2.3 改变目录</h4><p>   命令：cd（change directory）</p>
+<p>   格式：cd directory_name</p>
+<p>   功能：改变当前工作目录</p>
+<p>   注释：目录名选项有:</p>
+<pre><code>(1) 目录名，转到当前目录下的子目录。
+
+(2) .. 表示转到当前目录的父目录。
+
+(3) /  表示转到根目录。
+
+(4) 没有选项时，转到用户的主目录。
+</code></pre><p>   例如：% cd directory</p>
+<h4 id="2-4-删除目录"><a href="#2-4-删除目录" class="headerlink" title="2.4 删除目录"></a>2.4 删除目录</h4><p>   命令：rmdir (remove directory)</p>
+<p>   格式：rmdir directory_name</p>
+<p>   功能：删除不存在文件的子目录名。</p>
+<p>   注释：</p>
+<pre><code>(1) 删除子目录时，要求被删除的目录中不存在文件或子目录，否则无法删除。
+
+(2) 若被删除的目录中有文件或子目录，请参考命令rm -r directory_name。
+</code></pre><p>  例如：% rmdir directory</p>
+<h3 id="第三章-文件操作命令"><a href="#第三章-文件操作命令" class="headerlink" title="第三章  文件操作命令"></a>第三章  文件操作命令</h3><h4 id="3-1-列出文件目录"><a href="#3-1-列出文件目录" class="headerlink" title="3.1 列出文件目录"></a>3.1 列出文件目录</h4><p>   命令：ls (list)</p>
+<p>   格式：ls [option] directory_name</p>
+<p>   功能：列出指定目录中的文件名和子目录名。当无子目录名时，列出当前目录</p>
+<pre><code>中的文件名和子目录名。
+</code></pre><p>   选项：-a列出所有文件，包括以点开头的隐含文件。</p>
+<pre><code>-l按长格式列出文件名，包括文件类型标识，权限，链接数，文件主名，
+
+  文件组名，字节数，日期。
+
+-r列出包括子目录下所有文件
+
+-g在长格式中给出用户组的标识。
+
+-t安文件生成日期排序。
+</code></pre><p>   例如：% ls -la</p>
+<h4 id="3-2-显示文件内容"><a href="#3-2-显示文件内容" class="headerlink" title="3.2 显示文件内容"></a>3.2 显示文件内容</h4><p>   命令：cat (catenae)</p>
+<p>   格式：cat filename</p>
+<p>   功能：显示出文件的内容。</p>
+<p>   注释：当文件内容在屏幕上滚动显示时，可按Ctrl+S键屏幕滚暂停，按Ctrl+Q</p>
+<pre><code>键继续显示。
+</code></pre><p>   例如：% cat filename</p>
+<h4 id="3-3-按屏幕显示文件内容"><a href="#3-3-按屏幕显示文件内容" class="headerlink" title="3.3 按屏幕显示文件内容"></a>3.3 按屏幕显示文件内容</h4><p>   命令：more</p>
+<p>   格式：more filename</p>
+<p>   功能：按屏幕一屏一屏显示出文件内容</p>
+<p>   选项：</p>
+<p>   注释：在屏幕显示过程中有功能键。空格键 继续下一屏的输出；回车键 看下</p>
+<pre><code>一行的输出；q键 跳出more状态；/字符串 查旬字符串所在处；a键 返
+
+回到上一屏。
+</code></pre><p>   例如：% more filename</p>
+<h4 id="3-4-分页显示文件内容"><a href="#3-4-分页显示文件内容" class="headerlink" title="3.4 分页显示文件内容"></a>3.4 分页显示文件内容</h4><p>   命令：pg (page)</p>
+<p>   格式：pg [option] filename</p>
+<p>   功能：分页显示指定文件的内容。在显示一页文件时，最后一行将显示等待用</p>
+<pre><code>户输入指令。可输入的指令有如下选项。
+</code></pre><p>   选项：h          显示pg命令中可使用的帮助(help)命令。</p>
+<pre><code>q          退出pg命令。
+
+[return]   显示下一页正文。
+
+1          显示正文的下一行
+
+[Space]    显示下一页
+
+d/[Ctrl-D] 将屏幕滚动半屏。
+
+n          显示pg命令行中说明的下一个文件。
+
+p          显示pg命令行中说明的前一个文件。
+
+%          显示正文当前页的前面一页。
+
+/pattern   在文件中向前搜索指定的字符模式。
+
+?pattern   在文件中向后搜索指定的字符模式。
+</code></pre><p>   注释：当pg命令显示到文件的末尾时，显示一个文件结束信息EOF(end of file)。</p>
+<p>   例如：% pg filename</p>
+<h4 id="3-5-读文件"><a href="#3-5-读文件" class="headerlink" title="3.5 读文件"></a>3.5 读文件</h4><p>   命令：view</p>
+<p>   格式：view filename</p>
+<p>   功能：只能读出文件内容。</p>
+<p>   注释：此命令不能对读出的原文件进行写操作。若对原文件进行了修改，可利</p>
+<pre><code>用命令“：w newfilename”将修改后的文件写到新文件中。
+</code></pre><p>   例如：% view filename</p>
+<h4 id="3-6-显示文件头部"><a href="#3-6-显示文件头部" class="headerlink" title="3.6 显示文件头部"></a>3.6 显示文件头部</h4><p>   命令：head</p>
+<p>   格式：head [option] filename</p>
+<p>   功能：显示文件的头部</p>
+<p>   选项：缺省  显示文件的头10行。</p>
+<pre><code>-i    显示文件的开始 i行。
+</code></pre><p>   例如：% head filename</p>
+<h4 id="3-7-显示文件尾部"><a href="#3-7-显示文件尾部" class="headerlink" title="3.7 显示文件尾部"></a>3.7 显示文件尾部</h4><p>   命令：tail</p>
+<p>   格式：tail [option] filename</p>
+<p>   功能：显示文件的尾部</p>
+<p>   选项：缺省  显示文件的末10行。</p>
+<pre><code>-i    显示文件最后 i行。
+
++i    从文件的第i行开始显示。
+</code></pre><p>   例如：% tail filename</p>
+<h4 id="3-8-显示格式化的文件内容"><a href="#3-8-显示格式化的文件内容" class="headerlink" title="3.8 显示格式化的文件内容"></a>3.8 显示格式化的文件内容</h4><p>   命令：pr (print)</p>
+<p>   格式：pr filename</p>
+<p>   功能：在屏幕上显示格式化的文件内容，即印出每页66行的文本文件，包括５</p>
+<pre><code>行页头和５行页尾。页头包括两行空行，一行含有文件的时间、文件名
+
+和页号，另外两行为空行。页尾为５行空行。
+</code></pre><p>   例如：% pr filename</p>
+<h4 id="3-9-拷贝文件"><a href="#3-9-拷贝文件" class="headerlink" title="3.9 拷贝文件"></a>3.9 拷贝文件</h4><p>   命令：cp (copy)</p>
+<p>   格式：cp [option] filename1 filename2</p>
+<pre><code>cp [option] filename... directory
+
+cp -r directory1 directon2
+</code></pre><p>   功能：把一个文件的全部内容拷贝到另一个文件，也可将一个或多个文件拷贝</p>
+<pre><code>到另一个目录中。
+</code></pre><p>   选项：-i 按提示进行拷贝文件。</p>
+<pre><code>-p 按原文件日期进行拷贝。
+
+-r 对子目录下所有文件进行拷贝。
+</code></pre><p>   注释：当filename1拷贝到filename2时，若filename2已经存在，则filename2</p>
+<pre><code>的内容将被filename1覆盖。
+</code></pre><p>   例如：% cp filename1 filename2</p>
+<h4 id="3-10移动文件或文件改名"><a href="#3-10移动文件或文件改名" class="headerlink" title="3.10移动文件或文件改名"></a>3.10移动文件或文件改名</h4><p>   命令：mv (move)</p>
+<p>   格式：mv filename1 filename2</p>
+<pre><code>mv filename... direction
+
+mv direction1 direction2
+</code></pre><p>   功能：改变文件或目录的名子，或把一些文件移到另一目录下。</p>
+<p>   注释：当filename1更名为filename2时，若filename2已经存在，则filename2</p>
+<pre><code>的内容将被filename1覆盖
+</code></pre><p>   例如：% mv filename1 filename2</p>
+<h4 id="3-11删除文件"><a href="#3-11删除文件" class="headerlink" title="3.11删除文件"></a>3.11删除文件</h4><p>   命令：rm (remove)</p>
+<p>   格式：rm filename</p>
+<pre><code>rm -r direction
+
+rm -r –f direction(不提示)
+</code></pre><p>   功能：删除指定的文件或一个目录中的文件。</p>
+<p>   注释：用-r选项时，将删除指定目录的所用文件，包括目录名。</p>
+<p>   例如：% rm filename</p>
+<h4 id="3-12链接文件"><a href="#3-12链接文件" class="headerlink" title="3.12链接文件"></a>3.12链接文件</h4><p>   命令：ln (link)</p>
+<p>   格式：ln [option] filename linkname</p>
+<pre><code>ln [option] directory pathname
+</code></pre><p>   功能：为文件或目录建立一个链。其中，filename和directory是源文件名和</p>
+<pre><code>源目录名；linkname和pathname分别表示与源文件或源目录名相链接的
+
+文件或目录。
+</code></pre><p>   选项：-s  为文件或目录建立符号链接。</p>
+<p>   注释：链接的目地在于，对一个文件或目录赋予两个以上的名字，使其可以出</p>
+<pre><code>现在不同的目录中，既可以使文件或目录共享，又可以节省磁盘空间。
+</code></pre><p>   例如：% ln -s filename linkname</p>
+<h4 id="3-13改变文件读取权限"><a href="#3-13改变文件读取权限" class="headerlink" title="3.13改变文件读取权限"></a>3.13改变文件读取权限</h4><p>   命令：chmod (change mode)</p>
+<p>   格式：chmod {u|g|o|a}{+|-|=}{r|w|x} filename</p>
+<pre><code>chmod [who][op][mode] directory
+</code></pre><p>   功能：改变文件的读写和执行权限。有符号法和八进制数字法。</p>
+<p>   选项：(1)符号法：</p>
+<pre><code>u (user)   表示用户本人。
+
+g (group)  表示同组用户。
+
+o (oher)   表示其他用户。
+
+a (all)    表示所有用户。
+
++          用于给予指定用户的许可权限。
+
+-          用于取消指定用户的许可权限。
+
+=          将所许可的权限赋给文件。
+
+r (read)   读许可，表示可以拷贝该文件或目录的内容。
+
+w (write)  写许可，表示可以修改该文件或目录的内容。
+
+x (execute)执行许可，表示可以执行该文件或进入目录。
+
+(2)八进制数字法：
+
+此方法用三位八进制数作任选项，每位数字分别表示用户本人、同组用
+
+户、其他用户的权限，其中：
+
+4 (100)    表示可读。
+
+2 (010)    表示可写。
+
+1 (001)    表示可执行。
+</code></pre><p>   注释：</p>
+<p>   例如：% chmod a+rx filename</p>
+<pre><code>  让所有用户可以读和执行文件filename。
+
+% chmod go-rx filename
+
+  取消同组和其他用户的读和执行文件filename的权限。
+
+% chmod 741 filename
+
+  让本人可读写执行、同组用户可读、其他用户可执行文件filename。
+</code></pre><h4 id="3-14改变文件所有权"><a href="#3-14改变文件所有权" class="headerlink" title="3.14改变文件所有权"></a>3.14改变文件所有权</h4><p>   命令：chown (change owner)</p>
+<p>   格式：chown username filename</p>
+<pre><code>chown -R username directory
+</code></pre><p>   功能：改变文件或目录的所有权。</p>
+<p>   选项：-R 将改变目录中所有文件及目录的拥有者。</p>
+<p>   注释：只有文件的主人和超级用户才能改变文件的所有权。</p>
+<p>   例如：% chown username filename</p>
+<h4 id="3-15寻找文件"><a href="#3-15寻找文件" class="headerlink" title="3.15寻找文件"></a>3.15寻找文件</h4><p>   命令：find</p>
+<p>   格式：find pathname [option] expression</p>
+<p>   功能：在所给的路经名下寻找符合表达式相匹配的文件。</p>
+<p>   选项：-name     表示文件名</p>
+<pre><code>-user     用户名，选取该用户所属的文件
+
+-group    组名，选取该用户组属的文件
+
+-mtime n  选取n天内被修改的文件
+
+-newer fn 选取比文件名为fn更晚修改的文件
+</code></pre><p>   注释：</p>
+<p>   例如：% find . -name ‘<em>abc</em>‘ -print</p>
+<h4 id="3-16搜索文件中匹配符"><a href="#3-16搜索文件中匹配符" class="headerlink" title="3.16搜索文件中匹配符"></a>3.16搜索文件中匹配符</h4><p>   命令：grep</p>
+<p>   格式：grep [option] pattern filenames</p>
+<p>   功能：逐行搜索所指定的文件或标准输入，并显示匹配模式的每一行。</p>
+<p>   选项：-v 找出模式失配的行</p>
+<pre><code>-c 统计匹配行的数量
+
+-n 显示匹配模式的每一行
+</code></pre><p>   注释：</p>
+<p>   例如：% ps -aux | grep R</p>
+<h4 id="3-17比较文件不同"><a href="#3-17比较文件不同" class="headerlink" title="3.17比较文件不同"></a>3.17比较文件不同</h4><p>   命令：diff (difference)</p>
+<p>   格式：diff filename1 filename2</p>
+<p>   功能：显示两文件的不同之处。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% diff file1 file2</p>
+<h4 id="3-18比较文件"><a href="#3-18比较文件" class="headerlink" title="3.18比较文件"></a>3.18比较文件</h4><p>   命令：cmp (compare)</p>
+<p>   格式：cmp [-l] [-s] filename1 filename2</p>
+<p>   功能：显示比较两文件不同处的信息</p>
+<p>   选项：-l 给出两文件不同的字节数</p>
+<pre><code>-s 不显示两文件的不同处，给出比较结果
+</code></pre><p>   注释：</p>
+<p>   例如：% cmp file1 file2</p>
+<h4 id="3-19比较文件共同处"><a href="#3-19比较文件共同处" class="headerlink" title="3.19比较文件共同处"></a>3.19比较文件共同处</h4><p>   命令：comm (common)</p>
+<p>   格式：comm [-123] filename1 filename2</p>
+<p>   功能：选择或拒绝比较两文件出现的共同行</p>
+<p>   选项：-1 不显示第1列</p>
+<pre><code>-2 不显示第2列
+
+-3 不显示第3列
+</code></pre><p>   注释：输出三列，第一列表示在file1中出现的行，第二列表示在file2中出现</p>
+<pre><code>的行，第三列表示在file1和file2中共同出现的行。
+</code></pre><p>   例如：% comm file1 file2</p>
+<h4 id="3-20排序文件"><a href="#3-20排序文件" class="headerlink" title="3.20排序文件"></a>3.20排序文件</h4><p>   命令：sort</p>
+<p>   格式：sort [option] filename</p>
+<p>   功能：将制定的文件按要求排序</p>
+<p>   选项：-r 按字母倒排序</p>
+<pre><code>-n 按数字的值从小到大排序
+
+-r 按当前排序规则逆序排序
+
+-f 不区分大小写排序
+
+-d 按典型顺序排序
+</code></pre><p>   注释：选项缺省时按ascii码顺序排序</p>
+<p>   例如：% sort -nr file</p>
+<h4 id="3-21压缩文件"><a href="#3-21压缩文件" class="headerlink" title="3.21压缩文件"></a>3.21压缩文件</h4><p>   命令：compress</p>
+<p>   格式：compress [option] filename</p>
+<p>   功能：压缩文件。</p>
+<p>   选项：-f 强制压缩</p>
+<pre><code>-v 压缩时显示压缩百分比
+</code></pre><p>   注释：</p>
+<p>   例如：% compress files</p>
+<h4 id="3-22解缩文件"><a href="#3-22解缩文件" class="headerlink" title="3.22解缩文件"></a>3.22解缩文件</h4><p>   命令：uncompress</p>
+<pre><code>zcat
+</code></pre><p>   格式：compress [option] filename</p>
+<pre><code>zcat filename
+</code></pre><p>   功能：展开或显示压缩文件。</p>
+<p>   选项：-c 不改变文件写到标准输出</p>
+<p>   注释：zcat命令相当于uncompress -c</p>
+<p>   例如：% uncomproess files.Z</p>
+<h4 id="3-23显示文件类型"><a href="#3-23显示文件类型" class="headerlink" title="3.23显示文件类型"></a>3.23显示文件类型</h4><p>   命令：file</p>
+<p>   格式：file filename …</p>
+<p>   功能：按文件内容来推测文件类型，如text，ascii，C，executable，core。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% file *</p>
+<h4 id="3-24建立档案文件"><a href="#3-24建立档案文件" class="headerlink" title="3.24建立档案文件"></a>3.24建立档案文件</h4><p>   命令：tar (tape archive)</p>
+<p>   格式：tar [option] tarfile filename</p>
+<p>   功能：建立文件的存档或读存档文件。</p>
+<p>   选项：-c 建立一个新的档案文件</p>
+<pre><code>-x 从档案文件中读取文件
+
+-v 显示处理文件的信息
+
+-f 指定档案文件名，缺省时为磁带机即/dev/rmt/0
+
+-t 列出存档文件的信息
+</code></pre><p>   注释：</p>
+<p>   例如：% tar cvf tarfile .</p>
+<pre><code>% tar xvf tarfile
+
+% tar tvf tarfile
+</code></pre><h4 id="3-25磁带拷贝文件"><a href="#3-25磁带拷贝文件" class="headerlink" title="3.25磁带拷贝文件"></a>3.25磁带拷贝文件</h4><p>   命令：dd</p>
+<p>   格式：dd [option=value]</p>
+<p>   功能：用磁带机转换或拷贝文件。</p>
+<p>   选项：if=name 指定输入文件名</p>
+<pre><code>of=name 指定输出文件名
+
+ibs=n   指定输入文件块大小为n字节（缺省为512字节）
+
+obs=n   指定输出文件块大小为n字节（缺省为512字节）
+</code></pre><p>   注释：</p>
+<p>   例如：% dd if=filename of=/dev/rmt/0</p>
+<pre><code>% dd if=/dev/rmt/0 of=filename ibs=1024
+</code></pre><h4 id="3-26修改文件日期"><a href="#3-26修改文件日期" class="headerlink" title="3.26修改文件日期"></a>3.26修改文件日期</h4><p>   命令：touch</p>
+<p>   格式：touch filenae</p>
+<p>   功能：改变文件的日期，不对文件的内容做改动，若文件不存在则建立新文件。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% touch file</p>
+<h4 id="3-27统计文件字数"><a href="#3-27统计文件字数" class="headerlink" title="3.27统计文件字数"></a>3.27统计文件字数</h4><p>   命令：wc (word characters)</p>
+<p>   格式：wc [option] filename</p>
+<p>   功能：统计文件中的文件行数、字数和字符数。</p>
+<p>   选项：-l 统计文件的行数</p>
+<p> -w 统计文件的字数</p>
+<p> -c 统计文件的字符数</p>
+<p>   注释：若缺省文件名则指标准输入</p>
+<p>   例如：% wc file</p>
+<h4 id="3-28检查拼写"><a href="#3-28检查拼写" class="headerlink" title="3.28检查拼写"></a>3.28检查拼写</h4><p>   命令：spell (spelling)</p>
+<p>   格式：spell [option] filename …</p>
+<p>   功能：检查文件中的拼写错误</p>
+<p>   选项：-b 按英国拼法检查</p>
+<pre><code>-v 显示字面上不在拼法字典上的词
+
+-x 显示每一个可能合理的词根
+</code></pre><p>   注释：</p>
+<p>   例如：% spell file</p>
+<h3 id="第四章-有关状态信息命令"><a href="#第四章-有关状态信息命令" class="headerlink" title="第四章  有关状态信息命令"></a>第四章  有关状态信息命令</h3><h4 id="4-1显示当前注册的用户"><a href="#4-1显示当前注册的用户" class="headerlink" title="4.1显示当前注册的用户"></a>4.1显示当前注册的用户</h4><p>   命令：w</p>
+<p>   格式：w [option] [username]</p>
+<p>   功能：显示当前正在使用系统的用户名、注册时间和当前执行的命令。</p>
+<p>   选项：-h 不显示起始行</p>
+<pre><code>-s 按短格式显示
+
+-l 按长格式显示（缺省设置）
+</code></pre><p>   注释：</p>
+<p>   例如：% w</p>
+<h4 id="4-2-显示都谁登录到机器上"><a href="#4-2-显示都谁登录到机器上" class="headerlink" title="4.2 显示都谁登录到机器上"></a>4.2 显示都谁登录到机器上</h4><p>   命令：who</p>
+<p>   格式：who</p>
+<p>   功能：显示当前正在系统中的所有用户名字，使用终端设备号，注册时间。</p>
+<p>   例如：% who</p>
+<h4 id="4-3-显示当前终端上的用户名"><a href="#4-3-显示当前终端上的用户名" class="headerlink" title="4.3 显示当前终端上的用户名"></a>4.3 显示当前终端上的用户名</h4><p>   命令：whoami</p>
+<p>   格式：whoami</p>
+<p>   功能：显示出当前终端上使用的用户。</p>
+<p>   例如：% whoami</p>
+<h4 id="4-4-确定命令位置"><a href="#4-4-确定命令位置" class="headerlink" title="4.4 确定命令位置"></a>4.4 确定命令位置</h4><p>   命令：whereis</p>
+<p>   格式：whereis command</p>
+<p>   功能：确定一个命令的二进制行码、源码及联机手册所在的位置。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% whereis ls</p>
+<h4 id="4-5-查找非标准命令"><a href="#4-5-查找非标准命令" class="headerlink" title="4.5 查找非标准命令"></a>4.5 查找非标准命令</h4><p>   命令：which</p>
+<p>   格式：which command</p>
+<p>   功能：查找非标准命令，即使用别名或系统中标准命令集之外的命令。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% which ls</p>
+<h4 id="4-6-显示日期"><a href="#4-6-显示日期" class="headerlink" title="4.6 显示日期"></a>4.6 显示日期</h4><p>   命令：date</p>
+<p>   格式：date</p>
+<p>   功能：显示或设置日期和时间。</p>
+<p>   选项：</p>
+<p>   注释：只有超级用户有权设置日期。</p>
+<p>   例如：% date</p>
+<h4 id="4-7-显示日历"><a href="#4-7-显示日历" class="headerlink" title="4.7 显示日历"></a>4.7 显示日历</h4><p>   命令：cal (calendar)</p>
+<p>   格式：cal [month] year</p>
+<p>   功能：显示某年内指定的日历</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% cal 1998</p>
+<h4 id="4-8-计算命令执行时间"><a href="#4-8-计算命令执行时间" class="headerlink" title="4.8 计算命令执行时间"></a>4.8 计算命令执行时间</h4><p>   命令：time</p>
+<p>   格式：time [command]</p>
+<p>   功能：计算程序或命令在执行其间所用的时间。</p>
+<p>   选项：</p>
+<p>   注释：计算出的时间为：real是命令在系统驻留的总时间，user是命令消耗CPU</p>
+<pre><code>的时间，sys是命令I/O所开销的时间。
+</code></pre><p>   例如：% time myprog</p>
+<h4 id="4-9-查询帐目"><a href="#4-9-查询帐目" class="headerlink" title="4.9 查询帐目"></a>4.9 查询帐目</h4><p>   命令：acseek (account seek)</p>
+<p>   格式：acseek [-d n] [-m usersname]</p>
+<p>   功能：查询本月的用户帐目。</p>
+<p>   选项：-d n</p>
+<pre><code>-m username
+</code></pre><p>   注释：若没有选项，则显示本人当月的帐单。</p>
+<p>   例如：% acseek</p>
+<h4 id="4-10显示用户标识"><a href="#4-10显示用户标识" class="headerlink" title="4.10显示用户标识"></a>4.10显示用户标识</h4><p>   命令：id</p>
+<p>   格式：id [option] [user]</p>
+<p>   功能：显示用户标识及用户所属的所有组。</p>
+<p>   选项：-a 显示用户名、用户标识及用户所属的所有组</p>
+<p>   注释：</p>
+<p>   例如：% id username</p>
+<h4 id="4-11显示主机标识"><a href="#4-11显示主机标识" class="headerlink" title="4.11显示主机标识"></a>4.11显示主机标识</h4><p>   命令：hostid</p>
+<p>   格式：hostid</p>
+<p>   功能：显示主机的唯一标识，是被用来限时软件的使用权限，不可改变。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% hostid</p>
+<h4 id="4-12显示主机名"><a href="#4-12显示主机名" class="headerlink" title="4.12显示主机名"></a>4.12显示主机名</h4><p>   命令：hostname</p>
+<p>   格式：hostname</p>
+<p>   功能：显示或设置主机名。</p>
+<p>   选项：</p>
+<p>   注释：只有超级用户才能设置主机名。</p>
+<p>   例如：% hostname</p>
+<h4 id="4-13显示进程"><a href="#4-13显示进程" class="headerlink" title="4.13显示进程"></a>4.13显示进程</h4><p>   命令：ps</p>
+<p>   格式：ps [option]</p>
+<p>   功能：显示系统中进程的信息。包括进程ID、控制进程终端、执行时间和命令。</p>
+<p>   选项：-a 列出当前系统中所有进程的信息</p>
+<pre><code>-l 显示一个长列表
+
+-e 显示当前运行的每一个进程信息
+
+-f 显示一个完整的列表
+</code></pre><p>   注释：</p>
+<p>   例如：% ps -ef</p>
+<h4 id="4-14显示磁盘空间"><a href="#4-14显示磁盘空间" class="headerlink" title="4.14显示磁盘空间"></a>4.14显示磁盘空间</h4><p>   命令：df (disk free)</p>
+<p>   格式：df [option]</p>
+<p>   功能：显示磁盘空间的使用情况，包括文件系统安装的目录名、块设备名、总</p>
+<pre><code>字节数、已用字节数、剩余字节数占用百分比。
+</code></pre><p>   选项：-i 显示已用和未用的字节数</p>
+<pre><code>-k 显示磁盘空间的使用信息
+</code></pre><p>   注释：</p>
+<p>   例如：% df -k</p>
+<h4 id="4-15显示文件盘空间"><a href="#4-15显示文件盘空间" class="headerlink" title="4.15显示文件盘空间"></a>4.15显示文件盘空间</h4><p>   命令：du (disk usage)</p>
+<p>   格式：du [option] [filename]</p>
+<p>   功能：显示目录或文件所占磁盘空间大小</p>
+<p>   选项：-a 显示所有文件的大小</p>
+<pre><code>-s 显示制定目录所占磁盘大小
+</code></pre><p>   注释：</p>
+<p>   例如：% du</p>
+<h4 id="4-16显示盘空间限制"><a href="#4-16显示盘空间限制" class="headerlink" title="4.16显示盘空间限制"></a>4.16显示盘空间限制</h4><p>   命令：quota</p>
+<p>   格式：quota -v [username]</p>
+<p>   功能：显示用户的磁盘空间限制和使用情况。包扩盘空间的限额和已使用数，</p>
+<pre><code>允许建立的节点数限额和使用节点数。
+</code></pre><p>   选项：-v 查看用户在系统中的盘空间</p>
+<p>   注释：只有超级用户可以显示任何用户的使用情况，用edquota命令可修改。</p>
+<p>   例如：% quota -v</p>
+<h4 id="4-17显示终端选项"><a href="#4-17显示终端选项" class="headerlink" title="4.17显示终端选项"></a>4.17显示终端选项</h4><p>   命令：stty</p>
+<p>   格式：stty [option]</p>
+<p>   功能：显示或设置终端的任选项。</p>
+<p>   选项：-a 显示所有设置情况</p>
+<pre><code>-g 显示当前设置
+</code></pre><p>   注释：</p>
+<p>   例如：% stty -a</p>
+<h4 id="4-18显示终端名"><a href="#4-18显示终端名" class="headerlink" title="4.18显示终端名"></a>4.18显示终端名</h4><p>   命令：tty</p>
+<p>   格式：tty</p>
+<p>   功能：显示终端名</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% tty</p>
+<h4 id="4-19回忆命令"><a href="#4-19回忆命令" class="headerlink" title="4.19回忆命令"></a>4.19回忆命令</h4><p>   命令：history</p>
+<p>   格式：history</p>
+<p>   功能：帮助用户回忆执行过的命令。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% history</p>
+<h4 id="4-20联机帮助手册"><a href="#4-20联机帮助手册" class="headerlink" title="4.20联机帮助手册"></a>4.20联机帮助手册</h4><p>   命令：man (manual)</p>
+<p>   格式：man command_name</p>
+<p>   功能：显示参考手册，提供联机帮助信息。</p>
+<p>   选项：</p>
+<p>   注释：-k 按制定关键字查询有关命令</p>
+<p>   例如：% man tar</p>
+<h4 id="4-21建立别名"><a href="#4-21建立别名" class="headerlink" title="4.21建立别名"></a>4.21建立别名</h4><p>   命令：alias</p>
+<p>   格式：alias newname name</p>
+<p>   功能：用户可以将常用的命令用自己习惯的名称来重新命名。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% alias dir ‘ls -F’</p>
+<h3 id="第五章-网络命令"><a href="#第五章-网络命令" class="headerlink" title="第五章  网络命令"></a>第五章  网络命令</h3><h4 id="5-1显示网络地址"><a href="#5-1显示网络地址" class="headerlink" title="5.1显示网络地址"></a>5.1显示网络地址</h4><p>   命令：arp</p>
+<p>   格式：arp hostname</p>
+<p>   功能：显示系统当前访问的远程住机名、IP地址和硬件地址。</p>
+<p>   选项：-a</p>
+<p>   注释：</p>
+<p>   例如：% arp -a</p>
+<h4 id="5-2-显示用户信息"><a href="#5-2-显示用户信息" class="headerlink" title="5.2 显示用户信息"></a>5.2 显示用户信息</h4><p>   命令：finger</p>
+<p>   格式：finger username</p>
+<p>   功能：显示网上用户使用机器的情况，包括用户何时登录和最后一次注册记录。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% finger username</p>
+<h4 id="5-3-网上对话"><a href="#5-3-网上对话" class="headerlink" title="5.3 网上对话"></a>5.3 网上对话</h4><p>   命令：talk</p>
+<p>   格式：talk username</p>
+<p>   功能：在网上与另一用户进行对话。</p>
+<p>   选项：</p>
+<p>   注释：对话时系统把终端分为上下两部分，上半部显示自己键入信息，下半部</p>
+<pre><code>显示对方用户键入的信息。键入delete或Ctrl+C则结束对话。
+</code></pre><p>   例如：% talk username</p>
+<h4 id="5-4-允许或拒绝接受信息"><a href="#5-4-允许或拒绝接受信息" class="headerlink" title="5.4 允许或拒绝接受信息"></a>5.4 允许或拒绝接受信息</h4><p>   命令：mesg (message)</p>
+<p>   格式：mesg [n/y]</p>
+<p>   功能：允许或拒绝其它用户向自己所用的终端发送信息。</p>
+<p>   选项：n 拒绝其它用户向自己所用的终端写信息</p>
+<pre><code>y 允许其它用户向自己所用的终端写信息（缺省值）
+</code></pre><p>   注释：</p>
+<p>   例如：% mesg n</p>
+<h4 id="5-5-给其他用户写信息"><a href="#5-5-给其他用户写信息" class="headerlink" title="5.5 给其他用户写信息"></a>5.5 给其他用户写信息</h4><p>   命令：write</p>
+<p>   格式：write username [ttyname]</p>
+<p>   功能：给其他用户的终端写信息。</p>
+<p>   选项：</p>
+<p>   注释：若对方没有拒绝，两用户可进行交谈，键入EOF或Ctrl+C则结束对话。</p>
+<p>   例如：write username</p>
+<h4 id="5-6-测试网路"><a href="#5-6-测试网路" class="headerlink" title="5.6 测试网路"></a>5.6 测试网路</h4><p>   命令：ping</p>
+<p>   格式：ping hostname</p>
+<p>   功能：向网络上的主机发送ICMP ECHO REQUEST信息包，检测网络是否畅通。</p>
+<p>   选项：</p>
+<p>   注释：被测试的主机名可用IP地址。当丢包率为（100% packet loss)则说明</p>
+<pre><code>当前网络不通。
+</code></pre><p>   例如：% ping hostsname</p>
+<h4 id="5-7-远程shell命令"><a href="#5-7-远程shell命令" class="headerlink" title="5.7 远程shell命令"></a>5.7 远程shell命令</h4><p>   命令：rsh (remote shell)</p>
+<p>   格式：rsh hostsname command</p>
+<p>   功能：在本地机执行远程主机的shell命令。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% rsh hostname who</p>
+<h4 id="5-8-远程考贝文件"><a href="#5-8-远程考贝文件" class="headerlink" title="5.8 远程考贝文件"></a>5.8 远程考贝文件</h4><p>   命令：rcp (remote copy)</p>
+<p>   格式：rcp [-r] file newfile</p>
+<p>   功能：拷贝远程主机上的文件。</p>
+<p>   选项：-r 拷贝目录</p>
+<p>   注释：</p>
+<p>   例如：% rcp hostname:/tmp/file .</p>
+<h4 id="5-9-远程注册"><a href="#5-9-远程注册" class="headerlink" title="5.9 远程注册"></a>5.9 远程注册</h4><p>   命令：rlogin (remote login)</p>
+<p>   格式：rlogin hostname [-l username]</p>
+<p>   功能：注册到远程主机上。</p>
+<p>   选项：-l username 注册到另一用户</p>
+<p>   注释：要有用户口令才能注册。</p>
+<p>   例如：% rlogin hostname</p>
+<h4 id="5-10-远程登录"><a href="#5-10-远程登录" class="headerlink" title="5.10 远程登录"></a>5.10 远程登录</h4><p>   命令：telnet</p>
+<p>   格式：telnet hostname</p>
+<p>   功能：远程登录到网上其它主机。</p>
+<p>   选项：</p>
+<p>   注释：支持不同的操作系统。</p>
+<p>   例如：% telnet bbs.tsinghua.edu.cn</p>
+<h4 id="5-11文件传输"><a href="#5-11文件传输" class="headerlink" title="5.11文件传输"></a>5.11文件传输</h4><p>   命令：ftp (file transfer program)</p>
+<p>   格式：ftp hostname</p>
+<p>   功能：网络文件传输及远程操作。</p>
+<p>   选项：ftp命令：</p>
+<pre><code>?/help        ftp的联机帮助
+
+open hostname 打开制定的远程机
+
+cd [dirname]  进入远程机的目录
+
+lcd [dirname] 设置本地机的目录
+
+dir/ls        显示远程的目录文件
+
+binary        以二进制方式进行传输
+
+get/mget      从远程机取一个或多个文件
+
+put/mput      向远程机送一个或多个文件
+
+prompt        打开或关闭多个文件传送时的交互提示
+
+close         关闭与远程机的连接
+
+quit          退出ftp
+</code></pre><p>   注释：</p>
+<p>   例如：% ftp hostname</p>
+<h4 id="5-12显示到网络主机的路经"><a href="#5-12显示到网络主机的路经" class="headerlink" title="5.12显示到网络主机的路经"></a>5.12显示到网络主机的路经</h4><p>   命令：traceroute</p>
+<p>   格式：traceroute hostname</p>
+<p>   功能：显示本机到达某一网络主机所经的路经和使用的时间。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% traceroute hostname</p>
+<h3 id="第六章-Mail命令"><a href="#第六章-Mail命令" class="headerlink" title="第六章  Mail命令"></a>第六章  Mail命令</h3><h4 id="6-1-发送或接受电子邮件"><a href="#6-1-发送或接受电子邮件" class="headerlink" title="6.1 发送或接受电子邮件"></a>6.1 发送或接受电子邮件</h4><p>   命令：mail/Mail/mailx</p>
+<p>   格式：mail username （发送）</p>
+<pre><code>mail [option] （接受）
+</code></pre><p>   功能：向网上用户发送或接受电子邮件。</p>
+<p>   选项：-r 邮件按先进先出顺序排序。缺省时为后进先出顺序排序</p>
+<pre><code>-q 中断mail后不改变信箱内容
+
+-p 显示mail每份邮件，不显示提示信息
+
+-f 从邮件格式文件中读邮件
+</code></pre><p>   注释：mail命令：</p>
+<pre><code>?        显示mail帮助命令
+
+h        邮件标题列表
+
+p        显示当前邮件
+
+n        显示下一邮件
+
+r [uers] 给发信人或用户回信
+
+s [file] 将邮件保存到文件中，保存标题信息
+
+w [file] 将邮件写到文件中，不保存标题信息
+
+d [n]    删除当前邮件或第n封邮件  
+
+q        将未删除的邮件存入mbox文件，并退出mail
+
+x        所有邮件不作修改，退出mail
+</code></pre><p>   例如：% mail -s “Subjet …” username &lt; messages</p>
+<h4 id="6-2-显示邮件队列"><a href="#6-2-显示邮件队列" class="headerlink" title="6.2 显示邮件队列"></a>6.2 显示邮件队列</h4><p>   命令：mailq</p>
+<p>   格式：mailq</p>
+<p>   功能：查看正在发送或接收邮件的排队情况。</p>
+<p>   选项：</p>
+<p>   注释：此命令一般在系统或网络不同时使用。</p>
+<p>   例如：% mailq</p>
+<h4 id="6-3-邮件操作命令"><a href="#6-3-邮件操作命令" class="headerlink" title="6.3 邮件操作命令"></a>6.3 邮件操作命令</h4><p>   命令：pine</p>
+<p>   格式：pine</p>
+<p>   功能：对自己邮件操作的程序。</p>
+<p>   选项：</p>
+<p>   注释：此操作是在菜单提示下进行。</p>
+<p>   例如：% pine</p>
+<h3 id="第七章-运行程序命令"><a href="#第七章-运行程序命令" class="headerlink" title="第七章  运行程序命令"></a>第七章  运行程序命令</h3><h4 id="7-1-按时间执行命令"><a href="#7-1-按时间执行命令" class="headerlink" title="7.1 按时间执行命令"></a>7.1 按时间执行命令</h4><p>   命令：at/batch</p>
+<p>   格式：at [option] [time] [data] [file]</p>
+<p>   功能：在制定的时间执行命令或命令文件。</p>
+<p>   选项：-r 取消以前用at命令提交的作业</p>
+<pre><code>-l 显示用at命令提交的所有作业状态和作业号
+</code></pre><p>   注释：</p>
+<p>   例如：at 0030 Jan 20 myfile</p>
+<h4 id="7-2-参数回至标准输出"><a href="#7-2-参数回至标准输出" class="headerlink" title="7.2 参数回至标准输出"></a>7.2 参数回至标准输出</h4><p>   命令：echo</p>
+<p>   格式：echo [-n] [arguments]</p>
+<p>   功能：将参数即字符串至标准输出即显示器</p>
+<p>   选项：-n 不向标准输出回送换行符</p>
+<p>   注释：</p>
+<p>   例如：echo *</p>
+<h4 id="7-3-复制至文件"><a href="#7-3-复制至文件" class="headerlink" title="7.3 复制至文件"></a>7.3 复制至文件</h4><p>   命令：tee</p>
+<p>   格式：tee [option] filename</p>
+<p>   功能：至标准输出的同时复制至文件</p>
+<p>   选项：-a 输出时附加到文件中</p>
+<pre><code>-i 不理采中断
+</code></pre><p>   注释：</p>
+<p>   例如：% who | tee file</p>
+<h4 id="7-4-给程序优先级"><a href="#7-4-给程序优先级" class="headerlink" title="7.4 给程序优先级"></a>7.4 给程序优先级</h4><p>   命令：nice</p>
+<p>   格式：nice [-n] command  </p>
+<p>   功能：以低的优先级运行程序或命令。</p>
+<p>   选项：-n 为优先级0-20从高到低</p>
+<p>   注释：</p>
+<p>   例如：nice -5 progame</p>
+<h4 id="7-5-终止进程"><a href="#7-5-终止进程" class="headerlink" title="7.5 终止进程"></a>7.5 终止进程</h4><p>   命令：kill</p>
+<p>   格式：kill [option] pid</p>
+<p>   功能：向指定的进程送信号或终止进程。</p>
+<p>   选项：-9  强行终止进程</p>
+<pre><code>-17 将进程挂起
+
+-19 将挂起的进程激活
+</code></pre><p>   注释：pid标示进程号，可由ps命令得到。</p>
+<p>   例如：% kill -9 pid</p>
+<h4 id="7-6-进程睡眠"><a href="#7-6-进程睡眠" class="headerlink" title="7.6 进程睡眠"></a>7.6 进程睡眠</h4><p>   命令：sleep</p>
+<p>   格式：sleep time</p>
+<p>   功能：使当前正在执行的进程在规定的时间内处于睡眠。</p>
+<p>   选项：</p>
+<p>   注释：time为进程将睡眠的时间，以秒为单位。</p>
+<p>   例如：% sleep time</p>
+<h4 id="7-7-显示作业状态"><a href="#7-7-显示作业状态" class="headerlink" title="7.7 显示作业状态"></a>7.7 显示作业状态</h4><p>   命令：jobs</p>
+<p>   格式：jobs [-l]</p>
+<p>   功能：显示当前作业的状态</p>
+<p>   选项：-l 长列表显示作业状态，包括所有者、作业号、终端和状态。</p>
+<p>   注释：作业状态为 +表示最近被停止的作业，-表示先前的作业，exit 1表示</p>
+<pre><code>退出的作业，job# done表示已完成的作业。
+</code></pre><p>   例如：% jobs</p>
+<h4 id="7-8-前台作业"><a href="#7-8-前台作业" class="headerlink" title="7.8 前台作业"></a>7.8 前台作业</h4><p>   命令：fg</p>
+<p>   格式：fg job#</p>
+<p>   功能：将指定作业号的作业转入前台运行。job#表示作业号。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% fg job#</p>
+<h4 id="7-9-后台作业"><a href="#7-9-后台作业" class="headerlink" title="7.9 后台作业"></a>7.9 后台作业</h4><p>   命令：bg/&amp;</p>
+<p>   格式：bg job#</p>
+<pre><code>command &amp;
+</code></pre><p>   功能：将指定作业号的作业或命令推到后台运行。</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% bg job#</p>
+<h4 id="7-10挂起作业"><a href="#7-10挂起作业" class="headerlink" title="7.10挂起作业"></a>7.10挂起作业</h4><p>   命令：stop</p>
+<p>   格式：stop job#</p>
+<p>   功能：将指定作业号的后台作业挂起.</p>
+<p>   选项：</p>
+<p>   注释：</p>
+<p>   例如：% stop job#</p>
+<h3 id="第八章-程序编译执行命令"><a href="#第八章-程序编译执行命令" class="headerlink" title="第八章  程序编译执行命令"></a>第八章  程序编译执行命令</h3><h4 id="8-1-C程序编译"><a href="#8-1-C程序编译" class="headerlink" title="8.1 C程序编译"></a>8.1 C程序编译</h4><p>   命令：cc</p>
+<p>   格式：cc [option] filename</p>
+<p>   功能：编译或链接指定的C文件。</p>
+<p>   选项：-o  指定输出文件名，缺省时为a.out</p>
+<pre><code>-c  只编译，产生.o的目标文件
+
+-g  产生用于符号测试的执行文件
+
+-lm 进行连接cc数学库
+
+-O  进行代码的一般优化
+
+-O2 二级优化
+</code></pre><p>   注释：C编译器参考手册可用命令man cc查看。</p>
+<p>   例如：% cc -o test test.c</p>
+<h4 id="8-2-C-程序编译"><a href="#8-2-C-程序编译" class="headerlink" title="8.2 C++程序编译"></a>8.2 C++程序编译</h4><p>   命令：CC</p>
+<p>   格式：CC [option] filename</p>
+<p>   功能：编译或链接指定的C++文件。</p>
+<p>   选项：同C编译选项</p>
+<p>   注释：C++编译器参考手册可用命令man CC查看。</p>
+<p>   例如：% CC -O2 test.cc</p>
+<h4 id="8-3-FORTRAN77程序编译"><a href="#8-3-FORTRAN77程序编译" class="headerlink" title="8.3 FORTRAN77程序编译"></a>8.3 FORTRAN77程序编译</h4><p>   命令：f77</p>
+<p>   格式：f77 [option] filename</p>
+<p>   功能：编译或链接指定的Fortran文件</p>
+<p>   选项：-o  指定输出文件名，缺省时为a.out</p>
+<pre><code>-c  只编译，产生.o的目标文件
+
+-g  产生用于符号测试的执行文件
+
+-O0 不进行代码优化
+
+-O1 尽快进行代码优化
+
+-O2 二级优化
+
+-O3 三级优化
+</code></pre><p>   注释：FORTRAN77编译器参考手册可用命令man f77查看</p>
+<p>   例如：% f77 -c test.f</p>
+<h4 id="8-4-FORTRAN90程序编译"><a href="#8-4-FORTRAN90程序编译" class="headerlink" title="8.4 FORTRAN90程序编译"></a>8.4 FORTRAN90程序编译</h4><p>   命令：f90</p>
+<p>   格式：f90 [option] filename</p>
+<p>   功能：编译或链接指定的Fortran90文件</p>
+<p>   选项：同FORTRAN77编译选项</p>
+<p>   注释：FORTRAN90编译器参考手册可用命令man f90查看</p>
+<p>   例如：% f90 -O -o test test.f</p>
+<h4 id="8-5-GNU程序编译"><a href="#8-5-GNU程序编译" class="headerlink" title="8.5 GNU程序编译"></a>8.5 GNU程序编译</h4><p>   命令： gcc      (GNU C)</p>
+<pre><code>g++/c++  (GNU C++)
+
+g77      (GNU FORTRAN77)
+</code></pre><p>   格式：gcc [option] filename</p>
+<pre><code>g++ [option] filename
+
+g77 [option] filename
+</code></pre><p>   功能：编译或链接指定的编译文件。</p>
+<p>   选项： -o  指定输出文件名，缺省时为a.out</p>
+<pre><code>-c  只编译，产生.o的目标文件
+
+-O  进行代码的一般优化
+
+-O2 二级优化
+</code></pre><p>   注释：GNU编译器参考手册可进入emacs中info菜单下查看。</p>
+<p>   例如：% gcc -o test test.c</p>
+<h4 id="8-6-运行文件"><a href="#8-6-运行文件" class="headerlink" title="8.6 运行文件"></a>8.6 运行文件</h4><p>   格式：a.out</p>
+<pre><code>filename
+</code></pre><p>   功能：源程序经编译后产生目标代码文件，放在a.out文件或指定输出文件名。<br>```</p>
+
+      
+    </div>
+
+    <div class="post-Fork-me">
+    
+      <p><strong>最后想说：</strong><a href="https://github.com/Hunter-Zack">Fork me on GitHub</a><strong>　欢迎 </strong><a href="https://github.com/Hunter-Zack/Hunter-Zack.github.io">Star</a></p>
+     
+    </div>
+
+    <div>
+    
+    
+      <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>本文作者：</strong>Hunter-Zack
+      </li>
+      <li class="post-copyright-link">
+        <strong>本文链接：</strong>
+        <a href="/2017/09/shellmingling/" title="终端命令">2017/09/shellmingling/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明： </strong>
+        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+      </ul>
+    
+    </div>
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>🙈坚持原创技术分享，您的支持将鼓励我继续创作🙈</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Hunter-Zack 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Hunter-Zack 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shell/" rel="tag"><i class="fa fa-tag"></i> shell</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/sublime text mac+kuaijiejian/" rel="next" title="Sublime Text mac下常用快捷键">
+                <i class="fa fa-chevron-left"></i> Sublime Text mac下常用快捷键
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/bootstrap+use/" rel="prev" title="bootstrap使用">
+                bootstrap使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+     
+       <div id="gitment-container"></div>
+     
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.png"
+              alt="Hunter-Zack" />
+          
+            <p class="site-author-name" itemprop="name">Hunter-Zack</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="mailto:zackcheung86@gmail.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/fengxiaoQ_Q/activities" target="_blank" title="zhi hu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>zhi hu</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Hunter-Zack" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/chuangshaogreat" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-globe"></i>cnblogs</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.aisun.org/archives/" title="本站目录" target="_blank">本站目录</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.aisun.org/board/" title="本站留言" target="_blank">本站留言</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.aisun.org/categories/周记整理/" title="周记整理" target="_blank">周记整理</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-启动-关机-登入-登出相关命令"><span class="nav-number">1.</span> <span class="nav-text">一. 启动,关机,登入,登出相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-Shell相关命令"><span class="nav-number">2.</span> <span class="nav-text">二. Shell相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-用户管理相关命令"><span class="nav-number">3.</span> <span class="nav-text">三. 用户管理相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-系统消息相关命令"><span class="nav-number">4.</span> <span class="nav-text">四. 系统消息相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-文件操作相关命令"><span class="nav-number">5.</span> <span class="nav-text">五. 文件操作相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-文件编辑相关命令"><span class="nav-number">6.</span> <span class="nav-text">六. 文件编辑相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七-压缩-解压缩相关命令"><span class="nav-number">7.</span> <span class="nav-text">七. 压缩/解压缩相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八-MS-DOS工具集-mtools-命令"><span class="nav-number">8.</span> <span class="nav-text">八. MS-DOS工具集[mtools]命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九-控制外部设备相关命令"><span class="nav-number">9.</span> <span class="nav-text">九. 控制外部设备相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十-进程及任务管理相关命令"><span class="nav-number">10.</span> <span class="nav-text">十. 进程及任务管理相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一-网络管理相关命令"><span class="nav-number">11.</span> <span class="nav-text">十一. 网络管理相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二-其他命令"><span class="nav-number">12.</span> <span class="nav-text">十二. 其他命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附：组合命令"><span class="nav-number">13.</span> <span class="nav-text">附：组合命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向，如"><span class="nav-number">13.1.</span> <span class="nav-text">重定向，如</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道命令，如"><span class="nav-number">13.2.</span> <span class="nav-text">管道命令，如</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNIX操作命令"><span class="nav-number">14.</span> <span class="nav-text">UNIX操作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-登录和退出"><span class="nav-number">14.1.</span> <span class="nav-text">第一章  登录和退出</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-登录"><span class="nav-number">14.1.1.</span> <span class="nav-text">1.1 登录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-退出"><span class="nav-number">14.1.2.</span> <span class="nav-text">1.2 退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-修改口令"><span class="nav-number">14.1.3.</span> <span class="nav-text">1.3 修改口令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-目录操作命令"><span class="nav-number">14.2.</span> <span class="nav-text">第二章  目录操作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-显示目录"><span class="nav-number">14.2.1.</span> <span class="nav-text">2.1 显示目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-建立目录"><span class="nav-number">14.2.2.</span> <span class="nav-text">2.2 建立目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-改变目录"><span class="nav-number">14.2.3.</span> <span class="nav-text">2.3 改变目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-删除目录"><span class="nav-number">14.2.4.</span> <span class="nav-text">2.4 删除目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章-文件操作命令"><span class="nav-number">14.3.</span> <span class="nav-text">第三章  文件操作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-列出文件目录"><span class="nav-number">14.3.1.</span> <span class="nav-text">3.1 列出文件目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-显示文件内容"><span class="nav-number">14.3.2.</span> <span class="nav-text">3.2 显示文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-按屏幕显示文件内容"><span class="nav-number">14.3.3.</span> <span class="nav-text">3.3 按屏幕显示文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-分页显示文件内容"><span class="nav-number">14.3.4.</span> <span class="nav-text">3.4 分页显示文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-读文件"><span class="nav-number">14.3.5.</span> <span class="nav-text">3.5 读文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-显示文件头部"><span class="nav-number">14.3.6.</span> <span class="nav-text">3.6 显示文件头部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-7-显示文件尾部"><span class="nav-number">14.3.7.</span> <span class="nav-text">3.7 显示文件尾部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-8-显示格式化的文件内容"><span class="nav-number">14.3.8.</span> <span class="nav-text">3.8 显示格式化的文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-9-拷贝文件"><span class="nav-number">14.3.9.</span> <span class="nav-text">3.9 拷贝文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-10移动文件或文件改名"><span class="nav-number">14.3.10.</span> <span class="nav-text">3.10移动文件或文件改名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-11删除文件"><span class="nav-number">14.3.11.</span> <span class="nav-text">3.11删除文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-12链接文件"><span class="nav-number">14.3.12.</span> <span class="nav-text">3.12链接文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-13改变文件读取权限"><span class="nav-number">14.3.13.</span> <span class="nav-text">3.13改变文件读取权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-14改变文件所有权"><span class="nav-number">14.3.14.</span> <span class="nav-text">3.14改变文件所有权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-15寻找文件"><span class="nav-number">14.3.15.</span> <span class="nav-text">3.15寻找文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-16搜索文件中匹配符"><span class="nav-number">14.3.16.</span> <span class="nav-text">3.16搜索文件中匹配符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-17比较文件不同"><span class="nav-number">14.3.17.</span> <span class="nav-text">3.17比较文件不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-18比较文件"><span class="nav-number">14.3.18.</span> <span class="nav-text">3.18比较文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-19比较文件共同处"><span class="nav-number">14.3.19.</span> <span class="nav-text">3.19比较文件共同处</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-20排序文件"><span class="nav-number">14.3.20.</span> <span class="nav-text">3.20排序文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-21压缩文件"><span class="nav-number">14.3.21.</span> <span class="nav-text">3.21压缩文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-22解缩文件"><span class="nav-number">14.3.22.</span> <span class="nav-text">3.22解缩文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-23显示文件类型"><span class="nav-number">14.3.23.</span> <span class="nav-text">3.23显示文件类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-24建立档案文件"><span class="nav-number">14.3.24.</span> <span class="nav-text">3.24建立档案文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-25磁带拷贝文件"><span class="nav-number">14.3.25.</span> <span class="nav-text">3.25磁带拷贝文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-26修改文件日期"><span class="nav-number">14.3.26.</span> <span class="nav-text">3.26修改文件日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-27统计文件字数"><span class="nav-number">14.3.27.</span> <span class="nav-text">3.27统计文件字数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-28检查拼写"><span class="nav-number">14.3.28.</span> <span class="nav-text">3.28检查拼写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四章-有关状态信息命令"><span class="nav-number">14.4.</span> <span class="nav-text">第四章  有关状态信息命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1显示当前注册的用户"><span class="nav-number">14.4.1.</span> <span class="nav-text">4.1显示当前注册的用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-显示都谁登录到机器上"><span class="nav-number">14.4.2.</span> <span class="nav-text">4.2 显示都谁登录到机器上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-显示当前终端上的用户名"><span class="nav-number">14.4.3.</span> <span class="nav-text">4.3 显示当前终端上的用户名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-确定命令位置"><span class="nav-number">14.4.4.</span> <span class="nav-text">4.4 确定命令位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-查找非标准命令"><span class="nav-number">14.4.5.</span> <span class="nav-text">4.5 查找非标准命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-显示日期"><span class="nav-number">14.4.6.</span> <span class="nav-text">4.6 显示日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-7-显示日历"><span class="nav-number">14.4.7.</span> <span class="nav-text">4.7 显示日历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-8-计算命令执行时间"><span class="nav-number">14.4.8.</span> <span class="nav-text">4.8 计算命令执行时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-9-查询帐目"><span class="nav-number">14.4.9.</span> <span class="nav-text">4.9 查询帐目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-10显示用户标识"><span class="nav-number">14.4.10.</span> <span class="nav-text">4.10显示用户标识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-11显示主机标识"><span class="nav-number">14.4.11.</span> <span class="nav-text">4.11显示主机标识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-12显示主机名"><span class="nav-number">14.4.12.</span> <span class="nav-text">4.12显示主机名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13显示进程"><span class="nav-number">14.4.13.</span> <span class="nav-text">4.13显示进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-14显示磁盘空间"><span class="nav-number">14.4.14.</span> <span class="nav-text">4.14显示磁盘空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-15显示文件盘空间"><span class="nav-number">14.4.15.</span> <span class="nav-text">4.15显示文件盘空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-16显示盘空间限制"><span class="nav-number">14.4.16.</span> <span class="nav-text">4.16显示盘空间限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-17显示终端选项"><span class="nav-number">14.4.17.</span> <span class="nav-text">4.17显示终端选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-18显示终端名"><span class="nav-number">14.4.18.</span> <span class="nav-text">4.18显示终端名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-19回忆命令"><span class="nav-number">14.4.19.</span> <span class="nav-text">4.19回忆命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-20联机帮助手册"><span class="nav-number">14.4.20.</span> <span class="nav-text">4.20联机帮助手册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-21建立别名"><span class="nav-number">14.4.21.</span> <span class="nav-text">4.21建立别名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章-网络命令"><span class="nav-number">14.5.</span> <span class="nav-text">第五章  网络命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1显示网络地址"><span class="nav-number">14.5.1.</span> <span class="nav-text">5.1显示网络地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-显示用户信息"><span class="nav-number">14.5.2.</span> <span class="nav-text">5.2 显示用户信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-网上对话"><span class="nav-number">14.5.3.</span> <span class="nav-text">5.3 网上对话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-允许或拒绝接受信息"><span class="nav-number">14.5.4.</span> <span class="nav-text">5.4 允许或拒绝接受信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-给其他用户写信息"><span class="nav-number">14.5.5.</span> <span class="nav-text">5.5 给其他用户写信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-测试网路"><span class="nav-number">14.5.6.</span> <span class="nav-text">5.6 测试网路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-7-远程shell命令"><span class="nav-number">14.5.7.</span> <span class="nav-text">5.7 远程shell命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-8-远程考贝文件"><span class="nav-number">14.5.8.</span> <span class="nav-text">5.8 远程考贝文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-9-远程注册"><span class="nav-number">14.5.9.</span> <span class="nav-text">5.9 远程注册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-10-远程登录"><span class="nav-number">14.5.10.</span> <span class="nav-text">5.10 远程登录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-11文件传输"><span class="nav-number">14.5.11.</span> <span class="nav-text">5.11文件传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-12显示到网络主机的路经"><span class="nav-number">14.5.12.</span> <span class="nav-text">5.12显示到网络主机的路经</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六章-Mail命令"><span class="nav-number">14.6.</span> <span class="nav-text">第六章  Mail命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-发送或接受电子邮件"><span class="nav-number">14.6.1.</span> <span class="nav-text">6.1 发送或接受电子邮件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-显示邮件队列"><span class="nav-number">14.6.2.</span> <span class="nav-text">6.2 显示邮件队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-邮件操作命令"><span class="nav-number">14.6.3.</span> <span class="nav-text">6.3 邮件操作命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七章-运行程序命令"><span class="nav-number">14.7.</span> <span class="nav-text">第七章  运行程序命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-按时间执行命令"><span class="nav-number">14.7.1.</span> <span class="nav-text">7.1 按时间执行命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-参数回至标准输出"><span class="nav-number">14.7.2.</span> <span class="nav-text">7.2 参数回至标准输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3-复制至文件"><span class="nav-number">14.7.3.</span> <span class="nav-text">7.3 复制至文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-给程序优先级"><span class="nav-number">14.7.4.</span> <span class="nav-text">7.4 给程序优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-5-终止进程"><span class="nav-number">14.7.5.</span> <span class="nav-text">7.5 终止进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-6-进程睡眠"><span class="nav-number">14.7.6.</span> <span class="nav-text">7.6 进程睡眠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-7-显示作业状态"><span class="nav-number">14.7.7.</span> <span class="nav-text">7.7 显示作业状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-8-前台作业"><span class="nav-number">14.7.8.</span> <span class="nav-text">7.8 前台作业</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-9-后台作业"><span class="nav-number">14.7.9.</span> <span class="nav-text">7.9 后台作业</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-10挂起作业"><span class="nav-number">14.7.10.</span> <span class="nav-text">7.10挂起作业</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八章-程序编译执行命令"><span class="nav-number">14.8.</span> <span class="nav-text">第八章  程序编译执行命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-C程序编译"><span class="nav-number">14.8.1.</span> <span class="nav-text">8.1 C程序编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-C-程序编译"><span class="nav-number">14.8.2.</span> <span class="nav-text">8.2 C++程序编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-FORTRAN77程序编译"><span class="nav-number">14.8.3.</span> <span class="nav-text">8.3 FORTRAN77程序编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-4-FORTRAN90程序编译"><span class="nav-number">14.8.4.</span> <span class="nav-text">8.4 FORTRAN90程序编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-5-GNU程序编译"><span class="nav-number">14.8.5.</span> <span class="nav-text">8.5 GNU程序编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-6-运行文件"><span class="nav-number">14.8.6.</span> <span class="nav-text">8.6 运行文件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+      <div>-------------------------</div>
+      <div class="category-all-page">
+        <div style="font-size:18px;float:left;">分类:</div>
+        <div class="category-all-title">
+            目前共计 20 个分类
+        </div>
+        <div class="category-all">
+          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/apache/">apache</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bitmex/">bitmex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/csv/">csv</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iterm/">iterm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/sublime/">sublime</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tmux/">tmux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/周记整理/">周记整理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/正则/">正则</a><span class="category-list-count">1</span></li></ul>
+        </div>
+      </div>
+
+      <div class="tag-cloud">
+        <div style="font-size:18px;float:left;">标签:</div>
+        <div class="tag-cloud-title">
+            目前共计 26 个标签
+        </div>
+        <div class="tag-cloud-tags">
+          <a href="/tags/apache/" style="font-size: 12px; color: #ccc">apache</a> <a href="/tags/bitmex/" style="font-size: 12px; color: #ccc">bitmex</a> <a href="/tags/bootstrap/" style="font-size: 12px; color: #ccc">bootstrap</a> <a href="/tags/css/" style="font-size: 12px; color: #ccc">css</a> <a href="/tags/csv/" style="font-size: 12px; color: #ccc">csv</a> <a href="/tags/format/" style="font-size: 12px; color: #ccc">format()</a> <a href="/tags/git/" style="font-size: 18px; color: #8e8e8e">git</a> <a href="/tags/hexo/" style="font-size: 30px; color: #111">hexo</a> <a href="/tags/http/" style="font-size: 12px; color: #ccc">http</a> <a href="/tags/input/" style="font-size: 12px; color: #ccc">input</a> <a href="/tags/iterm/" style="font-size: 12px; color: #ccc">iterm</a> <a href="/tags/js/" style="font-size: 15px; color: #adadad">js</a> <a href="/tags/linux/" style="font-size: 12px; color: #ccc">linux</a> <a href="/tags/mac/" style="font-size: 15px; color: #adadad">mac</a> <a href="/tags/mysql/" style="font-size: 24px; color: #4f4f4f">mysql</a> <a href="/tags/php/" style="font-size: 12px; color: #ccc">php</a> <a href="/tags/python/" style="font-size: 21px; color: #6f6f6f">python</a> <a href="/tags/scrapy/" style="font-size: 15px; color: #adadad">scrapy</a> <a href="/tags/shell/" style="font-size: 12px; color: #ccc">shell</a> <a href="/tags/socket/" style="font-size: 15px; color: #adadad">socket</a> <a href="/tags/sublimetext3/" style="font-size: 15px; color: #adadad">sublimetext3</a> <a href="/tags/tmux/" style="font-size: 15px; color: #adadad">tmux</a> <a href="/tags/youcompleteme/" style="font-size: 15px; color: #adadad">youcompleteme</a> <a href="/tags/zsh/" style="font-size: 12px; color: #ccc">zsh</a> <a href="/tags/周记整理/" style="font-size: 27px; color: #303030">周记整理</a> <a href="/tags/正则表达式常用操作符/" style="font-size: 12px; color: #ccc">正则表达式常用操作符</a>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hunter-Zack</span>
+
+  
+</div>
+
+
+ 
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io"> &nbsp Hexo-io &nbsp </a> 强力驱动</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63730661";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+     
+     
+     
+     
+     <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+     <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+     
+         <script type="text/javascript">
+             var gitment = new Gitment({
+                id: document.location.href, 
+                 owner: 'Hunter-Zack',
+                 repo: 'Hunter-Zack.github.io',
+                 oauth: {
+                     client_id: '7b7da8e17aadd21d64c6',
+                     client_secret: '41b14296eba9da7cacf8a63e3ea95d8e4317e7c4',
+                 }});
+             gitment.render('gitment-container');
+         </script>
+     
+ 
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("gPk9c1e8vPY8sJTceIf4kqKn-gzGzoHsz", "imyOJCmQnYV5YUXlbV88hse8");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  <script type="text/javascript" src="/js/src/particle.js"></script>
+</body>
+</html>
