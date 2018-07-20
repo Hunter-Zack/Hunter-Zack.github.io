@@ -3,6 +3,243 @@
   
     
     <entry>
+      <title><![CDATA[Linux安装mysql]]></title>
+      <url>/2018/07/Linux+install+mysql/</url>
+      <content type="html"><![CDATA[<p>1、下载安装包“mysql-5.6.33-linux-glibc2.5-x86_64.tar.gz”  </p>
+<pre><code>下载地址：http://dev.mysql.com/downloads/mysql/5.6.html#downloads  
+</code></pre><h1 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">yum -y install perl perl-devel autoconf libaio</div><div class="line">    2、把下载的安装包移动到/usr/local/下。</div><div class="line"></div><div class="line">    3、解压</div><div class="line"></div><div class="line">tar zxvf mysql-5.6.33-linux-glibc2.5-x86_64.tar.gz</div><div class="line">    4、复制解压后的mysql目录到系统的本地软件目录</div><div class="line"></div><div class="line">cp mysql-5.6.33-linux-glibc2.5-x86_64 /usr/local/mysql -r</div><div class="line">    5、添加系统mysql组和mysql用户</div><div class="line"></div><div class="line">groupadd mysql</div><div class="line">useradd -r -g mysql -s /bin/false mysql</div><div class="line">注意：Because the user is required only for ownership purposes, not login purposes, the useradd command uses the -r and -s /bin/false options to create a user that does not have login permissions to your server host. Omit these options if your useradd does not support them.</div><div class="line">    6、进入安装mysql软件目录，修改目录拥有者为mysql用户</div><div class="line"></div><div class="line">cd mysql/</div><div class="line">chown -R mysql:mysql ./</div><div class="line">    7、安装数据库，此处可能出现错误。</div><div class="line"></div><div class="line">./scripts/mysql_install_db --user=mysql</div><div class="line">    FATAL ERROR: please install the following Perl modules before executing scripts/mysql_install_db:</div><div class="line">    Data::Dumper</div></pre></td></tr></table></figure>
+<p>#解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">yum install -y perl-Data-Dumper</div><div class="line">    8、修改当前目录拥有者为root用户</div><div class="line"></div><div class="line">chown -R root:root ./</div><div class="line">    9、修改当前data目录拥有者为mysql用户</div><div class="line"></div><div class="line">chown -R mysql:mysql data</div></pre></td></tr></table></figure></p>
+<p>============== 到此数据库安装完毕 =============</p>
+<h1 id="添加mysql服务开机自启动"><a href="#添加mysql服务开机自启动" class="headerlink" title="添加mysql服务开机自启动"></a>添加mysql服务开机自启动</h1><p>添加开机启动，把启动脚本放到开机初始化目录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">cp support-files/mysql.server /etc/init.d/mysql</div></pre></td></tr></table></figure></p>
+<h1 id="赋予可执行权限"><a href="#赋予可执行权限" class="headerlink" title="赋予可执行权限"></a>赋予可执行权限</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod +x /etc/init.d/mysql</div></pre></td></tr></table></figure>
+<h1 id="添加服务"><a href="#添加服务" class="headerlink" title="添加服务"></a>添加服务</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig --add mysql</div></pre></td></tr></table></figure>
+<p>#加入环境变量，编辑 /etc/profile，这样可以在任何地方用mysql命令了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=$PATH:/usr/local/mysql//bin source /etc/profile</div></pre></td></tr></table></figure></p>
+<h1 id="显示服务列表"><a href="#显示服务列表" class="headerlink" title="显示服务列表"></a>显示服务列表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig --list</div></pre></td></tr></table></figure>
+<p>如果看到mysql的服务，并且3,4,5都是on的话则成功，如果是off，则执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig --level 345 mysql on</div></pre></td></tr></table></figure></p>
+<h2 id="启动mysql服务"><a href="#启动mysql服务" class="headerlink" title="启动mysql服务"></a>启动mysql服务</h2><p>#创建缺少的文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir /var/log/mariadb</div><div class="line">service mysql start</div></pre></td></tr></table></figure></p>
+<p>正常提示信息：Starting MySQL. SUCCESS!</p>
+<h2 id="把mysql客户端放到默认路径"><a href="#把mysql客户端放到默认路径" class="headerlink" title="把mysql客户端放到默认路径"></a>把mysql客户端放到默认路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -s /usr/local/mysql/bin/mysql /usr/local/bin/mysql</div></pre></td></tr></table></figure>
+<p>注意：建议使用软链过去，不要直接包文件复制，便于系统安装多个版本的mysql</p>
+<p>=================== 这是分割线 ==================</p>
+<p>通过使用 mysql -uroot -p 连接数据库（默认数据库的root用户没有密码，这个需要设置一个密码）。</p>
+<p>错误信息：ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/tmp/mysql.sock’ (2)</p>
+<p>解决方法：打开/etc/my.cnf,看看里面配置的socket位置是什么目录。“socket=/var/lib/mysql/mysql.sock”</p>
+<p>路径和“/tmp/mysql.sock”不一致。建立一个软连接：ln -s /var/lib/mysql/mysql.sock /tmp/mysql.sock</p>
+<p>到这里任务算是完成了。之后就可以创建数据库用户，然后使用数据库了。</p>
+<h3 id="有其他错误看本博客有没有其他文章关于解决mysql安装问题的"><a href="#有其他错误看本博客有没有其他文章关于解决mysql安装问题的" class="headerlink" title="有其他错误看本博客有没有其他文章关于解决mysql安装问题的"></a>有其他错误看本博客有没有其他文章关于解决mysql安装问题的</h3><h2 id="远程连接错误（博客以一篇mysql的文章专门解决这个问题）"><a href="#远程连接错误（博客以一篇mysql的文章专门解决这个问题）" class="headerlink" title="远程连接错误（博客以一篇mysql的文章专门解决这个问题）"></a>远程连接错误（博客以一篇mysql的文章专门解决这个问题）</h2><p>错误</p>
+<p>　　5.1 sqlyog连接时，报1130错误，是由于没有给远程连接的用户权限问题</p>
+<p>　　　　解决1:更改 ‘mysql’数据库‘user’表‘host’项，从‘localhost’改成‘%’。</p>
+<p>use mysql;<br>select ‘host’ from user where user=’root’;<br>update user set host = ‘%’ where user =’root’;<br>flush privileges;<br>　　　　解决2：直接授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">　　　　　　GRANT ALL PRIVILEGES ON *.* TO ‘root’@&apos;%’ IDENTIFIED BY ‘youpassword’ WITH GRANT OPTION;</div></pre></td></tr></table></figure></p>
+<p>　　5.2 安装时的一些错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　　　-bash: ./scripts/mysql_install_db: /usr/bin/perl: bad interpreter: 没有那个文件或目录</div><div class="line">　　　　解决： yum -y install perl perl-devel</div><div class="line"></div><div class="line">　　　　Installing MySQL system tables..../bin/mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory</div><div class="line">　　　　解决：yum -y install libaio-devel</div></pre></td></tr></table></figure></p>
+<p>6、其他</p>
+<p>　　6.1 配置环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">　　　　vi + /etc/profile</div><div class="line"></div><div class="line">　　　　export PATH=....:/usr/local/mysql/bin</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[利用Linux的crontab实现定时执行python任务]]></title>
+      <url>/2018/07/linux+crontab+python/</url>
+      <content type="html"><![CDATA[<h1 id="让Python脚本定时启动"><a href="#让Python脚本定时启动" class="headerlink" title="让Python脚本定时启动"></a>让Python脚本定时启动</h1><p>准备好定时启动的脚本auto.py<br>用root权限编辑以下文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/crontab</div></pre></td></tr></table></figure></p>
+<p>在文件末尾添加以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2 * * * * root /usr/bin/python3.5 /home/edgar/auto.py &gt; /home/edgar/auto.log</div></pre></td></tr></table></figure>
+<p>以上代码的意思是每隔两分钟执行一次脚本并打印日志。  (python3.5的路径和文件路径必须是绝对路径)</p>
+<h1 id="crontab编写解释"><a href="#crontab编写解释" class="headerlink" title="crontab编写解释"></a>crontab编写解释</h1><h2 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h2><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>user command<br>分 时 日 月 周 用户 命令</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><p>1、每分钟执行一次<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* * * * * user command</div></pre></td></tr></table></figure></p>
+<p>2、每隔2小时执行一次<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* */2 * * * user command (/表示频率)</div></pre></td></tr></table></figure></p>
+<p>3、每天8:30分执行一次<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">30 8 * * * user command</div></pre></td></tr></table></figure></p>
+<p>4、每小时的30和50分各执行一次<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">30,50 * * * * user command（,表示并列）</div></pre></td></tr></table></figure></p>
+<p>5、每个月的3号到6号的8:30执行一次<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">30 8 3-6 * * user command （-表示范围）</div></pre></td></tr></table></figure></p>
+<p>6、每个星期一的8:30执行一次<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">30 8 * * 1 user command （周的范围为0-7,0和7代表周日）</div></pre></td></tr></table></figure></p>
+<h1 id="crontab命令"><a href="#crontab命令" class="headerlink" title="crontab命令"></a>crontab命令</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">service crond start #启动</div><div class="line"></div><div class="line">service crond stop #关闭</div><div class="line"></div><div class="line">service crond restart #重启</div><div class="line"></div><div class="line">service crond reload #重新载入配置</div><div class="line"></div><div class="line">crontab -e 命令添加定时任务</div><div class="line"></div><div class="line">crontab -l 查看定时任务</div></pre></td></tr></table></figure>
+<p>检查crontab 任务执行情况，可以查看log 文件 /var/log/cron</p>
+<h1 id="也可以使用python-crontab包来设置"><a href="#也可以使用python-crontab包来设置" class="headerlink" title="也可以使用python-crontab包来设置"></a>也可以使用python-crontab包来设置</h1><p>如:</p>
+<pre><code class="python">安装直接
+$ pip install python-crontab
+下面在脚本上就可以方便的设置计划任务了
+<span class="keyword">from</span> crontab <span class="keyword">import</span> CronTab
+
+<span class="comment"># 创建当前用户的crontab，当然也可以创建其他用户的，但得有足够权限</span>
+
+my_user_cron = CronTab(user=<span class="keyword">True</span>)
+
+<span class="comment"># 创建任务</span>
+
+job = my_user_cron.new(command=<span class="string">'/usr/bin/python3.5 /home/edgar/auto.py'</span>)
+
+<span class="comment"># 设置任务执行周期，每两分钟执行一次</span>
+
+job.setall(<span class="string">'*/2 * * * *'</span>)
+
+<span class="comment"># 当然还支持其他更人性化的设置方式，简单列举一些</span>
+
+job.minute.during(<span class="number">5</span>,<span class="number">50</span>).every(<span class="number">5</span>)
+
+job.hour.every(<span class="number">4</span>)
+
+job.day.on(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)
+
+job.dow.on(<span class="string">'SUN'</span>)
+
+job.dow.on(<span class="string">'SUN'</span>, <span class="string">'FRI'</span>)
+
+job.month.during(<span class="string">'APR'</span>, <span class="string">'NOV'</span>)
+
+job.setall(time(<span class="number">10</span>, <span class="number">2</span>))
+
+job.setall(date(<span class="number">2000</span>, <span class="number">4</span>, <span class="number">2</span>))
+
+job.setall(datetime(<span class="number">2000</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">10</span>, <span class="number">2</span>))
+
+<span class="comment"># 同时可以给任务设置comment，这样就可以根据comment查询，很方便</span>
+
+job.set_comment(<span class="string">"time log job"</span>)
+
+<span class="comment"># 根据comment查询，当时返回值是一个生成器对象，不能直接根据返回值判断任务是否#存在，如果只是判断任务是否存在，可直接遍历my_user_cron.crons</span>
+
+iter = my_user_cron.find_comment(<span class="string">'time log job'</span>)
+
+<span class="comment"># 同时还支持根据command和执行周期查找，基本类似，不再列举</span>
+
+<span class="comment"># 任务的disable和enable， 默认enable</span>
+
+job.enable(<span class="keyword">False</span>)
+
+job.enable()
+
+<span class="comment"># 最后将crontab写入配置文件</span>
+
+my_user_cron.write()
+</code></pre>
+<h4 id="下面可通过命令查看，是否创建成功："><a href="#下面可通过命令查看，是否创建成功：" class="headerlink" title="下面可通过命令查看，是否创建成功："></a>下面可通过命令查看，是否创建成功：</h4><p>$ crontab -l</p>
+]]></content>
+      
+        <categories>
+            
+            <category> linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[MySQL错误 ERROR 2002 (HY000): Can't connect to local MySQL server through socket]]></title>
+      <url>/2018/07/mysql+ERROR+socket/</url>
+      <content type="html"><![CDATA[<p>原因分析：<br>1、没有 /var/lib/mysql/mysql.sock 的目录权限<br>    添加权限   chown -R mysql:mysql /var/lib/mysql/</p>
+<p>2、没有/var/lib/mysql/mysql.sock文件<br>   通过 find / -name mysql.sock<br>    在 /tmp//mysql.sock<br>    用 ln -s 命令建立连接</p>
+<pre><code>或者修改 /etc/my.cnf配置文件，下边有，然后重启
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line">#查看mysql实例的状态</div><div class="line">[root@SZDB mysqldata]# netstat -ntlp  | grep 3306</div><div class="line">tcp        0      0 :::3306                     :::*                        LISTEN      13001/mysqld</div><div class="line">#查看my.cnf关于socket的配置</div><div class="line">[root@SZDB mysqldata]# more /etc/my.cnf |grep sock</div><div class="line">socket = /tmp/mysql.sock</div><div class="line">#由上可知my.cnf中定义的为/tmp目录下，而错误提示为/data/mysqldata/目录下</div><div class="line">#也就是说mysqld已经声称了正确的sock文件，但客户端连接还是从初始目录去找sock文件</div><div class="line">#下面查看后台日志，有个ERROR，是关于满查询日志的，是由于目录不存在而产生的错误，与当前故障无关</div><div class="line">[root@SZDB mysqldata]# more SZDB.err</div><div class="line">             ............</div><div class="line">2014-10-11 13:17:21 13001 [Note] InnoDB: 5.6.12 started; log sequence number 1625997</div><div class="line">/app/soft/mysql/bin/mysqld: File &apos;/log/mysql_logs/slowquery.log&apos; not found (Errcode: 2 - No such file or directory)</div><div class="line">2014-10-11 13:17:21 13001 [ERROR] Could not use /log/mysql_logs/slowquery.log for logging (error 2). Turning logging off for the who</div><div class="line">le duration of the MySQL server process. To turn it on again: fix the cause, shutdown the MySQL server and restart it.</div><div class="line">2014-10-11 13:17:21 13001 [Note] Server hostname (bind-address): &apos;*&apos;; port: 3306</div><div class="line">2014-10-11 13:17:21 13001 [Note] IPv6 is available.</div><div class="line">2014-10-11 13:17:21 13001 [Note]   - &apos;::&apos; resolves to &apos;::&apos;;</div><div class="line">2014-10-11 13:17:21 13001 [Note] Server socket created on IP: &apos;::&apos;.</div><div class="line">2014-10-11 13:17:21 13001 [Note] Event Scheduler: Loaded 0 events</div><div class="line">2014-10-11 13:17:21 13001 [Note] /app/soft/mysql/bin/mysqld: ready for connections.</div><div class="line">Version: &apos;5.6.12-log&apos;  socket: &apos;/tmp/mysql.sock&apos;  port: 3306  Source distribution</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">3、解决故障</div><div class="line"></div><div class="line"></div><div class="line">通过配置my.cnf mysql选项socket文件位置解决</div><div class="line">复制代码 代码如下:</div><div class="line"></div><div class="line">#先停止mysql服务器</div><div class="line">[root@SZDB mysqldata]# service mysqld stop</div><div class="line">Shutting down MySQL.[  OK  ]</div><div class="line">#修改my.cnf，如下</div><div class="line">[root@SZDB mysqldata]# vi /etc/my.cnf</div><div class="line">[mysql]</div><div class="line">no-auto-rehash</div><div class="line">socket = /tmp/mysql.sock  #添加该行</div><div class="line">[mysql.server]</div><div class="line">user=mysql#添加</div><div class="line">basedir=/usr/local/mysql#添加</div><div class="line"></div><div class="line">#If there is not currently a section called [client], add one at the bottom of the file and copy the socket= line under the [mysqld] section such as:</div><div class="line"></div><div class="line">[client]#添加</div><div class="line">socket=/var/lib/mysql/mysql.sock#添加</div><div class="line">#重启mysql服务器</div><div class="line">[root@SZDB mysqldata]# service mysqld start</div><div class="line">Starting MySQL..[  OK  ]</div><div class="line">#再次连接正常</div><div class="line">[root@SZDB mysqldata]# mysql -uroot -p</div><div class="line">Enter password: </div><div class="line">mysql&gt; show variables like &apos;version&apos;;</div><div class="line">+---------------+------------+</div><div class="line">| Variable_name | Value      |</div><div class="line">+---------------+------------+</div><div class="line">| version       | 5.6.12-log |</div><div class="line">+---------------+------------+</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">为socket文件建立链接方式</div><div class="line">复制代码 代码如下:</div><div class="line"></div><div class="line">[root@SZDB mysqldata]# ln -s /tmp/mysql.sock /data/mysqldata/mysql.sock </div><div class="line">ln: creating symbolic link `/data/mysqldata/mysql.sock&apos; to `/tmp/mysql.sock&apos;: File exists</div><div class="line">[root@SZDB mysqldata]# rm mysql.sock    #上面提示文件存在，所以删除之前的mysql.sock文件</div><div class="line">[root@SZDB mysqldata]# ln -s /tmp/mysql.sock /data/mysqldata/mysql.sock</div><div class="line">[root@SZDB mysqldata]# ls -hltr mysql.sock</div><div class="line">lrwxrwxrwx 1 root root 15 Oct 11 14:00 mysql.sock -&gt; /tmp/mysql.sock</div><div class="line">[root@SZDB mysqldata]# mysql -uroot -p</div><div class="line">Enter password: </div><div class="line">mysql&gt; show variables like &apos;socket&apos;;</div><div class="line">+---------------+-----------------+</div><div class="line">| Variable_name | Value           |</div><div class="line">+---------------+-----------------+</div><div class="line">| socket        | /tmp/mysql.sock |</div><div class="line">+---------------+-----------------+</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Linux下Mysql开放远程端口3306用于远程登录]]></title>
+      <url>/2018/07/linux+mysql+port/</url>
+      <content type="html"><![CDATA[<h2 id="方法-步骤"><a href="#方法-步骤" class="headerlink" title="方法/步骤"></a>方法/步骤</h2><p>1、远程连接上Linux系统，确保Linux系统已经安装上了MySQL数据库。登陆数据库。mysql -uroot -p（密码）。</p>
+<p>2、创建用户用来远程连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;用户名&apos;@&apos;%&apos; IDENTIFIED BY &apos;密码&apos; WITH GRANT OPTION;</div><div class="line"></div><div class="line">（第一个表示用户名，%表示所有的电脑都可以连接，也可以设置某个ip地址运行连接，第二个密码表示密码）。</div></pre></td></tr></table></figure></p>
+<p>3、执行 flush privileges;命令立即生效</p>
+<p>4、查询数据库的用户（看到创建新用户成功了）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT DISTINCT CONCAT(&apos;User: &apos;&apos;&apos;,user,&apos;&apos;&apos;@&apos;&apos;&apos;,host,&apos;&apos;&apos;;&apos;) AS query FROM mysql.user;</div></pre></td></tr></table></figure></p>
+<p>5、查看端口号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show global variables like &apos;port&apos;;</div></pre></td></tr></table></figure></p>
+<p>没有设置可以再 /etc/my.cnf<br>中添加<br>port=3306<br>将bind-address    = 127.0.0.1</p>
+<p>设置成bind-address    = 0.0.0.0（设备地址）</p>
+<p>就可以了</p>
+<p>重启  service mysql restart<br>OK!</p>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Linux连接mysql报错：Access denied for user ‘root’@‘localhost’(using password: YES)的解决方法]]></title>
+      <url>/2018/07/mysql+Accessdenied/</url>
+      <content type="html"><![CDATA[<p>1.先停止mysql 服务</p>
+<p>service mysqld stop</p>
+<p>2.进入mysql安装目录bin/ 使用safe模式，进行重启：</p>
+<p>配置文件/etc/my.cnf中添加  skip-external-locking</p>
+<p>./mysqld_safe –skip-grant-tables</p>
+<p>3.使用root账户，无密码登录，修改root用户密码</p>
+<p>mysql 或者  mysql -u root<br>use mysql<br>update user set password=PASSWORD(“你的密码”) where User = ‘root’;</p>
+<p>4.重启mysql，正常登录</p>
+<p>service mysqld restart 重启</p>
+<p>完成，连接成功！</p>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[python实现于小米传感器通信]]></title>
       <url>/2018/07/python+xiaomichuanganqi/</url>
       <content type="html"><![CDATA[<p>需要先了解绿米网关局域网通讯协议<br>地址： <a href="https://legacy.gitbook.com/book/aqara/aiot-gateway-local-api/details" target="_blank" rel="external">https://legacy.gitbook.com/book/aqara/aiot-gateway-local-api/details</a></p>

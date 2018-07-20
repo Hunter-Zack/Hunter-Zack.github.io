@@ -4,6 +4,106 @@
 
     
   <url>
+    <loc>http://www.aisun.org/2018/07/Linux+install+mysql/</loc>
+    <lastmod>2018-07-20T06:28:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux安装mysql</title>
+        <pubTime>2018-07-20T06:20:19.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+         
+           
+             
+              <breadCrumb title="mysql" url="http://www.aisun.org/categories/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2018/07/mysql+ERROR+socket/</loc>
+    <lastmod>2018-07-20T06:15:31.000Z</lastmod>
+    <data>
+        <display>
+        <title>MySQL错误 ERROR 2002 (HY000): Can't connect to local MySQL server through socket</title>
+        <pubTime>2018-07-20T05:30:25.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+         
+           
+             
+              <breadCrumb title="mysql" url="http://www.aisun.org/categories/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2018/07/mysql+Accessdenied/</loc>
+    <lastmod>2018-07-20T06:14:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux连接mysql报错：Access denied for user ‘root’@‘localhost’(using password: YES)的解决方法</title>
+        <pubTime>2018-07-20T05:28:27.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+         
+           
+             
+              <breadCrumb title="mysql" url="http://www.aisun.org/categories/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2018/07/linux+mysql+port/</loc>
+    <lastmod>2018-07-20T05:57:44.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux下Mysql开放远程端口3306用于远程登录</title>
+        <pubTime>2018-07-20T05:29:07.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+         
+           
+             
+              <breadCrumb title="mysql" url="http://www.aisun.org/categories/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2018/07/linux+crontab+python/</loc>
+    <lastmod>2018-07-20T05:48:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>利用Linux的crontab实现定时执行python任务</title>
+        <pubTime>2018-07-20T05:31:33.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux" url="http://www.aisun.org/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.aisun.org/2018/07/Bitbex+rule/</loc>
     <lastmod>2018-07-13T05:47:29.000Z</lastmod>
     <data>

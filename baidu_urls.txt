@@ -1,3 +1,8 @@
+http://www.aisun.org/2018/07/Linux+install+mysql/
+http://www.aisun.org/2018/07/linux+crontab+python/
+http://www.aisun.org/2018/07/mysql+ERROR+socket/
+http://www.aisun.org/2018/07/linux+mysql+port/
+http://www.aisun.org/2018/07/mysql+Accessdenied/
 http://www.aisun.org/2018/07/python+xiaomichuanganqi/
 http://www.aisun.org/2018/07/python+socket/
 http://www.aisun.org/2018/07/tcp+socket/
@@ -18,8 +23,3 @@ http://www.aisun.org/2017/10/excel+csv/
 http://www.aisun.org/2017/10/Python+list+str/
 http://www.aisun.org/2017/10/python+scrapy+item/
 http://www.aisun.org/2017/10/python+scrapy/
-http://www.aisun.org/2017/09/goodnight/
-http://www.aisun.org/2017/09/hexo+next+title/
-http://www.aisun.org/2017/09/hexo+next+gitment/
-http://www.aisun.org/2017/09/hexo+baidu/
-http://www.aisun.org/2017/09/YES/
