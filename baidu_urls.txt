@@ -1,3 +1,6 @@
+http://www.aisun.org/2018/07/js+Math/
+http://www.aisun.org/2018/07/js+string/
+http://www.aisun.org/2018/07/typescript+array/
 http://www.aisun.org/2018/07/mysql+dingshi/
 http://www.aisun.org/2018/07/python+dianfei/
 http://www.aisun.org/2018/07/Linux+install+mysql/
@@ -20,6 +23,3 @@ http://www.aisun.org/2017/12/ruguoshenghuobugoukangkai/
 http://www.aisun.org/2017/12/dongji/
 http://www.aisun.org/2017/10/hexo-next+dingzhi/
 http://www.aisun.org/2017/10/vim+YouCompleteMe-unavailable/
-http://www.aisun.org/2017/10/vim+youcompleteme/
-http://www.aisun.org/2017/10/excel+csv/
-http://www.aisun.org/2017/10/Python+list+str/
