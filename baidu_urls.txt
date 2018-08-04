@@ -1,3 +1,5 @@
+http://www.aisun.org/2018/08/linux+jupyter/
+http://www.aisun.org/2018/08/mac+ls/
 http://www.aisun.org/2018/07/js+Math/
 http://www.aisun.org/2018/07/js+string/
 http://www.aisun.org/2018/07/typescript+array/
@@ -21,5 +23,3 @@ http://www.aisun.org/2018/04/mac-apache/
 http://www.aisun.org/2017/12/limingzhiqian/
 http://www.aisun.org/2017/12/ruguoshenghuobugoukangkai/
 http://www.aisun.org/2017/12/dongji/
-http://www.aisun.org/2017/10/hexo-next+dingzhi/
-http://www.aisun.org/2017/10/vim+YouCompleteMe-unavailable/

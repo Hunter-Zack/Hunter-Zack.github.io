@@ -4,6 +4,46 @@
 
     
   <url>
+    <loc>http://www.aisun.org/2018/08/linux+jupyter/</loc>
+    <lastmod>2018-08-04T04:19:52.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux 下远程 搭建 Jupyter Notebook 服务器配置及无法连接原因</title>
+        <pubTime>2018-08-04T04:04:05.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux" url="http://www.aisun.org/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.aisun.org/2018/08/mac+ls/</loc>
+    <lastmod>2018-08-04T04:11:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>ls 自定义不同文件显示不同颜色</title>
+        <pubTime>2018-08-04T04:03:47.000Z</pubTime>
+        
+        <tag>mac</tag>
+         
+         
+           
+             
+              <breadCrumb title="mac" url="http://www.aisun.org/categories/mac/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.aisun.org/2018/07/typescript+array/</loc>
     <lastmod>2018-07-31T10:14:10.000Z</lastmod>
     <data>
