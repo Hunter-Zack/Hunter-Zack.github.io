@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.aisun.org/404.html</loc>
+    
+    <lastmod>2018-08-17T08:57:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.aisun.org/2018/08/linux+jupyter/</loc>
     
     <lastmod>2018-08-04T04:19:52.000Z</lastmod>
@@ -446,13 +453,6 @@
     <loc>http://www.aisun.org/archives/index.html</loc>
     
     <lastmod>2017-09-23T12:07:23.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.aisun.org/404.html</loc>
-    
-    <lastmod>2017-09-23T09:08:16.000Z</lastmod>
     
   </url>
   
