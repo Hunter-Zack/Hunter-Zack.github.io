@@ -519,7 +519,7 @@ this.edit1.text= &quot;Sort Method \n 排序后的结果为-&gt; &quot; + sortAr
 
     <div class="post-Fork-me">
     
-      <p><strong>最后想说：</strong><a href="https://github.com/Hunter-Zack">Fork me on GitHub</a><strong>　欢迎 </strong><a href="https://github.com/Hunter-Zack/Hunter-Zack.github.io">Star</a></p>
+      <p><strong>最后想说：</strong><a href="https://github.com/Hunter-Zack">Star me on GitHub</a><strong>　欢迎 </strong><a href="https://github.com/Hunter-Zack/Hunter-Zack.github.io">Star</a></p>
      
     </div>
 
@@ -641,7 +641,8 @@ this.edit1.text= &quot;Sort Method \n 排序后的结果为-&gt; &quot; + sortAr
   <div class="comments" id="comments">
     
      
-       <div id="gitment-container"></div>
+       <div onclick="ShowGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+       <div id="gitment-container" style="display:none"></div>
      
     
   </div>
@@ -1012,10 +1013,18 @@ this.edit1.text= &quot;Sort Method \n 排序后的结果为-&gt; &quot; + sortAr
 
 
 
-
-
   
-
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
 
 
 
@@ -1031,15 +1040,19 @@ this.edit1.text= &quot;Sort Method \n 排序后的结果为-&gt; &quot; + sortAr
      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
      
          <script type="text/javascript">
-             var gitment = new Gitment({
-                id: document.location.href, 
-                 owner: 'Hunter-Zack',
-                 repo: 'Hunter-Zack.github.io',
-                 oauth: {
-                     client_id: '7b7da8e17aadd21d64c6',
-                     client_secret: '41b14296eba9da7cacf8a63e3ea95d8e4317e7c4',
-                 }});
-             gitment.render('gitment-container');
+             function ShowGitment(){
+                 document.getElementById("gitment-display-button").style.display = "none";
+                 document.getElementById("gitment-container").style.display = "block";
+                 var gitment = new Gitment({
+                     id: document.location.href, 
+                     owner: 'Hunter-Zack',
+                     repo: 'Hunter-Zack.github.io',
+                     oauth: {
+                         client_id: '7b7da8e17aadd21d64c6',
+                         client_secret: '41b14296eba9da7cacf8a63e3ea95d8e4317e7c4',
+                     }});
+                 gitment.render('gitment-container');
+             }
          </script>
      
  
