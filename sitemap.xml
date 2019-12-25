@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.aisun.org/2019/12/linux-install-mongoDB/</loc>
+    
+    <lastmod>2019-12-25T09:46:07.521Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.aisun.org/2019/12/meloud-api/</loc>
+    
+    <lastmod>2019-12-25T09:40:08.399Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.aisun.org/2017/09/hexo+github+pages/</loc>
+    
+    <lastmod>2019-12-25T09:28:35.869Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.aisun.org/2019/12/mongoDB-addUser/</loc>
+    
+    <lastmod>2019-12-25T09:11:45.980Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.aisun.org/about/index.html</loc>
     
     <lastmod>2019-03-16T14:19:14.000Z</lastmod>
@@ -397,13 +425,6 @@
     <loc>http://www.aisun.org/2017/09/python3+scrapy/</loc>
     
     <lastmod>2017-09-25T07:37:34.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.aisun.org/2017/09/hexo+github+pages/</loc>
-    
-    <lastmod>2017-09-25T07:35:52.000Z</lastmod>
     
   </url>
   

@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="4z8EbTP1rCqSJsFYsoG5ep8CXuIUpzQ1VIsGVjr8X0o">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="7t9qBaFKM5">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="mongoDB,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="1. Ubuntu安装 MongoDB 社区版MongoDB 提供的包只支持 64 位长期支持版本的 Ubuntu 发行版。比如 Ubuntu 12.04 LTS (precise), 14.04 LTS (trusty), 16.04 LTS (xenial) 等等。这些包可能在其他发行版上也能工作，但是并未被支持。 1.1 导入包管理系统使用的公钥Ubuntu 的软件包管理工具（即dpkg和A">
+<meta name="keywords" content="mongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux安装mongoDB">
+<meta property="og:url" content="http://www.aisun.org/2019/12/linux-install-mongoDB/index.html">
+<meta property="og:site_name" content="知了笔记">
+<meta property="og:description" content="1. Ubuntu安装 MongoDB 社区版MongoDB 提供的包只支持 64 位长期支持版本的 Ubuntu 发行版。比如 Ubuntu 12.04 LTS (precise), 14.04 LTS (trusty), 16.04 LTS (xenial) 等等。这些包可能在其他发行版上也能工作，但是并未被支持。 1.1 导入包管理系统使用的公钥Ubuntu 的软件包管理工具（即dpkg和A">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-25T09:46:07.521Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux安装mongoDB">
+<meta name="twitter:description" content="1. Ubuntu安装 MongoDB 社区版MongoDB 提供的包只支持 64 位长期支持版本的 Ubuntu 发行版。比如 Ubuntu 12.04 LTS (precise), 14.04 LTS (trusty), 16.04 LTS (xenial) 等等。这些包可能在其他发行版上也能工作，但是并未被支持。 1.1 导入包管理系统使用的公钥Ubuntu 的软件包管理工具（即dpkg和A">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.aisun.org/2019/12/linux-install-mongoDB/">
+
+
+
+
+
+  <title>linux安装mongoDB | 知了笔记</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8c19993c2d6f7a56cd988711773b32b0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <!-- <div class="paral">
+      <p class="zi">公众号</p>
+      <img src="/images/zhiliaonote.jpg" class="img">
+    </div> -->
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">知了笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Zack's Blog</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-board">
+          <a href="/board/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br>
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.aisun.org/2019/12/linux-install-mongoDB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hunter-Zack">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知了笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">linux安装mongoDB</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T16:37:33+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mongoDB/" itemprop="url" rel="index">
+                    <span itemprop="name">mongoDB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>T
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-Ubuntu安装-MongoDB-社区版"><a href="#1-Ubuntu安装-MongoDB-社区版" class="headerlink" title="1. Ubuntu安装 MongoDB 社区版"></a>1. Ubuntu安装 MongoDB 社区版</h2><p>MongoDB 提供的包只支持 64 位长期支持版本的 Ubuntu 发行版。比如 Ubuntu 12.04 LTS (precise), 14.04 LTS (trusty), 16.04 LTS (xenial) 等等。这些包可能在其他发行版上也能工作，但是并未被支持。</p>
+<h4 id="1-1-导入包管理系统使用的公钥"><a href="#1-1-导入包管理系统使用的公钥" class="headerlink" title="1.1 导入包管理系统使用的公钥"></a>1.1 导入包管理系统使用的公钥</h4><p>Ubuntu 的软件包管理工具（即dpkg和APT）要求软件包的发布者通过GPG密钥签名来确保软件包的一致性和真实性。通过以下命令导入MongoDB公共GPG密钥：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6</span><br></pre></td></tr></table></figure></p>
+<p>根据 Ubuntu 的版本使用适当的命令创建 list file: /etc/apt/sources.list.d/mongodb-org-3.4.list为 MongoDB 创建 list file</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Ubuntu 12.04</span><br><span class="line"></span><br><span class="line">echo &quot;deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</span><br><span class="line"></span><br><span class="line">Ubuntu 14.04</span><br><span class="line"></span><br><span class="line">echo &quot;deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</span><br><span class="line">Ubuntu 16.04</span><br><span class="line"></span><br><span class="line">echo &quot;deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-重新下载本地包数据库索引"><a href="#1-2-重新下载本地包数据库索引" class="headerlink" title="1.2. 重新下载本地包数据库索引"></a>1.2. 重新下载本地包数据库索引</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-通过以下命令安装最新的可靠版安装-MongoDB"><a href="#1-3-通过以下命令安装最新的可靠版安装-MongoDB" class="headerlink" title="1.3. 通过以下命令安装最新的可靠版安装 MongoDB"></a>1.3. 通过以下命令安装最新的可靠版安装 MongoDB</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<h2 id="2-运行-MongoDB-社区版"><a href="#2-运行-MongoDB-社区版" class="headerlink" title="2. 运行 MongoDB 社区版"></a>2. 运行 MongoDB 社区版</h2><p>默认情况下， MongoDB 实例的数据文件位于 /var/lib/mongodb，日志文件位于 /var/log/mongodb，并且通过用户 mongodb 来运行。你可以在配置文件 /etc/mongod.conf指定不同的日志文件和数据文件目录，其对应的配置为：systemLog.path 和 storage.dbPath 。配置中的net.bindIp 默认是127.0.0.1，这样只能本地连接，可以指定成服务器的对外IP或者干脆设置为0.0.0.0。</p>
+<p>如果你更改了运行 MongoDB 进程的用户，必须修改 /var/lib/mongodb 和 /var/log/mongodb 的访问权限来让用户能访问这些目录。</p>
+<h3 id="2-1-启动-MongoDB"><a href="#2-1-启动-MongoDB" class="headerlink" title="2.1 启动 MongoDB"></a>2.1 启动 MongoDB</h3><p>按照官方文档，执行如下命令可以启动 mongod 进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod start</span><br><span class="line"></span><br><span class="line"># 或者</span><br><span class="line">sudo systemctl start mongod</span><br></pre></td></tr></table></figure></p>
+<p>实际上我操作过程中是没有成功使用以上命令启动成功的，我是通过手动添加系统服务来实现服务的启动的。</p>
+<p>步骤如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">进入 /etc/init.d</span><br><span class="line">建立一个脚本mongodb文件，内容如下并赋予755权限chmod 775 mongodb</span><br><span class="line">#!/bin/bash</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides:          mongod</span><br><span class="line"># Required-Start:    $remote_fs $syslog</span><br><span class="line"># Required-Stop:     $remote_fs $syslog</span><br><span class="line"># Default-Start:     2 3 4 5</span><br><span class="line"># Default-Stop:      0 1 6 </span><br><span class="line"># Short-Description: Start mongod at boot time</span><br><span class="line"># Description:       Enable service provided by mongod.</span><br><span class="line">### END INIT INFO</span><br><span class="line"> </span><br><span class="line">start() </span><br><span class="line">&#123;</span><br><span class="line">    /usr/bin/mongod --config /etc/mongod.conf &amp;</span><br><span class="line">    exit 0;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">stop() </span><br><span class="line">&#123;</span><br><span class="line">   /usr/bin/mongod --config /etc/mongod.conf --shutdown</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">start)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line"> </span><br><span class="line">stop)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line"> </span><br><span class="line">restart)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line"> </span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123;start|stop|restart&#125;&quot;</span><br><span class="line">    exit 0</span><br><span class="line">    ;;</span><br><span class="line"> </span><br><span class="line">esac</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<p>加入到系统启动中<br>// 添加到系统启动<br>update-rc.d mongodb defaults<br>// 从系统启动中删除<br>update-rc.d mongodb remove<br>启动命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mongodb start</span><br><span class="line">service mongodb stop</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<p>不要将脚本名称和已有的命令重名(刚开始使用的mongod,和mongodb server启动命令名称一样导致一直不成功)<br>启动方式和标准启动方式不一样，最后留下文档，方便其他人维护</p>
+<h2 id="Centos环境下安装mongoDB"><a href="#Centos环境下安装mongoDB" class="headerlink" title="Centos环境下安装mongoDB"></a>Centos环境下安装mongoDB</h2><p>通过yum安装的.仅限64位centos系统</p>
+<p>安装步骤:</p>
+<h3 id="1、创建仓库文件"><a href="#1、创建仓库文件" class="headerlink" title="1、创建仓库文件:"></a>1、创建仓库文件:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/yum.repos.d/mongodb-org-3.4.repo</span><br></pre></td></tr></table></figure>
+<p> 然后复制下面配置,保存退出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mongodb-org-3.4]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、yum安装"><a href="#2、yum安装" class="headerlink" title="2、yum安装"></a>2、yum安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<p>没有权限就在前面加:   sudo<br>安装完毕后修改配置文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/mongod.conf</span><br></pre></td></tr></table></figure>
+<h2 id="3-MongoDB使用"><a href="#3-MongoDB使用" class="headerlink" title="3. MongoDB使用"></a>3. MongoDB使用</h2><p>MongoDB默认是没有设置鉴权的，业界大部分使用MongoDB的项目也没有设置访问权限。这就意味着只要知道MongoDB服务器的端口，任何能访问到这台服务器的人都可以查询和操作MongoDB数据库的内容。在一些项目当中，这种使用方式会被看成是一种安全漏洞。</p>
+<h3 id="3-1-第一次进入mongodb"><a href="#3-1-第一次进入mongodb" class="headerlink" title="3.1. 第一次进入mongodb"></a>3.1. 第一次进入mongodb</h3><p>可以使用MongoDB shell 来连接 MongoDB 服务器。</p>
+<p>标准 URI 连接语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]</span><br></pre></td></tr></table></figure>
+<p>mongodb:// 这是固定的格式，必须要指定。<br>username:password@ 可选项，如果设置，在连接数据库服务器之后，驱动都会尝试登陆这个数据库<br>host1 必须的指定至少一个host, host1 是这个URI唯一要填写的。它指定了要连接服务器的地址。如果要连接复制集，请指定多个主机地址。<br>portX 可选的指定端口，如果不填，默认为27017<br>/database 如果指定username:password@，连接并验证登陆指定数据库。若不指定，默认打开admin数据库。<br>?options 是连接选项。如果不使用/database，则前面需要加上/。所有连接选项都是键值对name=value，键值对之间通过&amp;或;（分号）隔开<br>使用shell的方式连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ mongo</span><br><span class="line">MongoDB shell version v3.4.2</span><br><span class="line">connecting to: mongodb://127.0.0.1:27017</span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">Server has startup warnings: </span><br><span class="line">2016-08-31T22:13:06.344+0800 I STORAGE  [initandlisten] </span><br><span class="line">2016-08-31T22:13:06.344+0800 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine</span><br><span class="line">2016-08-31T22:13:06.344+0800 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem</span><br><span class="line">2016-08-31T22:13:06.571+0800 I CONTROL  [initandlisten] </span><br><span class="line">2016-08-31T22:13:06.571+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.</span><br><span class="line">2016-08-31T22:13:06.571+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.</span><br><span class="line">2016-08-31T22:13:06.571+0800 I CONTROL  [initandlisten] </span><br><span class="line">&gt; show databases;show databases;    #查看数据库</span><br><span class="line">admin  0.000GB</span><br><span class="line">local  0.000GB</span><br><span class="line">&gt;use admin    #切换数据库</span><br><span class="line">&gt;switched to db admin</span><br><span class="line">如下这种方式也可以</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">$ mongo mongodb://127.0.0.1:27017</span><br><span class="line">MongoDB shell version v3.4.2</span><br><span class="line">connecting to: mongodb://127.0.0.1:27017</span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">Server has startup warnings: </span><br><span class="line">2016-09-02T21:07:29.630+0800 I STORAGE  [initandlisten] </span><br><span class="line">2016-09-02T21:07:29.630+0800 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine</span><br><span class="line">2016-09-02T21:07:29.630+0800 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem</span><br><span class="line">2016-09-02T21:07:29.978+0800 I CONTROL  [initandlisten] </span><br><span class="line">2016-09-02T21:07:29.978+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.</span><br><span class="line">2016-09-02T21:07:29.978+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.</span><br><span class="line">2016-09-02T21:07:29.978+0800 I CONTROL  [initandlisten] </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>开启MongoDB的web界面访问<br>MongoDB自带一个微型的web管理信息界面，需要修改/etc/mongod.conf中的一个配置项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net:</span><br><span class="line">  port: 27017</span><br><span class="line">  bindIp: 10.0.90.24 </span><br><span class="line">  http:</span><br><span class="line">   enabled: true                  #设置为true</span><br><span class="line">   RESTInterfaceEnabled: false    #设置为false</span><br></pre></td></tr></table></figure>
+<p>注：如果bindIp为127.0.0.1，只能在本机使用curl查看，无法再浏览器访问！<br>重启mongodb,会自动监听28017端口，然后访问，在浏览器输入：<a href="http://10.0.90.24:28017/" target="_blank" rel="noopener">http://10.0.90.24:28017/</a></p>
+<p>其中mongodbserver为mongodb服务器的hostname，还有其他一些连接信息！不过web界面方式使用不多。</p>
+<p>注：如果设置了net.http.enabled等于true，并且开启了security.authorization等于enabled，在浏览器访问<a href="http://10.0.90.24:28017/的时候，会提示输入用户名和密码，如下图：" target="_blank" rel="noopener">http://10.0.90.24:28017/的时候，会提示输入用户名和密码，如下图：</a></p>
+<h3 id="3-2-为MongoDB创建用户管理员"><a href="#3-2-为MongoDB创建用户管理员" class="headerlink" title="3.2 为MongoDB创建用户管理员"></a>3.2 为MongoDB创建用户管理员</h3><p>  MongoDB中，每个数据库的实例都可拥有多个用户，安全检查开启后，只要通过身份验证的用户才能够进行数据的读写操作。admin（管理员）和local(本地)是两个特殊的数据库，它们当中的用户可对任何数据库进行操作。这两个数据库中的用户可被看作是超级用户。经认证后，管理员用户可对任何数据库进行读写，同事能执行某些只有管理员才能执行的命令，如listDatabases和shutDown。</p>
+<p>  在默认情况下，mongod是监听在127.0.0.1之上的，任何客户端都可以直接连接27017，且没有认证。这样做的好处是，用户可以即时上手，不用担心被一堆配置弄的心烦意乱。然而坏处也是显而易见，如果直接在公网服务器上如此搭建MongoDB，那么所有人都可以直接访问并修改数据库数据了。</p>
+<p>  默认情况下，mongod也是没有管理员账户的。因此除非你在admin数据库中使用db.addUser()命令添加了管理员帐号，且使用–auth参数启动mongod，否则在数据库中任何人都可以无需认证执行所有命令，包括delete和shutdown。此外，mongod还会默认监听28017端口，同样是绑定所有ip。这是一个mongod自带的web监控界面。从中可以获取到数据库当前连接、log、状态、运行系统等信息。如果你开启了–rest参数，甚至可以直接通过web界面查询数据，执行mongod命令。</p>
+<p>  其实MongoDB本身有非常详细的安全配置准则，显然开发者也是想到了，然而他是将安全的任务推给用户去解决，这本身的策略就是偏向易用性的，对于安全性，则得靠边站了。</p>
+<p>注：每个数据库都有自己的用户，创建用户的命令是db.createUser()，当你创建一个用户时，该用户就属于你当前所在的数据库。</p>
+<p>  MongoDB有一个比较奇怪的设置是，即便是一个admin用户，授权也必须在admin数据库下进行，而不能在其他数据库下进行。而授权之后admin用户就可以在任何数据库下进行任何操作了。当然数据库级别的用户在他自己的数据库下授权之后是不能到其他数据库进行操作的 </p>
+<p>每个用户包含三个要素：用户名、密码和角色列表。下面是一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">user: &quot;dbuser&quot;,</span><br><span class="line">pwd : &quot;dbpass&quot;,</span><br><span class="line">roles: [&quot;readWrite&quot;, &quot;clusterAdmin&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子表示一个名为dbuser的用户，它在当前的数据库中拥有readWrite和clusterAdmin两个角色。</p>
+<p>注：MongoDB内置了很多角色，但要注意，不是每个数据库的内置角色都一样。其中admin数据库就包含了一些其他数据库所没有的角色。熟悉Oracle的朋友都知道，数据库用户有两种，一种是管理员，用来管理用户；一种是普通用户，用来访问数据。类似的，为MongoDB规划用户鉴权时，至少要规划两种角色：用户管理员和数据库用户。如果搭建了分片或主从，可能还会要规划数据库架构管理员的角色，它们专门用来调整数据库的分布式架构。</p>
+<p>下面是一个创建用户管理员的操作例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt; use admin</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.createUser(&#123;user:&quot;root&quot;,pwd:&quot;test123&quot;,roles:[&quot;userAdminAnyDatabase&quot;]&#125;)</span><br><span class="line">Successfully added user: &#123; &quot;user&quot; : &quot;root&quot;, &quot;roles&quot; : [ &quot;userAdminAnyDatabase&quot; ] &#125;</span><br><span class="line">然后登陆测试一下</span><br><span class="line">&gt; use admin</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.auth(&quot;root&quot;,&quot;test123&quot;)</span><br><span class="line">1</span><br><span class="line">注：db.auth()方法返回1表示登录成功。</span><br><span class="line">查看用户</span><br><span class="line">&gt;show users;</span><br><span class="line">&#123;</span><br><span class="line">        &quot;_id&quot; : &quot;admin.root&quot;,</span><br><span class="line">        &quot;user&quot; : &quot;root&quot;,</span><br><span class="line">        &quot;db&quot; : &quot;admin&quot;,</span><br><span class="line">        &quot;roles&quot; : [</span><br><span class="line">                &#123;</span><br><span class="line">                        &quot;role&quot; : &quot;userAdminAnyDatabase&quot;,</span><br><span class="line">                        &quot;db&quot; : &quot;admin&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>设置完后，MongoDB客户端必须用正确的用户名和密码登录，才能在指定的数据库中操作。<br>下面是一个如何创建数据库用户的例子：</p>
+<p>首先保证你已经以用户管理员的身份登录admin数据库。然后用use命令切换到目标数据库，同样用db.createUser()<br>命令来创建用户，其中角色名为“readWrite”，普通的数据库用户角色有两种，read和readWrite。顾名思义，<br>前者只能读取数据不能修改，后者可以读取和修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; use admin</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.auth(&quot;root&quot;,&quot;test123&quot;)</span><br><span class="line">1</span><br><span class="line">&gt; show dbs;</span><br><span class="line">admin  0.000GB</span><br><span class="line">local  0.000GB</span><br><span class="line">test   0.000GB</span><br><span class="line">&gt; use test</span><br><span class="line">switched to db test</span><br><span class="line">&gt; db</span><br><span class="line">test</span><br><span class="line">#创建一个名为testuser123的用户，密码设置为123456,如下：</span><br><span class="line">&gt; db.createUser(&#123;user:&quot;testuser123&quot;,pwd:&quot;123456,&quot;,roles:[&quot;readWrite&quot;]&#125;)</span><br><span class="line">Successfully added user: &#123; &quot;user&quot; : &quot;testuser123&quot;, &quot;roles&quot; : [ &quot;readWrite&quot; ] &#125;</span><br><span class="line">&gt; db.auth(&quot;testuser123&quot;,&quot;123456,&quot;)</span><br><span class="line">1    #认证通过</span><br></pre></td></tr></table></figure>
+<p>以上就实现了为test库创建了一个普通用户！！！<br>注意：普通用户就算认证db.auth()通过之后,也没有权限执行show dbs命令，只能用db命令查看当前数据库!</p>
+<h3 id="3、在配置文件中开启mongodb连接认证功能，如果不开启认证功能，任何人只要可以ssh到mongodb的服务器，都可以进行增删改查等操作"><a href="#3、在配置文件中开启mongodb连接认证功能，如果不开启认证功能，任何人只要可以ssh到mongodb的服务器，都可以进行增删改查等操作" class="headerlink" title="3、在配置文件中开启mongodb连接认证功能，如果不开启认证功能，任何人只要可以ssh到mongodb的服务器，都可以进行增删改查等操作"></a>3、在配置文件中开启mongodb连接认证功能，如果不开启认证功能，任何人只要可以ssh到mongodb的服务器，都可以进行增删改查等操作</h3><p>在配置文件mongod.conf中开启，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">security:</span><br><span class="line">  authorization: enabled</span><br></pre></td></tr></table></figure></p>
+<p>然后重启mongodb就开启了认证功能，测试如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mongo --host 10.0.90.24          #如果是监听的127.0.0.1，就不需要加--host 参数了</span><br><span class="line">MongoDB shell version v3.4.2</span><br><span class="line">connecting to: mongodb://10.0.90.24:27017/</span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>可以看到增加了认证功能，就不会提示上面提到的第一个和第二个WARNING了。<br>然后直接执行show dbs 看看会不会列出所有的数据库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; show dbs</span><br><span class="line">2017-02-13T11:54:45.562+0800 E QUERY    [thread1] Error: listDatabases failed:&#123;</span><br><span class="line">        &quot;ok&quot; : 0,</span><br><span class="line">        &quot;errmsg&quot; : &quot;not authorized on admin to execute command &#123; listDatabases: 1.0 &#125;&quot;,</span><br><span class="line">        &quot;code&quot; : 13,</span><br><span class="line">        &quot;codeName&quot; : &quot;Unauthorized&quot;</span><br><span class="line">&#125; :</span><br><span class="line">_getErrorWithCode@src/mongo/shell/utils.js:25:13</span><br><span class="line">Mongo.prototype.getDBs@src/mongo/shell/mongo.js:62:1</span><br><span class="line">shellHelper.show@src/mongo/shell/utils.js:755:19</span><br><span class="line">shellHelper@src/mongo/shell/utils.js:645:15</span><br><span class="line">@(shellhelp2):1:1</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到提示类似“not authorized on admin to execute command”说明如果不进行权限认证，就无<br>法进行其他操作，那么我们进行认证,如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; use admin</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.auth(&quot;root&quot;,&quot;test123&quot;)</span><br><span class="line">1</span><br><span class="line">&gt; show dbs;</span><br><span class="line">admin  0.000GB</span><br><span class="line">local  0.000GB</span><br><span class="line">test   0.000GB</span><br></pre></td></tr></table></figure></p>
+<p>说明认证通过，可以查看所有的数据库了！！！<br>一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">$ mongo --host 10.0.90.24         #进入mongodb</span><br><span class="line">MongoDB shell version v3.4.2</span><br><span class="line">connecting to: mongodb://10.0.90.24:27017/</span><br><span class="line">MongoDB server version: 3.4.2</span><br><span class="line">&gt; use web</span><br><span class="line">switched to db web</span><br><span class="line">&gt; db.auth(&quot;xlg&quot;,&quot;123456,&quot;)db.auth(&quot;xlg&quot;,&quot;123456,&quot;)</span><br><span class="line">1</span><br><span class="line">&gt; show dbs;        #根据提示可以看出普通用户无法执行show dbs命令</span><br><span class="line">2017-02-13T15:33:32.816+0800 E QUERY    [thread1] Error: listDatabases failed:&#123;</span><br><span class="line">        &quot;ok&quot; : 0,</span><br><span class="line">        &quot;errmsg&quot; : &quot;not authorized on admin to execute command &#123; listDatabases: 1.0 &#125;&quot;,</span><br><span class="line">        &quot;code&quot; : 13,</span><br><span class="line">        &quot;codeName&quot; : &quot;Unauthorized&quot;</span><br><span class="line">&#125; :</span><br><span class="line">_getErrorWithCode@src/mongo/shell/utils.js:25:13</span><br><span class="line">Mongo.prototype.getDBs@src/mongo/shell/mongo.js:62:1</span><br><span class="line">shellHelper.show@src/mongo/shell/utils.js:755:19</span><br><span class="line">shellHelper@src/mongo/shell/utils.js:645:15</span><br><span class="line">@(shellhelp2):1:1</span><br><span class="line">&gt; db</span><br><span class="line">web</span><br><span class="line">&gt; db.web.findOne()db.web.findOne()    #查看数据</span><br><span class="line">&#123; </span><br><span class="line">        &quot;_id&quot; : ObjectId(&quot;58a14e272fede9a9e553f929&quot;),</span><br><span class="line">        &quot;name&quot; : &quot;james&quot;,</span><br><span class="line">        &quot;age&quot; : &quot;10&quot;</span><br><span class="line">&#125;</span><br><span class="line">&gt; db.web.findOne(&#123;&quot;name&quot;:&quot;house&quot;&#125;) #查看name等于house的数据</span><br><span class="line">&#123;</span><br><span class="line">        &quot;_id&quot; : ObjectId(&quot;58a150492fede9a9e553f92a&quot;),</span><br><span class="line">        &quot;name&quot; : &quot;curry&quot;,</span><br><span class="line">        &quot;age&quot; : &quot;9&quot;</span><br><span class="line">&#125;</span><br><span class="line">&gt; use admin             #切换到admin库</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.auth(&quot;root&quot;,&quot;test123&quot;)  #用管理员root认证</span><br><span class="line">1</span><br><span class="line">&gt; db</span><br><span class="line">admin</span><br><span class="line">&gt; use web             #切换到其他库</span><br><span class="line">switched to db web</span><br><span class="line">&gt; db</span><br><span class="line">web</span><br><span class="line">&gt; db.web.findOne()db.web.findOne()         #查看数据</span><br><span class="line">&#123;</span><br><span class="line">        &quot;_id&quot; : ObjectId(&quot;58a14e272fede9a9e553f929&quot;),</span><br><span class="line">        &quot;name&quot; : &quot;james&quot;,</span><br><span class="line">        &quot;age&quot; : &quot;10&quot;</span><br><span class="line">&#125;</span><br><span class="line">&gt; db.web.findOne(&#123;&quot;name&quot;:&quot;house&quot;&#125;)db.web.findOne(&#123;&quot;name&quot;:&quot;house&quot;&#125;)</span><br><span class="line">&#123;</span><br><span class="line">        &quot;_id&quot; : ObjectId(&quot;58a150492fede9a9e553f92a&quot;),</span><br><span class="line">        &quot;name&quot; : &quot;curry&quot;,</span><br><span class="line">        &quot;age&quot; : &quot;9&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：如果想用admin超级用户查看除了admin之外的数据库，先用普通用户登录认证，然后切换到admin库，再进行认证后，才可以继续其他操作。</p>
+<h3 id="3-3-删除一个用户"><a href="#3-3-删除一个用户" class="headerlink" title="3.3 删除一个用户"></a>3.3 删除一个用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.system.users.remove(&#123;&quot;user&quot; : &quot;test_user&quot;&#125;);  删除一个test_user用户</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-mongodb创建、删除、插入数据命令使用"><a href="#3-4-mongodb创建、删除、插入数据命令使用" class="headerlink" title="3.4. mongodb创建、删除、插入数据命令使用"></a>3.4. mongodb创建、删除、插入数据命令使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&gt; use test             #创建一个test数据库</span><br><span class="line">switched to db test</span><br><span class="line">&gt; db     #列出当前db名称，为test</span><br><span class="line">test</span><br><span class="line"> </span><br><span class="line"># 如果想列出所有数据库，使用show dbs命令</span><br><span class="line">&gt; show dbs;</span><br><span class="line">admin  0.000GB</span><br><span class="line">local  0.000GB</span><br><span class="line"> </span><br><span class="line"># 但是并没有看到刚才我们创建的test数据库，那是因为test数据库是空的，我们插入一条数据</span><br><span class="line">&gt; use test</span><br><span class="line">switched to db test</span><br><span class="line">&gt; db</span><br><span class="line">test</span><br><span class="line">&gt; db.test.insert(&#123;&quot;name&quot;:&quot;ceshishuju&quot;&#125;)db.test.insert(&#123;&quot;name&quot;:&quot;ceshishuju&quot;&#125;)</span><br><span class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</span><br><span class="line">&gt; show dbsshow dbs</span><br><span class="line">admin  0.000GB</span><br><span class="line">local  0.000GB</span><br><span class="line">test   0.000GB     #test 数据库就显示了</span><br><span class="line"> </span><br><span class="line"># 然后删除数据库</span><br><span class="line">&gt; use test</span><br><span class="line">switched to db test</span><br><span class="line">&gt; db.dropDatabase();</span><br><span class="line">&#123; &quot;dropped&quot; : &quot;test&quot;, &quot;ok&quot; : 1 &#125;</span><br><span class="line">&gt; show dbs;show dbs;</span><br><span class="line">admin  0.000GB</span><br><span class="line">local  0.000GB    #可以看到test库删掉了</span><br><span class="line"> </span><br><span class="line"># 基本查看数据</span><br><span class="line">&gt; use test</span><br><span class="line">switched to db test</span><br><span class="line">&gt; db.test.findOne()</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;57c8206a8a704e1515c76e7b&quot;), &quot;name&quot; : &quot;ceshishuju&quot; &#125;</span><br><span class="line"> </span><br><span class="line"># 可以看到插入的数据这里可以查看到了！</span><br><span class="line"> </span><br><span class="line"># 多条件查询，一个例子：下面的示例等同于SQL语句的where name = &quot;stephen&quot; and age = 35</span><br><span class="line">&gt; db.test.find(&#123;&quot;name&quot;:&quot;stephen&quot;,&quot;age&quot;:35&#125;)</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;4fd58ecbb9ac507e96276f1a&quot;), &quot;name&quot; : &quot;stephen&quot;, &quot;age&quot; : 35, &quot;genda&quot; : &quot;male&quot;, &quot;email&quot; : &quot;stephen@hotmail.com&quot; &#125;</span><br><span class="line"> </span><br><span class="line"># 返回指定的文档键值对。下面的示例将只是返回name和age键值对。</span><br><span class="line"> </span><br><span class="line">&gt; db.test.find(&#123;&#125;, &#123;&quot;name&quot;:1,&quot;age&quot;:1&#125;)</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;4fd58ecbb9ac507e96276f1a&quot;), &quot;name&quot; : &quot;stephen&quot;, &quot;age&quot; : 35 &#125;</span><br><span class="line"> </span><br><span class="line">#指定不返回的文档键值对。下面的示例将返回除name之外的所有键值对。</span><br><span class="line">&gt; db.test.find(&#123;&#125;, &#123;&quot;name&quot;:0&#125;)</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;4fd58ecbb9ac507e96276f1a&quot;), &quot;age&quot; : 35, &quot;genda&quot; : &quot;male&quot;, &quot;email&quot; : &quot;stephen@hotmail.com&quot; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-mongodb存储引擎介绍"><a href="#3-5-mongodb存储引擎介绍" class="headerlink" title="3.5. mongodb存储引擎介绍"></a>3.5. mongodb存储引擎介绍</h3><p>存储引擎（Storage Engine）是MongoDB的核心组件，负责管理数据如何存储在硬盘（Disk）和内存(Memory）上。从MongoDB 3.2 版本开始，MongoDB 支持多数据存储引擎(Storage Engine），MongoDB支持的存储引擎有：WiredTiger，MMAPv1和In-Memory。</p>
+<p>从MongoDB 3.2版本开始，WiredTiger成为MongDB默认的Storage Engine，用于将数据持久化存储到硬盘文件中，WiredTiger提供文档级别（Document-Level）的并发控制，检查点（CheckPoint），数据压缩和本地数据加密（ Native Encryption）等功能。<br>MongoDB不仅能将数据持久化存储到硬盘文件中，而且还能将数据只保存到内存中；In-Memory存储引擎用于将数据只存储在内存中，只将少量的元数据和诊断日志（Diagnostic）存储到硬盘文件中，由于不需要Disk的IO操作，就能获取索取的数据，In-Memory存储引擎大幅度降低了数据查询的延迟(Latency)</p>
+<p>查看MongoDB的默认存储引擎：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#echo &quot;db.serverStatus()&quot;| mongo|grep wiredTiger</span><br><span class="line">                &quot;name&quot; : &quot;wiredTiger&quot;,</span><br><span class="line">        &quot;wiredTiger&quot; : &#123;</span><br><span class="line">在mongod.conf中设置：</span><br><span class="line">storage:</span><br><span class="line">  dbPath: /var/lib/mongo</span><br><span class="line">  journal:</span><br><span class="line">    enabled: true</span><br><span class="line">  engine: wiredTiger       #设置</span><br></pre></td></tr></table></figure></p>
+<p>WiredTiger和MMAPv1都用于持久化存储数据，相对而言，WiredTiger比MMAPv1更新，功能更强大！</p>
+<p>一篇很好地学习文章：<a href="http://www.cnblogs.com/ljhdo/archive/2016/10/30/4947357.html" target="_blank" rel="noopener">http://www.cnblogs.com/ljhdo/archive/2016/10/30/4947357.html</a></p>
+<h2 id="4-MongoDB使用注意事项以及性能优化"><a href="#4-MongoDB使用注意事项以及性能优化" class="headerlink" title="4. MongoDB使用注意事项以及性能优化"></a>4. MongoDB使用注意事项以及性能优化</h2><h3 id="1、Test-every-query-in-your-application-with-explain"><a href="#1、Test-every-query-in-your-application-with-explain" class="headerlink" title="1、Test every query in your application with explain()."></a>1、Test every query in your application with explain().</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用explain（）测试应用程序中的每个查询。</span><br><span class="line">MongoDB provides the ability to view how a query will be evaluated in the system, including which indexes are used and whether the query is covered. </span><br><span class="line">This capability is similar to the Explain Plan and similar features in relational databases. The feedback from explain() will help you understand</span><br><span class="line">whether your query is performing optimally.</span><br></pre></td></tr></table></figure>
+<h3 id="2、Avoid-scatter-gather-queries-避免分散-聚集查询"><a href="#2、Avoid-scatter-gather-queries-避免分散-聚集查询" class="headerlink" title="2、Avoid scatter-gather queries. 避免分散-聚集查询"></a>2、Avoid scatter-gather queries. 避免分散-聚集查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In sharded systems, queries that cannot be routed to a single shard must be broadcast to multiple shards for evaluation. Because these queries </span><br><span class="line">involve multiple shards for each request they do not scale well as more shards are added.</span><br></pre></td></tr></table></figure>
+<h3 id="3、Your-operational-applications-should-only-read-from-primaries"><a href="#3、Your-operational-applications-should-only-read-from-primaries" class="headerlink" title="3、Your operational applications should only read from primaries."></a>3、Your operational applications should only read from primaries.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">你的操作应用程序只应从主节点读取 （待考证）</span><br><span class="line">Updates are typically replicated to secondaries quickly, depending on network latency. However, reads on the secondaries will not be consistent</span><br><span class="line">with reads on the primary. Note that the secondaries are not idle as they must process all writes replicated from the primary. To increase read </span><br><span class="line">capacity in your operational system consider sharding. Secondary reads can be useful for analytics and ETL applications as this approach will</span><br><span class="line">isolate traffic from operational workloads. You may choose to read from secondaries if your application can tolerate eventual consistency.</span><br></pre></td></tr></table></figure>
+<h3 id="4、Use-the-most-recent-drivers-from-MongoDB-使用MongoDB最新的驱动程序"><a href="#4、Use-the-most-recent-drivers-from-MongoDB-使用MongoDB最新的驱动程序" class="headerlink" title="4、Use the most recent drivers from MongoDB. 使用MongoDB最新的驱动程序"></a>4、Use the most recent drivers from MongoDB. 使用MongoDB最新的驱动程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MongoDB supports drivers for nearly a dozen languages. These drivers are engineered by the same team that maintains the database kernel. </span><br><span class="line">Drivers are updated more frequently than the database, typically every two months. Always use the most recent version of the drivers when </span><br><span class="line">possible. Install native extensions if available for your language. Join the MongoDB community mailing list to keep track of updates.</span><br></pre></td></tr></table></figure>
+<h3 id="5、Store-all-data-for-a-record-in-a-single-document-将记录的所有数据存储在单个文档中"><a href="#5、Store-all-data-for-a-record-in-a-single-document-将记录的所有数据存储在单个文档中" class="headerlink" title="5、Store all data for a record in a single document. 将记录的所有数据存储在单个文档中"></a>5、Store all data for a record in a single document. 将记录的所有数据存储在单个文档中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MongoDB provides ACID compliance at the document level. When data for a record is stored in a single document the entire record can</span><br><span class="line">be retrieved in a single seek operation, which is very efficient. In some cases it may not be practical to store all data in a single </span><br><span class="line">document, or it may negatively impact other operations. Make the trade-offs that are best for your application.</span><br></pre></td></tr></table></figure>
+<h3 id="6、Avoid-large-documents-避免使用大文档"><a href="#6、Avoid-large-documents-避免使用大文档" class="headerlink" title="6、Avoid large documents. 避免使用大文档"></a>6、Avoid large documents. 避免使用大文档</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The maximum size for documents in MongoDB is 16 MB. In practice most documents are a few kilobytes or less. Consider documents more </span><br><span class="line">like rows in a table than the tables themselves. Rather than maintaining lists of records in a single document, instead make each</span><br><span class="line">record a document. For large media items, such as video or images, consider using GridFS, a convention implemented by all the </span><br><span class="line">drivers that automatically stores the binary data across many smaller documents.</span><br></pre></td></tr></table></figure>
+<h3 id="7、Avoid-large-indexed-arrays-避免使用大型索引数组"><a href="#7、Avoid-large-indexed-arrays-避免使用大型索引数组" class="headerlink" title="7、Avoid large indexed arrays. 避免使用大型索引数组"></a>7、Avoid large indexed arrays. 避免使用大型索引数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rather than storing a large array of items in an indexed field, store groups of values across multiple fields. Updates will be more efficient.</span><br></pre></td></tr></table></figure>
+<h3 id="8、Avoid-unnecessarily-long-field-names-避免不必要的长字段名称"><a href="#8、Avoid-unnecessarily-long-field-names-避免不必要的长字段名称" class="headerlink" title="8、Avoid unnecessarily long field names. 避免不必要的长字段名称"></a>8、Avoid unnecessarily long field names. 避免不必要的长字段名称</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Field names are repeated across documents and consume space. By using smaller field names your data will consume less space, which allows </span><br><span class="line">for a larger number of documents to fit in RAM. Note that with WiredTiger&apos;s native compression, long field names have less of an impact </span><br><span class="line">on the amount of disk space used but the impact on RAM is the same.</span><br></pre></td></tr></table></figure>
+<h3 id="9、Use-caution-when-considering-indexes-on-low-cardinality-fields"><a href="#9、Use-caution-when-considering-indexes-on-low-cardinality-fields" class="headerlink" title="9、Use caution when considering indexes on low-cardinality fields."></a>9、Use caution when considering indexes on low-cardinality fields.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在考虑低基数字段上的索引时，请谨慎</span><br><span class="line">Queries on fields with low cardinality can return large result sets. Avoid returning large result sets when possible. Compound indexes </span><br><span class="line">may include values with low cardinality, but the value of the combined fields should exhibit high cardinality.</span><br></pre></td></tr></table></figure>
+<h3 id="10、Eliminate-unnecessary-indexes-取消不必要的索引。"><a href="#10、Eliminate-unnecessary-indexes-取消不必要的索引。" class="headerlink" title="10、Eliminate unnecessary indexes. 取消不必要的索引。"></a>10、Eliminate unnecessary indexes. 取消不必要的索引。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Indexes are resource-intensive: even with compression enabled they consume RAM, and as fields are updated their associated indexes </span><br><span class="line">must be maintained, incurring additional disk I/O overhead.</span><br></pre></td></tr></table></figure>
+<h3 id="11、Remove-indexes-that-are-prefixes-of-other-indexes"><a href="#11、Remove-indexes-that-are-prefixes-of-other-indexes" class="headerlink" title="11、Remove indexes that are prefixes of other indexes."></a>11、Remove indexes that are prefixes of other indexes.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">删除作为其他索引的前缀的索引。</span><br><span class="line">Compound indexes can be used for queries on leading fields within an index. For example, a compound index on last name, first name </span><br><span class="line">can be also used to filter queries that specify last name only. In this example an additional index on last name only is unnecessary; </span><br><span class="line">the compound index is sufficient for queries on last name as well as last name and first name.</span><br></pre></td></tr></table></figure>
+<h3 id="12、Use-a-compound-index-rather-than-index-intersection"><a href="#12、Use-a-compound-index-rather-than-index-intersection" class="headerlink" title="12、Use a compound index rather than index intersection."></a>12、Use a compound index rather than index intersection.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用复合索引而不是索引交集</span><br><span class="line">For best performance when querying via multiple predicates, compound indexes will generally be a better option.</span><br></pre></td></tr></table></figure>
+<h3 id="13、Avoid-regular-expressions-that-are-not-left-anchored-or-rooted"><a href="#13、Avoid-regular-expressions-that-are-not-left-anchored-or-rooted" class="headerlink" title="13、Avoid regular expressions that are not left anchored or rooted."></a>13、Avoid regular expressions that are not left anchored or rooted.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">避免没有留下锚定或生根的正则表达式。</span><br><span class="line">Indexes are ordered by value. Leading wildcards are inefficient and may result in full index scans. Trailing wildcards can be efficient </span><br><span class="line">if there are sufficient case-sensitive leading characters in the expression.</span><br></pre></td></tr></table></figure>
+<h3 id="14、Use-index-optimizations-available-in-the-WiredTiger-storage-engine"><a href="#14、Use-index-optimizations-available-in-the-WiredTiger-storage-engine" class="headerlink" title="14、Use index optimizations available in the WiredTiger storage engine."></a>14、Use index optimizations available in the WiredTiger storage engine.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用WiredTiger存储引擎中提供的索引优化（3.0版本之后默认是WiredTiger引擎）</span><br><span class="line">As discussed earlier, the WiredTiger engine compresses indexes by default. In addition, administrators have the flexibility to place </span><br><span class="line">indexes on their own separate volume, allowing for faster disk paging and lower contention.</span><br></pre></td></tr></table></figure>
+<h3 id="15、Use-RAID10-使用raid10"><a href="#15、Use-RAID10-使用raid10" class="headerlink" title="15、Use RAID10. 使用raid10"></a>15、Use RAID10. 使用raid10</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Most MongoDB deployments should use RAID-10. RAID-5 and RAID-6 have limitations and may not provide sufficient performance. </span><br><span class="line">RAID-0 provides good read and write performance, but insufficient fault tolerance. MongoDB&apos;s replica sets allow deployments </span><br><span class="line">to provide stronger availability for data, and should be considered with RAID and other factors to meet the desired availability SLA.</span><br></pre></td></tr></table></figure>
+<h3 id="16、Use-multiple-devices-for-different-databases-–-WiredTiger"><a href="#16、Use-multiple-devices-for-different-databases-–-WiredTiger" class="headerlink" title="16、Use multiple devices for different databases – WiredTiger."></a>16、Use multiple devices for different databases – WiredTiger.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对不同的数据库使用多个设备 - WiredTiger。</span><br><span class="line">Set directoryForIndexes so that indexes are stored in separate directories from collections and directoryPerDB to use a different </span><br><span class="line">directory for each database. The various directories can then be mapped to different storage devices, thus increasing overall </span><br><span class="line">throughput. Note that using different storage devices will affect your ability to create snapshot-style backups of your data, </span><br><span class="line">since the files will be on different devices and volumes.</span><br></pre></td></tr></table></figure>
+<h3 id="17、Use-EXT4-or-XFS-file-systems-avoid-EXT3"><a href="#17、Use-EXT4-or-XFS-file-systems-avoid-EXT3" class="headerlink" title="17、Use EXT4 or XFS file systems; avoid EXT3."></a>17、Use EXT4 or XFS file systems; avoid EXT3.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">避免使用ext3文件系统，使用ext4或者xfs文件系统</span><br><span class="line">EXT3 is quite old and is not optimal for most database workloads. For example, MMAPv1 preallocates space for data. </span><br><span class="line">In EXT3 preallocation will actually write 0s to the disk to allocate the space, which is time consuming. In EXT4 and XFS </span><br><span class="line">preallocation is performed as a logical operation, which is much more efficient. With the WiredTiger storage engine, use </span><br><span class="line">of XFS is strongly recommended to avoid performance issues that have been observed when using EXT4 with WiredTiger.</span><br></pre></td></tr></table></figure>
+<h2 id="5-MongonDB-3-4-2版本配置文件参数详解"><a href="#5-MongonDB-3-4-2版本配置文件参数详解" class="headerlink" title="5. MongonDB 3.4.2版本配置文件参数详解"></a>5. MongonDB 3.4.2版本配置文件参数详解</h2><p>官网链接地址：</p>
+<p><a href="https://docs.mongodb.com/manual/reference/configuration-options/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/reference/configuration-options/</a></p>
+<p>注：配置参数是分级式的，比如net.http.RESTInterfaceEnabled其实在mongodb.conf中配置为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net:</span><br><span class="line">  port: 27017</span><br><span class="line">  bindIp: 127.0.0.1  </span><br><span class="line">  http:</span><br><span class="line">   enabled: true</span><br><span class="line">   RESTInterfaceEnabled: false</span><br></pre></td></tr></table></figure></p>
+<p>所有下面都以net.http.RESTInterfaceEnabled这种方式介绍<br>参数类型一共三种：<br>string    字符串<br>boolean   布尔型 false/true<br>integer   整形</p>
+<h3 id="1、systemLog-选项如下："><a href="#1、systemLog-选项如下：" class="headerlink" title="1、systemLog 选项如下："></a>1、systemLog 选项如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">systemLog.verbosity     --用法：verbosity: &lt;integer&gt;</span><br><span class="line">日志文件输出的级别，越大级别越低，默认是0 </span><br><span class="line"> </span><br><span class="line">systemLog.quiet         --用法： quite: boolean</span><br><span class="line">在quite模式下会限制输出信息：</span><br><span class="line">数据库命令输出，副本集活动，连接接受事件，连接关闭事件。</span><br><span class="line"> </span><br><span class="line">systemLog.traceAllExceptions     --用法：traceAllExceptions: boolean</span><br><span class="line">打印用于调试的详细信息。 用于其他日志记录以进行支持相关的故障排除。</span><br><span class="line"> </span><br><span class="line">systemLog.syslogFacility         --用法：syslogFacility: string，默认为user</span><br><span class="line">指定syslog日志信息的设备级别，需要指定--syslog来使用这个选项。</span><br><span class="line"> </span><br><span class="line">systemLog.logAppend      --用法：logAppend: boolean</span><br><span class="line">是否启用追加日志</span><br><span class="line"> </span><br><span class="line">systemLog.destination    --用法：destination：string ，默认为file</span><br><span class="line">指定一个文件或syslog。如果指定为文件，必须同时指定systemLog.path</span><br><span class="line"> </span><br><span class="line">systemLog.path           --用法：path: string 比如：/var/log/mongodb/mongod.log</span><br><span class="line">日志路径</span><br><span class="line"> </span><br><span class="line">systemLog.logRotate      --用法：logRotate: string ,默认值为rename，另一个是reopen</span><br><span class="line">可以实现rotage日志，实现日志切割</span><br><span class="line"> </span><br><span class="line">systemLog.timeStampFormat   --用法：timeStampFormat: string 默认值为 iso8601-local</span><br><span class="line">日志消息中时间戳的时间格式。还有ctime、iso8601-utc格式</span><br></pre></td></tr></table></figure>
+<h3 id="2、storage-选项用法："><a href="#2、storage-选项用法：" class="headerlink" title="2、storage 选项用法："></a>2、storage 选项用法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">范例：</span><br><span class="line">storage:</span><br><span class="line">   dbPath: &lt;string&gt;</span><br><span class="line">   indexBuildRetry: &lt;boolean&gt;</span><br><span class="line">   repairPath: &lt;string&gt;</span><br><span class="line">   journal:</span><br><span class="line">      enabled: &lt;boolean&gt;</span><br><span class="line">      commitIntervalMs: &lt;num&gt;</span><br><span class="line">   directoryPerDB: &lt;boolean&gt;</span><br><span class="line">   syncPeriodSecs: &lt;int&gt;</span><br><span class="line">   engine: &lt;string&gt;</span><br><span class="line">   mmapv1:</span><br><span class="line">      preallocDataFiles: &lt;boolean&gt;</span><br><span class="line">      nsSize: &lt;int&gt;</span><br><span class="line">      quota:</span><br><span class="line">         enforced: &lt;boolean&gt;</span><br><span class="line">         maxFilesPerDB: &lt;int&gt;</span><br><span class="line">      smallFiles: &lt;boolean&gt;</span><br><span class="line">      journal:</span><br><span class="line">         debugFlags: &lt;int&gt;</span><br><span class="line">         commitIntervalMs: &lt;num&gt;</span><br><span class="line">   wiredTiger:</span><br><span class="line">      engineConfig:</span><br><span class="line">         cacheSizeGB: &lt;number&gt;</span><br><span class="line">         journalCompressor: &lt;string&gt;</span><br><span class="line">         directoryForIndexes: &lt;boolean&gt;</span><br><span class="line">      collectionConfig:</span><br><span class="line">         blockCompressor: &lt;string&gt;</span><br><span class="line">      indexConfig:</span><br><span class="line">         prefixCompression: &lt;boolean&gt;</span><br><span class="line">   inMemory:</span><br><span class="line">      engineConfig:</span><br><span class="line">         inMemorySizeGB: &lt;number&gt;</span><br><span class="line">具体参数的解释：</span><br><span class="line">storage.dbPath     --用法：dbPath: string 默认是/data/db(linux) ；\data\db (windows)</span><br><span class="line">注意：如果是yum安装的mongodb，默认是/var/lib/mongo</span><br><span class="line">mongodb数据存储的路径</span><br><span class="line"> </span><br><span class="line">storage.indexBuildRetry   --用法：indexBuildRetry: boolean 默认值是true</span><br><span class="line">指定数据库在索引建立过程中停止，重启后是否重新建立索引。</span><br><span class="line"> </span><br><span class="line">storage.repairPath        --用法：repairPath: string  默认值是：A _tmp_repairDatabase_&lt;num&gt; ( directory under the dbPath. )</span><br><span class="line">在--repair操作期间MongoDB将使用的工作目录。当--repair结束后，storage.repairPath 目录变为空</span><br><span class="line">注：storage.repairPath设置仅可用于mongod。</span><br><span class="line"> </span><br><span class="line">storage.journal.enabled           --用法：journal.enabled: boolean </span><br><span class="line">64bit操作系统默认为true，32bit操作系统默认为false</span><br><span class="line">启用或禁用持久性日志以确保数据文件保持有效和可恢复，此选项仅在您指定--dbpath选项时适用。</span><br><span class="line"> </span><br><span class="line">storage.journal.commitIntervalMs  --用法：journal.commitIntervalMs: number</span><br><span class="line">mongod进程在日志操作之间允许的最大时间（以毫秒为单位）,较低的值会增加日志的持久性，但会降低磁盘性能。</span><br><span class="line">范围是1-500，默认值是100 毫秒。</span><br><span class="line"> </span><br><span class="line">storage.directoryPerDB            --用法：directoryPerDB: boolean 默认值时false</span><br><span class="line">当为true时，MongoDB使用单独的目录来存储每个数据库的数据，目录位于storage.dbPath目录下，每个子目录名称对应于数据库名称。</span><br><span class="line"> </span><br><span class="line">storage.syncPeriodSecs            --用法：syncPeriodSecs: number 默认为60，不要设置为0</span><br><span class="line">MongoDB通过fsync操作将数据刷新到数据文件之前可以经过的时间量。</span><br><span class="line">特别注意：不要在生产系统上设置此值</span><br><span class="line"> </span><br><span class="line">storage.engine                    --用法： engine: wiredTiger 默认值为wiredTiger</span><br><span class="line">设置mongodb的存储引擎。还有mmapv1和inMemory</span><br><span class="line"> </span><br><span class="line">storage.wiredTiger.engineConfig.cacheSizeGB  --用法：cacheSizeGB: float</span><br><span class="line">WiredTiger将用于所有数据的内部缓存的最大大小。值的范围可以从256MB到10TB，可以是浮点数。 此外，默认值也已更改。</span><br><span class="line">从3.4开始，WiredTiger内部缓存默认使用以下两者中较大的一个：</span><br><span class="line">50% of RAM minus 1 GB(50％的RAM减去1 GB), or 256 MB.</span><br></pre></td></tr></table></figure>
+<h3 id="3、net-选项用法："><a href="#3、net-选项用法：" class="headerlink" title="3、net 选项用法："></a>3、net 选项用法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">net:</span><br><span class="line">   port: &lt;int&gt;</span><br><span class="line">   bindIp: &lt;string&gt;</span><br><span class="line">   maxIncomingConnections: &lt;int&gt;</span><br><span class="line">   wireObjectCheck: &lt;boolean&gt;</span><br><span class="line">   ipv6: &lt;boolean&gt;</span><br><span class="line">   unixDomainSocket:</span><br><span class="line">      enabled: &lt;boolean&gt;</span><br><span class="line">      pathPrefix: &lt;string&gt;</span><br><span class="line">      filePermissions: &lt;int&gt;</span><br><span class="line">   http:</span><br><span class="line">      enabled: &lt;boolean&gt;</span><br><span class="line">      JSONPEnabled: &lt;boolean&gt;</span><br><span class="line">      RESTInterfaceEnabled: &lt;boolean&gt;</span><br><span class="line">   ssl:</span><br><span class="line">      sslOnNormalPorts: &lt;boolean&gt;  # deprecated since 2.6</span><br><span class="line">      mode: &lt;string&gt;</span><br><span class="line">      PEMKeyFile: &lt;string&gt;</span><br><span class="line">      PEMKeyPassword: &lt;string&gt;</span><br><span class="line">      clusterFile: &lt;string&gt;</span><br><span class="line">      clusterPassword: &lt;string&gt;</span><br><span class="line">      CAFile: &lt;string&gt;</span><br><span class="line">      CRLFile: &lt;string&gt;</span><br><span class="line">      allowConnectionsWithoutCertificates: &lt;boolean&gt;</span><br><span class="line">      allowInvalidCertificates: &lt;boolean&gt;</span><br><span class="line">      allowInvalidHostnames: &lt;boolean&gt;</span><br><span class="line">      disabledProtocols: &lt;string&gt;</span><br><span class="line">      FIPSMode: &lt;boolean&gt;</span><br><span class="line">net.port     --用法  port: integer   默认值是27017</span><br><span class="line">mongodb监听的端口</span><br><span class="line"> </span><br><span class="line">net.bindIp   --用法  bindIp: string  默认值是127.0.0.1</span><br><span class="line">mongodb监听的ip地址，也可以自定义</span><br><span class="line"> </span><br><span class="line">net.maxIncomingConnections   --用法：maxIncomingConnections: integer 默认值是65536</span><br><span class="line">mongos或mongod将接受的最大并发连接数，如果此设置高于操作系统配置的最大连接跟踪阈值，则此设置不起作用。</span><br><span class="line"> </span><br><span class="line">net.wireObjectCheck    --用法：wireObjectCheck: boolean  默认值是true</span><br><span class="line">为true时，mongod或mongos实例验证客户端收到的所有请求，以防止客户端将错误格式或无效的BSON插入到MongoDB数据库中。 </span><br><span class="line">注意：对于具有高度子文档嵌套的对象，net.wireObjectCheck对性能有轻微影响。</span><br><span class="line"> </span><br><span class="line">net.http.enabled       --用法：enabled: boolean   默认值是false</span><br><span class="line">启用或禁用HTTP接口。 启用接口可能会增加网络暴露。</span><br><span class="line"> </span><br><span class="line">net.http.RESTInterfaceEnabled  --用法：RESTInterfaceEnabled: boolean，默认为false</span><br><span class="line">即使http接口选项关闭，打开也会暴露http接口，会导致更多的不安全因素。不过开启为true可以在</span><br><span class="line">mongodb的web页面访问List all commands 页面！</span><br><span class="line"> </span><br><span class="line">net.unixDomainSocket.enabled   --用法 unixDomainSocket.enabled: boolean  默认值是true</span><br><span class="line">在UNIX域套接字上启用或禁用侦听。 net.unixDomainSocket.enabled仅适用于基于Unix的系统。</span><br><span class="line"> </span><br><span class="line">4、security 选项</span><br><span class="line">security:</span><br><span class="line">   keyFile: &lt;string&gt;</span><br><span class="line">   clusterAuthMode: &lt;string&gt;</span><br><span class="line">   authorization: &lt;string&gt;</span><br><span class="line">   transitionToAuth: &lt;boolean&gt;</span><br><span class="line">   javascriptEnabled:  &lt;boolean&gt;</span><br><span class="line">   redactClientLogData: &lt;boolean&gt;</span><br><span class="line">   sasl:</span><br><span class="line">      hostName: &lt;string&gt;</span><br><span class="line">      serviceName: &lt;string&gt;</span><br><span class="line">      saslauthdSocketPath: &lt;string&gt;</span><br><span class="line">   enableEncryption: &lt;boolean&gt;</span><br><span class="line">   encryptionCipherMode: &lt;string&gt;</span><br><span class="line">   encryptionKeyFile: &lt;string&gt;</span><br><span class="line">   kmip:</span><br><span class="line">      keyIdentifier: &lt;string&gt;</span><br><span class="line">      rotateMasterKey: &lt;boolean&gt;</span><br><span class="line">      serverName: &lt;string&gt;</span><br><span class="line">      port: &lt;string&gt;</span><br><span class="line">      clientCertificateFile: &lt;string&gt;</span><br><span class="line">      clientCertificatePassword: &lt;string&gt;</span><br><span class="line">      serverCAFile: &lt;string&gt;</span><br><span class="line">   ldap:</span><br><span class="line">      servers: &lt;string&gt;</span><br><span class="line">      bind:</span><br><span class="line">         method: &lt;string&gt;</span><br><span class="line">         saslMechanism: &lt;string&gt;</span><br><span class="line">         queryUser: &lt;string&gt;</span><br><span class="line">         queryPassword: &lt;string&gt;</span><br><span class="line">         useOSDefaults: &lt;boolean&gt;</span><br><span class="line">      transportSecurity: &lt;string&gt;</span><br><span class="line">      timeoutMS: &lt;int&gt;</span><br><span class="line">      userToDNMapping: &lt;string&gt;</span><br><span class="line">      authz:</span><br><span class="line">         queryTemplate: &lt;string&gt;</span><br><span class="line"> </span><br><span class="line">security.keyFile    --用法：keyFile: string </span><br><span class="line">密钥文件的路径，该文件存储MongoDB实例用于在分片集群或副本集中彼此进行身份验证的共享密钥</span><br><span class="line">keyFile意味着security.authorization!</span><br><span class="line"> </span><br><span class="line">security.clusterAuthMode   --用法: clusterAuthMode: string 默认值是keyFile</span><br><span class="line">用于集群身份验证的身份验证模式</span><br><span class="line"> </span><br><span class="line">security.authorization    --用法：authorization: string  默认值是disabled</span><br><span class="line">启用或禁用基于角色的访问控制（RBAC）以管理每个用户对数据库资源和操作的访问。</span><br><span class="line">enabled: 用户只能访问已为其授予了权限的数据库资源和操作。</span><br><span class="line">diabled: 用户可以访问任何数据库并执行任何操作</span><br><span class="line"> </span><br><span class="line">security.transitionToAuth     --用法：transitionToAuth: boolean 默认值是false</span><br><span class="line">3.4版本新的功能，允许mongod或mongos接受和创建到部署中的其他mongod和mongos实例的已验证和未验证的连接</span><br><span class="line"> </span><br><span class="line">security.javascriptEnabled    --用法：javascriptEnabled: boolean 默认值是true</span><br><span class="line">启用或禁用服务器端JavaScript执行，禁用时，不能使用执行服务器端执行JavaScript代码的操作，例如$ where查询运算符，mapReduce命令和db.collection.mapReduce（）方法，group命令和db.collection.group（）方法 。</span><br></pre></td></tr></table></figure>
+<h3 id="5、setParameter-选项"><a href="#5、setParameter-选项" class="headerlink" title="5、setParameter 选项"></a>5、setParameter 选项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">设置MongoDB服务器参数中描述的MongoDB参数或参数</span><br><span class="line">要在YAML配置文件中设置参数，请使用以下格式：</span><br><span class="line">setParameter:</span><br><span class="line">   &lt;parameter1&gt;: &lt;value1&gt;</span><br><span class="line">   &lt;parameter2&gt;: &lt;value2&gt;</span><br><span class="line"> </span><br><span class="line">例如，要在配置文件中指定enableLocalhostAuthBypass</span><br><span class="line">setParameter:</span><br><span class="line">   enableLocalhostAuthBypass: false</span><br></pre></td></tr></table></figure>
+<h3 id="6、operationProfiling-选项"><a href="#6、operationProfiling-选项" class="headerlink" title="6、operationProfiling   选项"></a>6、operationProfiling   选项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">operationProfiling:</span><br><span class="line">   slowOpThresholdMs: &lt;int&gt;</span><br><span class="line">   mode: &lt;string&gt;</span><br><span class="line"> </span><br><span class="line">operationProfiling.slowOpThresholdMs  --用法：slowOpThresholdMs: integer 默认值是100</span><br><span class="line">数据库概要分析器认为查询速度缓慢的阈值（以毫秒为单位），MongoDB将所有慢查询记录到日志中，即使数据库分析器关闭</span><br><span class="line">当分析器打开时，它将写入system.profile集合   </span><br><span class="line">   </span><br><span class="line">operationProfiling.mode    --用法：mode: string 默认值是 off</span><br><span class="line">数据库概要分析的级别，它将有关操作性能的信息插入到system.profile集合中。它的值有off、slowOp、all</span><br><span class="line">注意：数据库分析可能会影响数据库性能。 仅在仔细考虑后才启用此选项</span><br></pre></td></tr></table></figure>
+<h3 id="7、replication-选项"><a href="#7、replication-选项" class="headerlink" title="7、replication 选项"></a>7、replication 选项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">replication:</span><br><span class="line">   oplogSizeMB: &lt;int&gt;</span><br><span class="line">   replSetName: &lt;string&gt;</span><br><span class="line">   secondaryIndexPrefetch: &lt;string&gt;</span><br><span class="line">   enableMajorityReadConcern: &lt;boolean&gt;   </span><br><span class="line">   </span><br><span class="line">replication.oplogSizeMB   --用法：oplogSizeMB: integer </span><br><span class="line">复制操作日志的最大大小（以兆字节为单位），例如：oplog。mongod进程基于可用的最大空间量创建oplog</span><br><span class="line">对64bit系统而言，oplog通常是可用磁盘空间的5％，一旦mongod第一次创建oplog，更改replication.oplogSizeMB选项将不会影响oplog的大小  </span><br><span class="line"> </span><br><span class="line">replication.replSetName  --用法： replSetName: string </span><br><span class="line">mongod所属的副本集的名称。 副本集中的所有主机必须具有相同的集名称。如果应用程序连接到多个副本集，则每个副本集应具有不同的名称。 某些驱动程序按副本集名称对副本集连接进行分组。   </span><br><span class="line"> </span><br><span class="line">replication.secondaryIndexPrefetch --用法：secondaryIndexPrefetch: string 默认值是all</span><br><span class="line">存储引擎特定功能：</span><br><span class="line">replication.secondaryIndexPrefetch仅适用于mmapv1存储引擎。</span><br><span class="line"> </span><br><span class="line">replication.enableMajorityReadConcern  --用法:  enableMajorityReadConcern: boolean 默认是false</span><br><span class="line">启用“多数”的读取关注级别。</span><br></pre></td></tr></table></figure>
+<h3 id="8、sharding-选项"><a href="#8、sharding-选项" class="headerlink" title="8、sharding 选项"></a>8、sharding 选项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sharding:</span><br><span class="line">   clusterRole: &lt;string&gt;</span><br><span class="line">   archiveMovedChunks: &lt;boolean&gt;</span><br><span class="line"> </span><br><span class="line">sharding.clusterRole    --用法：clusterRole: string </span><br><span class="line">mongodb实例在分片集群中具有的角色。有2个值，如下：</span><br><span class="line">configsvr：将此实例作为配置服务器启动。 默认情况下，实例在端口27019上启动。</span><br><span class="line">shardsvr： 将此实例作为分片启动。 默认情况下，实例在端口27018上启动。</span><br><span class="line">   </span><br><span class="line">sharding.archiveMovedChunks  --用法: archiveMovedChunks：boolean</span><br><span class="line">在块迁移期间，分片不保存从分片迁移的文档。</span><br></pre></td></tr></table></figure>
+<h3 id="9、auditLog-选项"><a href="#9、auditLog-选项" class="headerlink" title="9、auditLog 选项"></a>9、auditLog 选项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">仅在MongoDB Enterprise中可用</span><br><span class="line">auditLog:</span><br><span class="line">   destination: &lt;string&gt;</span><br><span class="line">   format: &lt;string&gt;</span><br><span class="line">   path: &lt;string&gt;</span><br><span class="line">   filter: &lt;string&gt;   </span><br><span class="line">     </span><br><span class="line">还有很多其他参数，这里不一一介绍了！</span><br></pre></td></tr></table></figure>
+<p>————————————————<br>版权声明：本文为CSDN博主「zombres」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/zombres/article/details/82385955" target="_blank" rel="noopener">https://blog.csdn.net/zombres/article/details/82385955</a></p>
+
+      
+    </div>
+
+    <div class="post-Fork-me">
+    
+      <p><strong>最后想说：</strong><a href="https://github.com/Hunter-Zack">Star me on GitHub</a><strong>　欢迎 </strong><a href="https://github.com/Hunter-Zack/Hunter-Zack.github.io">Star</a></p>
+     
+    </div>
+
+    <div>
+    
+    
+      <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>本文作者：</strong>Hunter-Zack
+      </li>
+      <li class="post-copyright-link">
+        <strong>本文链接：</strong>
+        <a href="/2019/12/linux-install-mongoDB/" title="linux安装mongoDB">2019/12/linux-install-mongoDB/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明： </strong>
+        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+      </ul>
+    
+    </div>
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>🙈坚持原创技术分享，您的支持将鼓励我继续创作🙈</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Hunter-Zack 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Hunter-Zack 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mongoDB/" rel="tag"><i class="fa fa-tag"></i> mongoDB</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/linux+jupyter/" rel="next" title="Linux 下远程 搭建 Jupyter Notebook 服务器配置及无法连接原因">
+                <i class="fa fa-chevron-left"></i> Linux 下远程 搭建 Jupyter Notebook 服务器配置及无法连接原因
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/mongoDB-addUser/" rel="prev" title="mongoDB添加管理员用户">
+                mongoDB添加管理员用户 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+     
+       <div onclick="ShowGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+       <div id="gitment-container" style="display:none"></div>
+     
+    
+    
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTA4Ni8xNTYxMw=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Hunter-Zack">
+          
+            <p class="site-author-name" itemprop="name">Hunter-Zack</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="mailto:zackcheung86@gmail.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/fengxiaoQ_Q/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>Zhihu</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Hunter-Zack" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/chuangshaogreat" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-globe"></i>cnblogs</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.aisun.org/archives/" title="本站目录" target="_blank">本站目录</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.aisun.org/board/" title="本站留言" target="_blank">本站留言</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.aisun.org/categories/周记整理/" title="周记整理" target="_blank">周记整理</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Ubuntu安装-MongoDB-社区版"><span class="nav-number">1.</span> <span class="nav-text">1. Ubuntu安装 MongoDB 社区版</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-导入包管理系统使用的公钥"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 导入包管理系统使用的公钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-重新下载本地包数据库索引"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2. 重新下载本地包数据库索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-通过以下命令安装最新的可靠版安装-MongoDB"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3. 通过以下命令安装最新的可靠版安装 MongoDB</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#2-运行-MongoDB-社区版"><span class="nav-number">2.</span> <span class="nav-text">2. 运行 MongoDB 社区版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-启动-MongoDB"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 启动 MongoDB</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Centos环境下安装mongoDB"><span class="nav-number">3.</span> <span class="nav-text">Centos环境下安装mongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、创建仓库文件"><span class="nav-number">3.1.</span> <span class="nav-text">1、创建仓库文件:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、yum安装"><span class="nav-number">3.2.</span> <span class="nav-text">2、yum安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MongoDB使用"><span class="nav-number">4.</span> <span class="nav-text">3. MongoDB使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-第一次进入mongodb"><span class="nav-number">4.1.</span> <span class="nav-text">3.1. 第一次进入mongodb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-为MongoDB创建用户管理员"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 为MongoDB创建用户管理员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、在配置文件中开启mongodb连接认证功能，如果不开启认证功能，任何人只要可以ssh到mongodb的服务器，都可以进行增删改查等操作"><span class="nav-number">4.3.</span> <span class="nav-text">3、在配置文件中开启mongodb连接认证功能，如果不开启认证功能，任何人只要可以ssh到mongodb的服务器，都可以进行增删改查等操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-删除一个用户"><span class="nav-number">4.4.</span> <span class="nav-text">3.3 删除一个用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-mongodb创建、删除、插入数据命令使用"><span class="nav-number">4.5.</span> <span class="nav-text">3.4. mongodb创建、删除、插入数据命令使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-mongodb存储引擎介绍"><span class="nav-number">4.6.</span> <span class="nav-text">3.5. mongodb存储引擎介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-MongoDB使用注意事项以及性能优化"><span class="nav-number">5.</span> <span class="nav-text">4. MongoDB使用注意事项以及性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Test-every-query-in-your-application-with-explain"><span class="nav-number">5.1.</span> <span class="nav-text">1、Test every query in your application with explain().</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Avoid-scatter-gather-queries-避免分散-聚集查询"><span class="nav-number">5.2.</span> <span class="nav-text">2、Avoid scatter-gather queries. 避免分散-聚集查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、Your-operational-applications-should-only-read-from-primaries"><span class="nav-number">5.3.</span> <span class="nav-text">3、Your operational applications should only read from primaries.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、Use-the-most-recent-drivers-from-MongoDB-使用MongoDB最新的驱动程序"><span class="nav-number">5.4.</span> <span class="nav-text">4、Use the most recent drivers from MongoDB. 使用MongoDB最新的驱动程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、Store-all-data-for-a-record-in-a-single-document-将记录的所有数据存储在单个文档中"><span class="nav-number">5.5.</span> <span class="nav-text">5、Store all data for a record in a single document. 将记录的所有数据存储在单个文档中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、Avoid-large-documents-避免使用大文档"><span class="nav-number">5.6.</span> <span class="nav-text">6、Avoid large documents. 避免使用大文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、Avoid-large-indexed-arrays-避免使用大型索引数组"><span class="nav-number">5.7.</span> <span class="nav-text">7、Avoid large indexed arrays. 避免使用大型索引数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、Avoid-unnecessarily-long-field-names-避免不必要的长字段名称"><span class="nav-number">5.8.</span> <span class="nav-text">8、Avoid unnecessarily long field names. 避免不必要的长字段名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9、Use-caution-when-considering-indexes-on-low-cardinality-fields"><span class="nav-number">5.9.</span> <span class="nav-text">9、Use caution when considering indexes on low-cardinality fields.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10、Eliminate-unnecessary-indexes-取消不必要的索引。"><span class="nav-number">5.10.</span> <span class="nav-text">10、Eliminate unnecessary indexes. 取消不必要的索引。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11、Remove-indexes-that-are-prefixes-of-other-indexes"><span class="nav-number">5.11.</span> <span class="nav-text">11、Remove indexes that are prefixes of other indexes.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12、Use-a-compound-index-rather-than-index-intersection"><span class="nav-number">5.12.</span> <span class="nav-text">12、Use a compound index rather than index intersection.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13、Avoid-regular-expressions-that-are-not-left-anchored-or-rooted"><span class="nav-number">5.13.</span> <span class="nav-text">13、Avoid regular expressions that are not left anchored or rooted.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14、Use-index-optimizations-available-in-the-WiredTiger-storage-engine"><span class="nav-number">5.14.</span> <span class="nav-text">14、Use index optimizations available in the WiredTiger storage engine.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15、Use-RAID10-使用raid10"><span class="nav-number">5.15.</span> <span class="nav-text">15、Use RAID10. 使用raid10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16、Use-multiple-devices-for-different-databases-–-WiredTiger"><span class="nav-number">5.16.</span> <span class="nav-text">16、Use multiple devices for different databases – WiredTiger.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17、Use-EXT4-or-XFS-file-systems-avoid-EXT3"><span class="nav-number">5.17.</span> <span class="nav-text">17、Use EXT4 or XFS file systems; avoid EXT3.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-MongonDB-3-4-2版本配置文件参数详解"><span class="nav-number">6.</span> <span class="nav-text">5. MongonDB 3.4.2版本配置文件参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、systemLog-选项如下："><span class="nav-number">6.1.</span> <span class="nav-text">1、systemLog 选项如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、storage-选项用法："><span class="nav-number">6.2.</span> <span class="nav-text">2、storage 选项用法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、net-选项用法："><span class="nav-number">6.3.</span> <span class="nav-text">3、net 选项用法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、setParameter-选项"><span class="nav-number">6.4.</span> <span class="nav-text">5、setParameter 选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、operationProfiling-选项"><span class="nav-number">6.5.</span> <span class="nav-text">6、operationProfiling   选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、replication-选项"><span class="nav-number">6.6.</span> <span class="nav-text">7、replication 选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、sharding-选项"><span class="nav-number">6.7.</span> <span class="nav-text">8、sharding 选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9、auditLog-选项"><span class="nav-number">6.8.</span> <span class="nav-text">9、auditLog 选项</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+      <div>----------------------</div>
+      <div class="category-all-page">
+        <div style="font-size:18px;float:left;">分类:</div>
+        <div class="category-all-title">
+            目前共计 23 个分类
+        </div>
+        <div class="category-all">
+          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/apache/">apache</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bitmex/">bitmex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/csv/">csv</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iterm/">iterm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mecloud/">mecloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongoDB/">mongoDB</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/sublime/">sublime</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tmux/">tmux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ts/">ts</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/周记整理/">周记整理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/正则/">正则</a><span class="category-list-count">1</span></li></ul>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hunter-Zack</span>
+
+  
+</div>
+
+
+ 
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io"> &nbsp Hexo-io &nbsp </a> 强力驱动</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63730661";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+     
+     
+     
+     
+     <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+     <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+     
+         <script type="text/javascript">
+             function ShowGitment(){
+                 document.getElementById("gitment-display-button").style.display = "none";
+                 document.getElementById("gitment-container").style.display = "block";
+                 var gitment = new Gitment({
+                     id: document.location.href, 
+                     owner: 'Hunter-Zack',
+                     repo: 'Hunter-Zack.github.io',
+                     oauth: {
+                         client_id: '7b7da8e17aadd21d64c6',
+                         client_secret: '41b14296eba9da7cacf8a63e3ea95d8e4317e7c4',
+                     }});
+                 gitment.render('gitment-container');
+             }
+         </script>
+     
+ 
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
