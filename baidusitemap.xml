@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.aisun.org/2019/12/mongoDB-addUser/</loc>
+    <lastmod>2019-12-30</lastmod>
+  </url>  <url>
     <loc>http://www.aisun.org/2019/12/linux-install-mongoDB/</loc>
     <lastmod>2019-12-25</lastmod>
   </url>  <url>
@@ -8,9 +11,6 @@
     <lastmod>2019-12-25</lastmod>
   </url>  <url>
     <loc>http://www.aisun.org/2017/09/hexo+github+pages/</loc>
-    <lastmod>2019-12-25</lastmod>
-  </url>  <url>
-    <loc>http://www.aisun.org/2019/12/mongoDB-addUser/</loc>
     <lastmod>2019-12-25</lastmod>
   </url>  <url>
     <loc>http://www.aisun.org/2018/08/linux+jupyter/</loc>
