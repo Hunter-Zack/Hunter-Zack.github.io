@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>linux 运行 service mongod start 后服务没有启动成功</title>
+      <link href="/2020/04/linux+service+mongod/"/>
+      <url>/2020/04/linux+service+mongod/</url>
+      
+        <content type="html"><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>查看日志（/var/log/mongodb/mongodb.log）有如下信息</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Wiredtiger error(13).....file:WiredTiger.wt,connection:/var/lib/mongodb/WiredTiger.turtle:handle-open:open:Permission denied</span><br><span class="line"></span><br><span class="line">E NETWORK  \[initandlisten\] Failed to unlink socket file /tmp/mongodb-27017.sock errno:1 Operation not permitted</span><br></pre></td></tr></table></figure><h3 id="问题出现原因"><a href="#问题出现原因" class="headerlink" title="问题出现原因"></a>问题出现原因</h3><p>1、权限问题<br>然后在查看（/var/lib/mongodb/WiredTiger.turtle）的文件权限，使用命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib</span><br><span class="line">ls -l /var/lib/mongodb</span><br></pre></td></tr></table></figure><p>查看权限发现 WiredTiger.turtle以及其他若干个文件的权限为 root<br>所以由于mogodb用户的权限无法访问root权限下的文件造成服务启动失败。<br>但是为什么这几个文件的权限会变为root呢？<br>原因是使用过root用户操作过数据库（在root下使用mongod命令等），导致文件的权限变化从而无法再使用（service mongod start）。</p><p>2、解决方案</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># storage.dbPath</span><br><span class="line">chown -R mongodb:mongodb /var/lib/mongodb</span><br><span class="line">chown  mongodb:mongodb mongodb-27017.sock</span><br><span class="line"></span><br><span class="line"># systemLog.path</span><br><span class="line">sudo chown -R mongodb:mongodb /var/log/mongodb</span><br></pre></td></tr></table></figure><p>将数据文件权限改回mongodb<br>然后再次启动 service mongo start就可以了，但是如果在以root用户去操作数据库仍会出现上述问题。同时官方极不推荐在root用户下使用数据库</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>mecloud库API</title>
       <link href="/2019/12/meloud-api/"/>
       <url>/2019/12/meloud-api/</url>

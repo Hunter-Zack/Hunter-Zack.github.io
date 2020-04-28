@@ -1,3 +1,4 @@
+http://www.zhiliaonote.com/2020/04/linux+service+mongod/
 http://www.zhiliaonote.com/2019/12/meloud-api/
 http://www.zhiliaonote.com/2019/12/mongoDB-addUser/
 http://www.zhiliaonote.com/2019/12/linux-install-mongoDB/
@@ -22,4 +23,3 @@ http://www.zhiliaonote.com/2018/04/hexo+yemian/
 http://www.zhiliaonote.com/2018/04/Fliqlo/
 http://www.zhiliaonote.com/2018/04/git-gitignore/
 http://www.zhiliaonote.com/2018/04/php-waring/
-http://www.zhiliaonote.com/2018/04/mac-apache/
